@@ -1,9 +1,9 @@
 <?php
 // GrETEL 2.0 home URL
-$home="http://gretel.ccl.kuleuven.be/gretel-2.0";
+$home="http://gretel.ccl.kuleuven.be/gretel-bram/gretel";
 
 // GrETEL 2.0 home directory
-$root="/home/paco/web/gretel/gretel-2.0";
+$root="/home/paco/web/gretel/gretel-bram/gretel";
 
 
 // paths to other directories

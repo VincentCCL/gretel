@@ -16,8 +16,9 @@ jQuery(document).ready(function() {
 function fillInputField(){
 
     //var examplefiller = "Dit is een zin."; //De standaardzin die we invullen als er geen argument is meegegeven in de url
- 
-    var tpinput = getUrlVars()["tpinput"];              //Zoek specifiek op waarde van 'tpinput'
+
+    var tpinput = getUrlVars()["tpinput"],  //Zoek specifiek op waarde van 'tpinput'
+		examplefiller;
     if(getUrlVars()["tpinput"]){
         tpinput = tpinput.split('%20').join(' ');        //zet %20 om in spaties
         tpinput = tpinput.split('+').join(' ');            //(voor de zekerheid) zet + om in spaties
