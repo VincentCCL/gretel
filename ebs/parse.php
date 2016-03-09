@@ -8,11 +8,11 @@
 
 <head>
 
-<?php 
+<?php
 require 'header.php';
 /* Display errors*/
 //error_reporting(E_ALL);
-//ini_set('display_errors', 1); 
+//ini_set('display_errors', 1);
 ?>
 </head>
 
@@ -128,7 +128,12 @@ $inputzoom=$home."/tmp/$id-style-zoom.xml?$time";
 echo '<table border=1 class="hd" width="100%"><tr><th>Alpino parse of the input example [<a href="'.$inputzoom.'" target="_blank">full screen</a>]</th></tr>';
 echo "<td><iframe name=\"treeimg\" src=\"".$inputparse."\">Sorry, your browser does not support iframes.</iframe></td>
 </tr></table>";
+?>
 
+<div id="tree-visualizer"></div>
+<div id="fs-tree-visualizer" style="display: none"></div>
+
+<?php
 echo '
 <form action="'.$next.'" method="post" enctype="multipart/form-data" >
 ';
@@ -142,5 +147,11 @@ echo "</form>";
 ?>
 
 </div>
+<script src="<?php echo $home ?>/js/tree-visualizer.min.js"></script>
+<script>
+    $(document).ready(function() {
+        treeVisualizer('<?php echo "$home/tmp/ambitie.xml" ?>');
+    });
+</script>
 </body>
 </html>
