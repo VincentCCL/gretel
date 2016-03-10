@@ -15,8 +15,6 @@
 //ini_set('display_errors', 1);
 require 'header.php';?>
 
-<link rel="stylesheet" href="<?php echo $home ?>/style/css/tree-visualizer.css">
-
 <script type="text/javascript">
 // show loading div
 $(document).ready(function(){

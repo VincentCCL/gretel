@@ -15,7 +15,7 @@ function buildTVFrame() {
     FS = $("#fs-tree-visualizer");
     SS = $("#tree-visualizer");
     var SSHTML = '<div class="tree base"></div><aside class="tooltip" style="display: none"><ul></ul><button>&#10005;</button></aside>' +
-        '<button class="show-tv">Fullscreen</button><div class="error" style="display: none"><p></p></div>';
+        '<button class="expand">Fullscreen</button><div class="error" style="display: none"><p></p></div>';
     SS.append(SSHTML);
 
     var FSHTML = '<div class="tree expanded size0"></div><aside class="tooltip" style="display: none"><ul></ul>' +
@@ -175,19 +175,19 @@ function setSizeTreeFS() {
 function errorHandle(message) {
     SS.find(".error > p").text(message).closest(".error").fadeIn(250);
     treeSS.scrollLeft(0);
-    SS.find(".show-tv").prop("disabled", true);
+    SS.find(".expand").prop("disabled", true);
 }
 
 function removeError() {
     SS.find(".error").hide();
-    SS.find(".show-tv").prop("disabled", false);
+    SS.find(".expand").prop("disabled", false);
 }
 
 
 $(document).ready(function() {
     buildTVFrame();
     // Show fs-tree-visualizer tree
-    SS.find(".show-tv").click(function() {
+    SS.find(".expand").click(function() {
         anyTooltip.css("top", "-100%").children("ul").empty();
 
         zoomCounter = 0;
