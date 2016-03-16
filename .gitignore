@@ -1,14 +1,5 @@
-.gitignore*
+*/*
+*
 
-config/
-log/
-tmp/
-parsers/
-ebs/
-log/
-tmp/
-xps/
-index.php
-README.md
-*~
-prepros.cfg
+!js*
+!style*
