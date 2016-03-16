@@ -8,6 +8,8 @@ ebs/
 log/
 tmp/
 xps/
+scripts/
+img/
 index.php
 README.md
 *~
