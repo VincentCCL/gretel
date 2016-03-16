@@ -1,5 +1,7 @@
 */*
 *
 
-!js*
-!style*
+!js
+!js/*
+!style
+!style/*
