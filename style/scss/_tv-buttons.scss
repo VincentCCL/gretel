@@ -1,0 +1,23 @@
+@import "tv-variables";
+%button {
+    font-weight: bold;
+    padding: 12px 16px 10px;
+    color: white;
+    border: 0 none;
+    border-bottom: 2px solid darken($tree_highlight, 10%);
+    border-radius: 4px;
+    background: $tree_highlight;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.16);
+    &:hover {
+        background: darken($tree_highlight, 5%);
+    }
+    &:active {
+        border-bottom-color: darken($tree_highlight, 8%);
+        background: darken($tree_highlight, 8%);
+    }
+    &[disabled] {
+        border-bottom-color: desaturate(lighten($tree_highlight, 12%),8%);
+        background: desaturate(lighten($tree_highlight, 12%),8%);
+        cursor: not-allowed;
+    }
+}
