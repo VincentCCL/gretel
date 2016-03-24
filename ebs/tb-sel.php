@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 <!-- tb-sel.php -->
 <!-- script for treebank selection; generates query tree and XPath in the background -->
 
@@ -16,7 +16,7 @@
 //ini_set('display_errors', 1);
 require 'header.php';?>
 
-<style type="text/css">
+<style>
 .box{
  padding: 20px;
  display: none;
@@ -28,56 +28,27 @@ require 'header.php';?>
 </style>
 
 <script>
-// checkall LASSY function
-$(function () { // this line makes sure this code runs on page load
-	$('.checkall').click(function () {
-		$(this).parents('fieldset:eq(0)').find(':checkbox').attr('checked', this.checked);
-	});
-});
-// checkall CGN function
-$(function () { // this line makes sure this code runs on page load
-       $('.checknlfunction').click(function () {
-	       $(this).parents('fieldset:eq(0)').find(':checkbox.checknl').attr('checked', this.checked);
-        });
-});
-$(function () { // this line makes sure this code runs on page load
+$(document).ready(function() {
+    $('.checkall').click(function () {
+	var checked = $(this).prop("checked");
+        $("input[name^='lassytb']").prop("checked", checked);
+    });
     $('.checkvlfunction').click(function () {
-	    $(this).parents('fieldset:eq(0)').find(':checkbox.checkvl').attr('checked', this.checked);
-	  });
-  });
-// show/hide subtreebanks
-$(document).ready(function(){
+	var checked = $(this).prop("checked");
+        $("input[name^='cgntb[v']").prop("checked", checked);
+    });
+    $('.checknlfunction').click(function () {
+	var checked = $(this).prop("checked");
+        $("input[name^='cgntb[n']").prop("checked", checked);
+    });
 
-    $('input[type="radio"]').click(function(){
-	if($(this).attr("value")=="cgn"){
-	  $(".box").hide();
-	  $(".cgn").show();
-	}
-	if($(this).attr("value")=="lassy"){
-	  $(".box").hide();
-	  $(".lassy").show();
-	}
-	if($(this).attr("value")=="sonar"){
-	  $(".box").hide();
-	  $(".sonar").show();
-	}
-      });
-  });
-
-$(document).ready(function(){
-    if (document.getElementById('cgn').checked) {
-      $(".box").hide();
-      $(".cgn").show();
-    }
-    if (document.getElementById('lassy').checked) {
-      $(".box").hide();
-      $(".lassy").show();
-    }
-    if (document.getElementById('sonar').checked) {
-      $(".box").hide();
-      $(".sonar").show();
-    }
-  });
+    $('input[name="treebank"]').click(function(){
+        var val = $(this).val();
+        $(".box").hide();
+        $("."+val).show();
+    });
+    $("#cgn").click();
+});
 </script>
 </head>
 
@@ -116,7 +87,7 @@ $next="query.php";
 $new='<button type="button" onclick="window.location.href=\''.$start.'?'.$time.'\'">New Input Example</button>';
 $back='<button type="button" value="Back" onclick="goBack()">Back</button>';
 $continue='<div style="float:right"><button type="Submit" value="Continue" class="colour">Continue</button></div>';
-$step="step_four"; // for progress bar
+$step=4; // for progress bar
 $title="<h1>Step 4: Select a treebank</h1><hr/>";
 
 $info='<p>
@@ -139,12 +110,12 @@ $sentence = $_SESSION['sentence']; // get input sentence
 $sentencearray = explode(" ", $sentence);
 
 // add info annotation matrix to alpino parse
-foreach($sentencearray as $begin => $word) { 
+foreach($sentencearray as $begin => $word) {
   //$word=preg_replace('/\"/','&quot;' , $word); // deal with quotes
   //$word=preg_replace('/\'/','&apos;' , $word); // deal with apostrophes
   $postword=preg_replace('/\./','_' , $word); // dots are internally changed to underscores in POST variables
   $postvalue=$_POST["$postword--$begin"];
-  
+
   if (preg_match("/([_<>\.,\?!\(\)\"\'])|(\&quot;)|(\&apos;)/", $word)) { //for punctuation (!) . changes to _ (!)
     $xp = $lpxml->xpath("//node[@begin='$begin']");
   }
@@ -157,7 +128,7 @@ foreach($sentencearray as $begin => $word) {
 }
 
 // save parse with @interesting annotations
-$inttree = fopen("$tmp/$id-int.xml", "w"); 
+$inttree = fopen("$tmp/$id-int.xml", "w");
 $tree = $lpxml->asXML();
 fwrite($inttree, "$tree");
 fclose($inttree);
@@ -175,12 +146,12 @@ else {
 `perl -CS $scripts/GetSubtree.pl -xml $tmp/$id-int.xml -m "sonar" $remove -split > $tmp/$id-sub.xml`;
 
 if (isset($_POST['order'])) {
-  $order="-order"; 
-  $_SESSION["order"]="on"; 
+  $order="-order";
+  $_SESSION["order"]="on";
 }
 
 else {
-  $order=" "; 
+  $order=" ";
 }
 
 // get XPath
@@ -194,7 +165,7 @@ if (filesize("$tmp/$id-sub.xml") == 0) {
   echo $back."<br/>";
 }
 
-else { 
+else {
 // print info
   echo "$title";
 
@@ -228,7 +199,7 @@ else {
 
   echo '<br/><br/>';
   echo $new.$back.$continue;
-  
+
   echo '</form>';
 
 }

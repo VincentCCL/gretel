@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 <!-- results-xp.php -->
 <!-- display treebank results -->
 
@@ -7,53 +7,39 @@
 <!-- for the GrETEL2.0 project -->
 
 <head>
-<?php 
+<?php
 /* Display errors*/
 //error_reporting(E_ALL);
-//ini_set('display_errors', 1); 
+//ini_set('display_errors', 1);
 require'header-xp.php';
 
 echo '
 <link rel="stylesheet" type="text/css" href="'.$home.'/style/css/datatable.css"></link>
-
-<script type="text/javascript" src="'.$home.'/js/jquery-2.0.2.min.js" ></script>
 <script type="text/javascript" src="'.$home.'/js/jquery.dataTables.js" ></script>
 <script type="text/javascript" src="'.$home.'/js/sorttable.js" ></script>
 ';
 ?>
 <script>
-
-// Initialisation code dataTables
-$(document).ready(function() {
-	$('#example').dataTable( {
-	    "sScrollY": "400px",
-	      "bPaginate": false,
-	      } );
-  });
-      
-
 // show/hide function
-$(document).ready(function(){
+$(document).ready(function() {
+    // Initialisation code dataTables
+	$('#example').dataTable({
+        "sScrollY": "400px",
+        "bPaginate": false
+    });
 
+    // Show and hide required elements
     $(".slidingDiv").hide();
     $(".show_hide").show();
-     $("#hide").hide(); // hide message 'hide'
+    $("#hide").hide(); // hide message 'hide'
     $("#show").show(); // show message 'show'
 
     $('.show_hide').click(function(){
-	$(".slidingDiv").slideToggle();
-	if ($('#show').is(":visible")){
-	  $("#show").hide(); 
-	  $("#hide").show();
-	}
-	else {
-	  $("#show").show();
-	  $("#hide").hide(); 
-	}
-      });
-
+        $(".slidingDiv").slideToggle();
+        $("#show").toggle();
+        $("#hide").toggle();
+    });
   });
-
 </script>
 
 </head>
@@ -92,7 +78,7 @@ $xplog="$log/gretel-xps.log";
 $start="input-xp.php";
 $new='<button type="button" onclick="window.location.href=\''.$start.'?'.$time.'\'">New XPath Query</button>';
 $back='<button type="button" value="Back" onclick="goBack()">Back</button>';
-$step="step_three";
+$step=3;
 $title="<h1>Step 3: Results</h1><hr/>";
 
 // messages and documentation
@@ -121,17 +107,17 @@ try {
     echo $back;
     exit;
   }
-  
+
   else {
     $xpath=$_SESSION['xpath'];
   }
-  
+
   echo "$title";
   chop($xpath);
 
   // get treebank
   if ($_POST['treebank']) {
-    $treebank=$_POST['treebank']; 
+    $treebank=$_POST['treebank'];
     $_SESSION['treebank']="$treebank";
   }
   else {
@@ -140,7 +126,7 @@ try {
     echo $back;
     exit;
   }
- 
+
   // log XPath
   $log=fopen($xplog, "a"); //concatenate
   fwrite($log, "$date\t$user\t$id-$time\t$treebank\t$xpath\n");
@@ -148,7 +134,7 @@ try {
 
   // get subtreebanks
   $subtb=$treebank.'tb';
-  
+
   if ($_POST[$subtb]) {
     $components=$_POST[$subtb];
     $subtreebanks=array_keys($components);
@@ -156,7 +142,7 @@ try {
     $components=implode( ', ' , $subtreebanks); // get string of components
     $export .= "subtb=".$subtbs;
   }
-  
+
   else {
     echo "<h1>Error</h1>";
     echo "Please select at least one subtreebank\n<br/><br/>";
@@ -174,23 +160,23 @@ try {
     $_SESSION["ct"]="off";
   }
 
- 
+
   // create session
   $session = new Session($dbhost, $dbport, $dbuser, $dbpwd);
-  
-  
+
+
   // get results
   try {
     // get counts
-    list($HITS,$MS,$TOTALS,$TOTALCOUNTS)=GetCounts($xpath,$treebank,$subtreebanks,$session);   
-    
+    list($HITS,$MS,$TOTALS,$TOTALCOUNTS)=GetCounts($xpath,$treebank,$subtreebanks,$session);
+
     // get sentences
     if ($TOTALCOUNTS['hits'] > 20000 || $TOTALCOUNTS['ms'] > 5000 ) { // display subset if too many hits
       $limit=500;
-      
+
       list($sentences,$counthits,$idlist,$beginlist)=GetSentences($xpath,$treebank,$subtreebanks,$session,$limit,$context);
     }
-   
+
      elseif ($TOTALCOUNTS['hits'] !=0 ) {
       list($sentences,$counthits,$idlist,$beginlist)=GetSentences($xpath,$treebank,$subtreebanks,$session,"none",$context);
     }
@@ -200,7 +186,7 @@ try {
     }
     // print query
 
-    echo 
+    echo
 '<div align="right"><button type="button" value="Printer-friendly version" onclick="window.open(\''.$export.'&print=html\')">Printer-friendly version</button></div>';
 
     echo '
@@ -215,19 +201,19 @@ try {
 <th  align="left">Treebank</th><td>'.strtoupper($treebank).' ['.$components.']</td>
 </tr>
 </table><br/>
-'; 
+';
 
     if ($TOTALCOUNTS['hits']==0) {
       print "<b>RESULTS: </b>NO MATCHES FOUND<br/><br/>\n";
     }
-    
+
     else {
       // format counts
       list($HITS)=NumFormatHash($HITS);
       list($MS)=NumFormatHash($MS);
       list($TOTALS)=NumFormatHash($TOTALS);
       list($TOTALCOUNTS)=NumFormatHash($TOTALCOUNTS);
-      
+
       echo '
 <table>
 <tr>
@@ -246,48 +232,48 @@ try {
 <th align="left" width="200px">Sentences in treebank</th><td>'.$TOTALCOUNTS['totals'].'</td><td></td>
 </tr>
 </table><br/>
-'; 
-  
+';
+
     print '<div class="slidingDiv">';  // show/hide div pt 1
     printCounts($treebank,$HITS,$MS,$TOTALS,$TOTALCOUNTS); // print table hit distribution
     echo '<button onclick="window.open(\''.$export.'&print=csv\')" title="Comma-separated file of detailed search results (counts per treebank)">Download table</button><br/><br/>';
-      
+
     print "</div>"; // show/hide div pt 2
-    
+
     if (isset($limit)) {
       print "Since there are too many results to display, a sample of $limit hits per treebank component is presented.<br/><br/>\n";
       $export.="&limit=".$limit;
     }
-    
+
     echo $tip;
-    
+
     printMatches($sentences,$counthits,$idlist,$beginlist,$treebank,$showtree); // print matching sentence and hits per sentence
     }
-    
+
     echo $new.$back;
     // close session
     $session->close();
   }
-  
+
   catch (Exception $e) {
     // print $e->getMessage();
     $error=$e->getMessage();
-    
+
     if (preg_match('/\[XPST0003\]/', $error)) { // catch error to return useful error message
       print "XPATH ERROR<br/>";
       print "$error<br/><br/>";
       echo $back;
     }
-    
+
     elseif (preg_match('/\[XPTY0004\]/', $error)) { // catch error to return useful error message
-      print "OUT OF MEMORY<br/>";      
+      print "OUT OF MEMORY<br/>";
       echo $back;
 
       $oom = fopen($oomlog, "a");
       fwrite($oom, "$date\t$user\t$id-$time\t$xpath\t$error\n");
       fclose($oom);
     }
-    
+
     else {
       print "ERROR<br/>";
       print "$error<br/>";

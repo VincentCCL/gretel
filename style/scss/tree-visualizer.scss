@@ -1,0 +1,311 @@
+/**
+ * (S)CSS file for the Tree Visualizer. You can change the colours of the
+ * tree in _tv-variables.scss.
+ *
+ * @author Bram Vanroy
+ */
+@import "tv-variables";
+@import "tv-buttons";
+@import "clearfix";
+
+#tree-visualizer-fs,
+#tree-visualizer {
+    box-sizing: border-box;
+    color: $text_main;
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    button {
+        outline: 0;
+        cursor: pointer;
+    }
+    .tree {
+        overflow: auto;
+        box-sizing: content-box;
+        + .tooltip {
+            position: fixed;
+            top: -100%;
+            left: 0;
+            z-index: 11;
+            padding: 12px;
+            border: 6px solid white;
+            background: darken(#F5F5F5, 2%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            > ul {
+                padding: 0 8px;
+                list-style: none;
+                columns: 2;
+                column-gap: 24px;
+                column-rule: 1px solid $tree_branch;
+                li {
+                    white-space: nowrap;
+                }
+            }
+            &:after {
+                position: absolute;
+                bottom: -24px;
+                left: 50%;
+                margin-left: -24px;
+                width: 0;
+                height: 0;
+                border: 12px solid;
+                border-color: transparent transparent white white;
+                box-shadow: -6px 6px 6px -2px rgba(0,0,0,0.2);
+                content: "";
+                transform: rotate(-45deg);
+                transform-origin: 0 0;
+            }
+            button {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 30px;
+                height: 30px;
+                border: 0;
+                border-radius: 50%;
+                background: $error;
+                color: white;
+                text-align: center;
+                font-size: 14px;
+                line-height: 1;
+                transition: transform 200ms;
+                transform: translate(50%, -50%);
+                &:hover {
+                    background: darken($error, 4%);
+                    transform: translate(50%, -50%) scale(1.23);
+                }
+                &:active {
+                    background: darken($error, 8%);
+                }
+            }
+        }
+        ol {
+            position: relative;
+            display: table;
+            margin: 0 auto;
+            padding-top: 1em;
+            ol:before {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 0;
+                height: 1em;
+                border-left: 1px solid $tree_branch;
+                content: "";
+            }
+        }
+        > ol {
+            padding-top: 0;
+        }
+        li {
+            position: relative;
+            display: table-cell;
+            padding: 1em 0.5em 0;
+            list-style-type: none;
+            vertical-align: top;
+            text-align: center;
+            &:before,
+            &:after {
+                position: absolute;
+                top: 0;
+                right: 50%;
+                width: 50%;
+                height: 1em;
+                border-top: 1px solid $tree_branch;
+                content: "";
+            }
+            &:after {
+                right: auto;
+                left: 50%;
+                border-left: 1px solid $tree_branch;
+            }
+            &.first-child {
+                &:before {
+                    border: 0 none;
+                }
+            }
+            &.last-child {
+                &:before {
+                    border-right: 1px solid $tree_branch;
+                }
+                &:after {
+                    border: 0 none;
+                }
+            }
+            &.only-child {
+                padding-top: 0;
+                &:after,
+                &:before {
+                    display: none;
+                }
+            }
+            a {
+                display: inline-block;
+                padding: 0.5em 1em;
+                border: 1px solid $tree_branch;
+                border-bottom: 2px solid lighten($tree_branch,8%);
+                border-radius: 4em;
+                background: white;
+                color: #666;
+                text-decoration: none;
+                span:nth-child(2) {
+                    color: $text_main;
+                    font-weight: normal;
+                }
+                &:hover,
+                &:hover + ol li a,
+                &.hovered {
+                    border: 1px solid $tree_highlight;
+                    border-bottom-width: 2px;
+                    background: $tree_highlight;
+                    color: white;
+                }
+                &:hover span:nth-child(2),
+                &:hover + ol li a span:nth-child(2),
+                &.hovered span:nth-child(2) {
+                    color: white;
+                }
+                &:hover + ol li a.only-child {
+                    border: 1px solid darken($tree_highlight,15%);
+                    border-bottom-width: 2px;
+                    background: darken($tree_highlight,15%);
+                    text-shadow: 0 1px 0 rgba(0,0,0,0.4);
+                }
+                &:hover + ol {
+                    li:after,
+                    li:before,
+                    &:before,
+                    ol:before {
+                        border-color: lighten($tree_highlight,10%);
+                    }
+                }
+                &.only-child {
+                    color: $tree_highlight;
+                    font-weight: bold;
+                    &:hover,
+                    &.hovered {
+                        border: 1px solid darken($tree_highlight,12%);
+                        border-bottom-width: 2px;
+                        background: darken($tree_highlight,12%);
+                        color: white;
+                        text-shadow: 0 1px 0 rgba(0,0,0,0.4);
+                    }
+                }
+            }
+            span {
+                display: block;
+                margin: 2px auto;
+            }
+        }
+    }
+}
+#tree-visualizer {
+    .tree {
+        margin: 24px auto;
+        padding: 24px;
+        min-height: 240px;
+        border: 6px solid white;
+        background: darken(#F5F5F5, 2%);
+        font-size: 12px;
+        + .tooltip {
+            font-size: 12px;
+        }
+    }
+    .tv-show-fs {
+        display: block;
+        margin: 24px auto;
+        @extend %button;
+    }
+}
+#tree-visualizer-fs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    padding: 72px 48px;
+    width: 100%;
+    height: 100%;
+    background: url("../img/ie8-bg-fix-black.png") repeat;
+    background: rgba(0,0,0,0.6);
+    .tree {
+        position: relative;
+        z-index: 11;
+        padding: 12px;
+        min-width: 480px;
+        min-height: 180px;
+        background: #F5F5F5;
+    }
+    .zoom-opts {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 9;
+        padding: 12px;
+        background: #F5F5F5;
+        opacity: 0.7;
+        transition: all 200ms;
+        @extend %clearfix;
+        &:hover {
+            z-index: 12;
+            box-shadow: 0 2px 4px rgba(0,0,0,.3);
+            opacity: 1;
+        }
+        button {
+            position: relative;
+            float: left;
+            margin-right: 1px;
+            padding: 0;
+            width: 36px;
+            height: 36px;
+            @extend %button;
+            &.close {
+                margin-right: 0;
+                margin-left: 12px;
+                width: 34px;
+                height: 34px;
+                border: 2px solid $error;
+                border-radius: 50%;
+                background: transparent;
+                color: $error;
+                text-shadow: none;
+                line-height: 1;
+                transition: transform 200ms;
+                &:hover {
+                    background: $error;
+                    color: white;
+                    transform: scale(1.23);
+                }
+                &:active {
+                    top: auto;
+                    border: 2px solid darken($error, 8%);
+                    background: darken($error, 8%);
+                }
+            }
+            &.zoom-default {
+                padding: 0 8px;
+                width: auto;
+                border-radius: 0;
+            }
+            &:first-child {
+                border-radius: 3px 0 0 3px;
+            }
+            &:nth-child(3) {
+                border-radius: 0 3px 3px 0;
+            }
+        }
+    }
+}
+#tv-error {
+    margin-top: 24px;
+    padding: 8px 16px;
+    background: $error;
+    color: white;
+    text-align: center;
+    text-shadow: 0 1px rgba(0,0,0,0.32);
+    line-height: 1.75;
+    p {
+        margin: 0;
+    }
+}

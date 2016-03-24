@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 <!-- query.php -->
 <!-- query summary -->
 
@@ -15,14 +15,8 @@
 //ini_set('display_errors', 1);
 require 'header.php';?>
 
-<script type="text/javascript">
-// show loading div
-$(document).ready(function(){
-    $('button[type="submit"]').click(function(){
-	$(".loading").show();
-      });
-  });
-</script>
+<link rel="stylesheet" href="<?php echo $home; ?>/style/css/tree-visualizer.css" >
+
 </head>
 
 <body>
@@ -45,8 +39,8 @@ $sm=$_SESSION['search'];
 
 // navigation
 $start="input.php";
-$next="results.php";					
-$step="step_five";
+$next="results.php";
+$step=5;
 $title="<h1>Step 5: Query Overview</h1><hr/>";
 $new='<button type="button" onclick="window.location.href=\''.$start.'?'.$time.'\'">New Input Example</button>';
 $back='<button type="button" value="Back" onclick="goBack()">Back</button>';
@@ -57,11 +51,11 @@ $grtllog="$log/gretel-ebq.log";
 $treelog="$log/gretel-querytrees.log";
 
 if ($_POST['treebank']) {
-  $treebank=$_POST['treebank']; 
+  $treebank=$_POST['treebank'];
   $_SESSION['treebank']="$treebank";
 }
 else {
-  $treebank=$_SESSION['treebank']; 
+  $treebank=$_SESSION['treebank'];
 }
 
 // get subtreebanks
@@ -131,8 +125,6 @@ $tlog = fopen($treelog, "a");  //concatenate
 fwrite($tlog, "<alpino_ds id=\"$id-$time\">$qtree\n</alpino_ds>\n");
 fclose($tlog);
 
-// add style to query tree
-`perl  $scripts/sub2tree.pl $tmp/$id-sub.xml '//node[@rel]' 'ptsonar' > $tmp/$id-sub-style.xml`;
 
 //print input sentence and treebank
 echo "$title";
@@ -141,16 +133,9 @@ echo "<b>Input example:</b> <i>$sentence</i><br/><br/>\n";
 echo "<b>Treebank:</b> ".strtoupper($treebank)."<br/>\n";
 echo "<b>Components:</b> ".strtoupper($components)."<br/><br/>\n";
 
-// print tree
-$subparse=$home."/tmp/$id-sub-style.xml?$time";
-
-echo '<table border=1 class="hd" width="100%"><tr><th>Query tree [<a href="'.$subparse.'" target="_blank">full screen</a>]</th></tr>';
-echo "<td><iframe name=\"treeimg\" src=\"".$subparse."\">Sorry, your browser does not support iframes.</iframe></td></tr></table>";
-
-
 if ($_SESSION['search']=="advanced") { // print XPath expression in advanced search mode
 
-  if ($treebank=="sonar") { 
+  if ($treebank=="sonar") {
     echo '<br/><b>XPath expression </b>generated from the query tree.<br/>';
   }
 
@@ -165,10 +150,10 @@ if ($_SESSION['search']=="advanced") { // print XPath expression in advanced sea
   else {
     echo '<textarea rows="4" cols="100" name="xp" wrap="soft">'.$xpath.'</textarea>';
   }
-  
+
   echo '<input type="reset" value="Reset XPath"/> ';
 }
-
+echo '<div id="tree-output"></div>';
 echo '
 <form action="'.$next.'" method="post">
 ';
@@ -181,5 +166,18 @@ echo '</form>';
 
 ?>
 </div>
+<script src="<?php echo $home; ?>/js/min/tree-visualizer.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('button[type="submit"]').click(function(){
+        $(".loading").show();
+    });
+
+    $.treeVisualizer('<?php echo "$home/tmp/$id"; ?>-sub.xml', {
+        container: "#tree-output"
+    });
+});
+</script>
+</script>
 </body>
 </html>

@@ -1,433 +1,275 @@
 /* GrETEL 2.0 css style sheet */
+
+
 /* written by Liesbeth Augustinus (c) 2014 */
+
+
 /* for the GrETEL2.0 project */
 
 body {
-  font-family: 'Carrois Gothic', helvetica, sans-serif;
-  background-color: #747474;
-  margin-left:8%;
-  margin-right:8%;
-  margin-top: 0%;
-  margin-bottom: 0%;
-  color:#505050;
-  background-image: url("../../img/gretel_logo_small.png");
-  background-repeat: repeat;
+    margin: 0;
+    background-color: #747474;
+    background-image: url("../../img/gretel_logo_small.png");
+    background-repeat: repeat;
+    color: #505050;
+    font-family: 'Carrois Gothic', helvetica, sans-serif;
 }
-
 #container {
-background: #fff;
-border: 1px solid #ccc;
-clear: both;
-padding: 2%;
-//height:150%;
+    padding: 1.6em;
+    min-width: 480px;
+    max-width: 1024px;
+    margin: 0 auto 0.8em;
+    background: #fff;
 }
-
-#ccl-logo *{
- display:inline;
- margin: 0;
- margin-left: 15px;
- vertical-align: middle;
+#ccl-logo * {
+    display: inline;
+    margin: 0;
+    margin-left: 15px;
+    vertical-align: middle;
 }
-
 #ccl-logo {
     float: right;
 }
 nav #ccl-logo {
-    float:none;
+    float: none;
 }
-
+@media all and (max-width: 820px) {
+    nav {
+        flex-direction: column-reverse;
+    }
+}
 h1 {
-  font-family: 'Oswald', helvetica, sans-serif;
+    font-family: 'Oswald', helvetica, sans-serif;
 }
-
 a {
-  text-decoration: none;
-  color: #b4c24b;
+    color: #b4c24b;
+    /* GrETEL green */
+    text-decoration: none;
 }
-
-/* mouse over */
 a:hover {
-    color:  grey;
-    font-weight:bold;
-}
-
-a {
-  color:#b4c24b; // GrETEL green
-  text-decoration: none;
+    color: grey;
+    font-weight: bold;
 }
 
 /* coloured input buttons */
+
 .colour {
-  background-color:#b4c24b; // GrETEL green
+    background-color: #b4c24b;
 }
 
 /*  customized tooltips */
-.hovertip
-{
-cursor:help;
+
+.hovertip {
+    cursor: help;
 }
 a.hovertip {
-  position: relative;
-  text-decoration: none;
-#  color: black;
+    position: relative;
+    text-decoration: none;
 }
-a.hovertip span {display: none;}
+a.hovertip span {
+    display: none;
+}
 a.hovertip:hover span {
-  display: block;
-  position: absolute; 
-  padding: .5em;
-  content: attr(title);
-  min-width: 120px;
-  text-align: left;
-#  text-align: center;
-  width: auto;
-  height: auto;
-  white-space: nowrap;
-  top: -50px;
-  background: rgba(0,0,0,.8);
-  -moz-border-radius:10px;
-  -webkit-border-radius:10px;
-  border-radius:10px;    
-  color: #fff;
-  font-size: .86em;
+    position: absolute;
+    top: -50px;
+    display: block;
+    padding: .5em;
+    min-width: 120px;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, .8);
+    color: #fff;
+    content: attr(title);
+    text-align: left;
+    white-space: nowrap;
+    font-size: .86em;
 }
 
 /*  customized tooltips, can be used within buttons as well */
+
 div.hovertip {
-  position: relative;
-  text-decoration: none;
-  color: black;
-  display: inline;
+    position: relative;
+    display: inline;
+    color: black;
+    text-decoration: none;
 }
-div.hovertip span {display: none;}
+div.hovertip span {
+    display: none;
+}
 div.hovertip:hover span {
-  display: block;
-  position: absolute; 
-  padding: .5em;
-  content: attr(title);
-  min-width: 120px;
-  text-align: left;
-#  text-align: center;
-  width: auto;
-  height: auto;
-  white-space: nowrap;
-  top: -50px;
-  background: rgba(0,0,0,.8);
-  -moz-border-radius:10px;
-  -webkit-border-radius:10px;
-  border-radius:10px;    
-  color: #fff;
-  font-size: .86em;
-
-
+    position: absolute;
+    top: -50px;
+    display: block;
+    padding: .5em;
+    min-width: 120px;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, .8);
+    color: #fff;
+    content: attr(title);
+    text-align: left;
+    white-space: nowrap;
+    font-size: .86em;
 }
 
-/* Navigation */
+/* Progress bar */
 nav {
-    display:flex;
+    display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
 }
 
-.circular span{
-    display: none;
+.progressbar {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 12px;
+}
+.progressbar li {
+    display: inline-block;
+    background: #C0C0C0;
+    padding: 0;
 }
 
+
+/* Style and position actual text */
+.progressbar li p {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    margin: 0;
+    padding: 1em;
+}
+
+/* Change colour of active page in progress bar */
+.progressbar li.done {
+    background-color: #747474;
+}
+.progressbar li.active {
+    background-color: #b4c24b;
+}
+
+/* Circular - small circles on small screen size */
+@media all and (max-width: 1239px) {
+    .progressbar {
+        font-size: 15px;
+    }
+    .progressbar li {
+        border-radius: 50%;
+    }
+    .progressbar li p {
+        line-height: 32px;
+        height: 32px;
+        width: 32px;
+        padding: 0;
+        text-align: center;
+    }
+    .progressbar span {
+        display: none;
+    }
+}
+/* Breacrumbs - arrow directed progress bar on large screens */
+@media all and (min-width: 1240px) {
+    .progressbar li:not(:first-child) {
+        padding-left: 10px;
+    }
+    /* Arrows for breadcrumbs; not on last child */
+    .progressbar li:not(:last-child) p:after, .progressbar li:not(:last-child) p:before {
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        transform: translateX(-50%);
+        z-index: 1;
+        display: block;
+        margin-top: -50px;
+        width: 0;
+        height: 0;
+        border-top: 50px solid transparent;
+        border-bottom: 50px solid transparent;
+        border-left: 30px solid white;
+        content: " ";
+    }
+    .progressbar li:not(:last-child) p:after {
+        border-left-color: #C0C0C0;
+        margin-left: -1px;
+        z-index: 2;
+    }
+    .progressbar li:last-child {
+        padding-right: 10px;
+    }
+    /* Position text on top of the arrow, this saves us some space */
+    .progressbar li span {
+        position: relative;
+        z-index: 3;
+    }
+    .progressbar li.active:not(:last-child) p:after {
+        border-left-color: #b4c24b;
+    }
+    .progressbar li.done:not(:last-child) p:after {
+        border-left-color: #747474;
+    }
+}
 .home {
     width: 30px;
     height: 30px;
 }
 
-.breadcrumb { 
-    list-style: none; 
-    overflow: hidden; 
-    margin-left:-40px;
-    font-size: 12px;
-    
-}
-.breadcrumb li { 
-    float: left;
-    background: #C0C0C0; //grey; 
-    
-}
-.breadcrumb li p {
-    color: white;
-    text-decoration: none; 
-    padding: 0px 15 0px 50px;
-    background: transparent ;// grey;                   /* fallback color */
-    position: relative; 
-    display: block;
-    float: left;
-}
-.breadcrumb li p:after { 
-    content: " "; 
-    display: block; 
-    width: 0; 
-    height: 0;
-    border-top: 50px solid transparent; /* arrow */          /* Go big on the size, and let overflow hide */
-    border-bottom: 50px solid transparent;  /* arrow */
-    border-left: 30px solid #C0C0C0; // hsla(34,85%,35%,1); /* arrow */
-    position: absolute;
-    top: 50%;
-    margin-top: -50px; 
-    left: 100%;
-    z-index: 2; 
-}	
-.breadcrumb li p:before { 
-    content: " "; 
-    display: block; 
-    width: 0; 
-    height: 0;
-    border-top: 50px solid transparent;           /* Go big on the size, and let overflow hide */
-    border-bottom: 50px solid transparent;
-    border-left: 30px solid white;
-    position: absolute;
-    top: 50%;
-    margin-top: -50px; 
-    margin-left: 1px;
-    left: 100%;
-    z-index: 1; 
-}	
-.breadcrumb li:first-child p{
-   padding-left: 10px;
-   
-}
-
-.circle p{
-    padding-top: 15px;
-    text-align: center;
-}
-
-.ellipse { 
-    list-style: none; 
-    overflow: hidden; 
-    //font: 18px Helvetica, Arial, Sans-Serif;
-    margin-left:-40px;
-    font-size: 15px;
-    
-}
-.ellipse li { 
-    float: left;
-    background: #C0C0C0; //grey;
-    width: 120px;
-    height: 50px;
-    border-radius: 25px; // a complete circle requires the border radius to be half of your width/height // rectangular if no border-radius
-    -webkit-border-radius: 25px;
-    -moz-border-radius: 25px;
-}
-.ellipse li p {
-    color: white;
-    text-decoration: none; 
-    padding: 0px 0px 0px 20px;
-    background: transparent ;// grey;                   /* fallback color */
-    position: relative; 
-    display: block;
-    float: left;
-    text-align: center;
-}
-
-
-.circular { 
-    list-style: none; 
-    overflow: hidden; 
-    //font: 18px Helvetica, Arial, Sans-Serif;
-    margin-left:-40px;
-    font-size: 15px;
-    
-}
-.circular li { 
-    float: left;
-    background: #C0C0C0; //grey;
-    width: 50px;
-    height: 50px;
-    border-radius: 25px; // a complete circle requires the border radius to be half of your width/height
-    -webkit-border-radius: 25px;
-    -moz-border-radius: 25px;
-}
-.circular li p {
-    color: white;
-    text-decoration: none; 
-    padding: 0px 0px 0px 20px;
-    background: transparent ;// grey;                   /* fallback color */
-    position: relative; 
-    display: block;
-    float: left;
-    text-align: center;
-}
-
-
-#step_one li:nth-child(1) {
- background-color: #b4c24b;
-}
-#step_one li:nth-child(1):before {
- border-left-color: #b4c24b !important;
-}
-#step_one li:nth-child(1) p:after {
- border-left-color: #b4c24b;
-}
-
-#step_two li:nth-child(2) {
-    background-color: #b4c24b;
-}
-#step_two li:nth-child(2):before {
-    border-left-color: #b4c24b !important;
-}
-#step_two li:nth-child(2) p:after {
- border-left-color: #b4c24b;
-}
-#step_two li:nth-child(1) p:after {
- border-left-color: #747474;
-}
-
-#step_two li:nth-child(-n+1) {
-    background-color: #747474 !important;
-}
-#step_two li:nth-child(-n+1):before {
-        border-left-color: #747474 !important;
-}
-
-#step_three li:nth-child(3) {
-    background-color: #b4c24b;
-}
-#step_three li:nth-child(3) :before {
-    border-left-color: #b4c24b !important;
-    }
-#step_three li:nth-child(3) p:after {
- border-left-color: #b4c24b;
-}
-
-#step_three li:nth-child(-n+2){
-    background-color: #747474 !important;
-}
-#step_three li:nth-child(-n+2):before {
-    border-left-color: #747474 !important;
-    }
-#step_three li:nth-child(-n+2) p:after {
- border-left-color: #747474;
-}
-
-#step_four li:nth-child(4) {
-    background-color: #b4c24b;
-}
-#step_four li:nth-child(4):before {
-    border-left-color: #b4c24b !important;
-}
-#step_four li:nth-child(4) p:after {
- border-left-color: #b4c24b;
-}    
-
-#step_four li:nth-child(-n+3) {
-    background-color: #747474 !important;
-}
-#step_four li:nth-child(-n+3):before {
-    border-left-color: #747474 !important;
-}
-#step_four li:nth-child(-n+3) p:after {
- border-left-color: #747474;
-}    
-
-#step_five li:nth-child(5){
-    background-color: #b4c24b;
-}
-#step_five li:nth-child(5):before {
-    border-left-color: #b4c24b !important;
-    }
-#step_five li:nth-child(5) p:after {
- border-left-color: #b4c24b;
-}    
-
-#step_five li:nth-child(-n+4) {
-    background-color: #747474 !important;
-}
-#step_five li:nth-child(-n+4):before {
-    border-left-color: #747474 !important;
-    }
-#step_five li:nth-child(-n+4) p:after {
- border-left-color: #747474;
-}
-
-#step_six li:nth-child(6)  {
-    background-color: #b4c24b;
-}
-#step_six li:nth-child(6) :before {
-    border-left-color: #b4c24b !important;
-}
-#step_six li:nth-child(6) p:after {
-    border-left-color: #b4c24b;
-}    
-
-#step_six li:nth-child(-n+5) {
-    background-color: #747474 !important;
-}
-#step_six li:nth-child(-n+5):before {
-    border-left-color: #747474 !important;
-}
-#step_six li:nth-child(-n+5) p:after {
- border-left-color: #747474;
-}
-
-.breadcrumb li:last-child p:after {
-    //border-top: 30px solid white !important;  /* arrow */          /* Go big on the size, and let overflow hide */
-    border-bottom: 30px solid white  !important; /* arrow */
-    border-left: 45px solid white !important; /* arrow */
-}
-
 /* Sortable tables */
+
 
 /* define height and width of scrollable area. Add 16px to width for scrollbar */
 
 div.tableWrapper {
-	clear: both;
-	# border: 1px solid #963;
-	width: 100%;
-	height: 500px;
-	overflow: hidden;
-	# background-color: #b4c24b;
+    clear: both;
+    overflow: hidden;
+    /*border: 1px solid #963;*/
+    width: 100%;
+    height: 500px;
+    /*background-color: #b4c24b;*/
 }
-
 table.sortable {
-   width:100%;
- 
+    width: 100%;
 }
-
 table.sortable thead {
-   display: table-header-group;
-   background-color: grey;
+    display: table-header-group;
+    background-color: grey;
 }
-
 .pointer {
     cursor: pointer;
 }
-
 a.match {
-  text-decoration: none;
-  color: #b4c24b;
-  font-weight:bold;
+    color: #b4c24b;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 /* mouse over */
+
 .match:hover {
-    color:  grey;
-    font-weight:bold;
+    color: grey;
+    font-weight: bold;
 }
 
 /* loading image */
+
 .loading {
-position:absolute;
-z-index:100;
-  //border:3px double #999;
-width:300px;
-height:300px;
-margin-top:-150px;
-margin-left:-150px;
-top:50%;
-left:50%;
-text-align:center;
-line-height:300px;
-font-size:20pt;
-//background: #f7f7f7;
-background: url('../../img/gretel_logo_trans.png'),url('../../img/page-loader.gif') 50% 50% no-repeat rgb(249,249,249);
-background-size: 300px 300px;
-  //background: url('../../img/page-loader.gif') 50% 50% no-repeat rgb(249,249,249);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    margin-top: -150px;
+    margin-left: -150px;
+    /*border:3px double #999;*/
+    width: 300px;
+    height: 300px;
+    /*background: #f7f7f7;*/
+    background: url('../../img/gretel_logo_trans.png'), url('../../img/page-loader.gif') 50% 50% no-repeat rgb(249, 249, 249);
+    background-size: 300px 300px;
+    text-align: center;
+    font-size: 20pt;
+    line-height: 300px;
 }

@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 <!-- input-xp.php -->
 <!-- form to get an XPath expression -->
 
@@ -10,22 +10,9 @@
 <?php
 /* Display errors*/
 //error_reporting(E_ALL);
-//ini_set('display_errors', 1); 
+//ini_set('display_errors', 1);
 require 'header-xp.php';?>
 
-<script>
-// clear function
-function copyText()
-{
-document.getElementById("xpath").value=document.getElementById("clear").value;
-}
-
-// back function
-function goBack() {
-    window.history.back()
-}
-
-</script>
 </head>
 
 <body>
@@ -39,7 +26,7 @@ header('Content-Type:text/html; charset=utf-8');
 $id=session_id();
 $next="tb-sel-xp.php";
 $inputxp='//node[@rel="su" and @cat="np" and node[@pt="n" and @ntype="eigen"]]'; // default example
-$step="step_one"; // for progress bar
+$step=1; // for progress bar
 $title="<h1>Step 1: Give an XPath expression</h1>
 <hr/>";
 $continue='<div style="float:right"><button type="Submit" value="Continue" class="colour">Continue</button></div>';
@@ -64,5 +51,17 @@ if (isset($_SESSION['xpath'])) { // find previous input example
 echo $continue;
 ?>
 </div>
+
+<script>
+// clear function
+function copyText() {
+    $("#example").val($("#clear").val());
+}
+
+// back function
+function goBack() {
+    window.history.back()
+}
+</script>
 </body>
 </html>

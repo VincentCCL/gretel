@@ -9,17 +9,16 @@ function NumFormatHash($hash) {
 function printCounts($treebank,$HITS,$MS,$TOTALS,$TOTALCOUNTS) { // print table with results
   
   $CORPUS=SetDB2CorpusDetailed($treebank);
-   print "<table id=\"results\" border=\"1\">\n
-             <thead>\n
+   print "<table id=\"results\" border=\"1\">
+             <thead>
               <tr><th>TREEBANK</th><th>HITS</th><th>MATCHING SENTENCE</th><th>SENTENCES IN TREEBANK</th></tr>
              </thead>
-             </tbody>
              ";
   foreach ($HITS as $dbname => $h) {
     print "<tr><td>$CORPUS[$dbname]</td><td>$h<td>$MS[$dbname]</td><td>$TOTALS[$dbname]</td></tr>\n";
   }
   print "<tr><td><b>TOTAL</b></td><td><b>$TOTALCOUNTS[hits]</b><td><b>$TOTALCOUNTS[ms]</b></td><td><b>$TOTALCOUNTS[totals]</b></td></tr>\n"; 
-  print "</tbody></table>\n<br/>\n";
+  print "</table>\n<br/>\n";
 }
 
 function printCountsCsv($treebank,$HITS,$MS,$TOTALS,$TOTALCOUNTS) { // print table with results
@@ -38,17 +37,16 @@ function printCountsCsv($treebank,$HITS,$MS,$TOTALS,$TOTALCOUNTS) { // print tab
 function printCountsPF($treebank,$HITS,$MS,$TOTALS,$TOTALCOUNTS) { // print table with results
   
   $CORPUS=SetDB2Corpus($treebank);
-  print "<table id=\"results\" border=\"1\">\n
-             <thead>\n
+  print "<table id=\"results\" border=\"1\">
+             <thead>
               <tr><th>TREEBANK</th><th>HITS</th><th>MATCHING SENTENCE</th><th>SENTENCES IN TREEBANK</th></tr>
              </thead>
-             </tbody>
              ";
   foreach ($HITS as $dbname => $h) {
     print "<tr><td>$CORPUS[$dbname]</td><td>$h<td>$MS[$dbname]</td><td>$TOTALS[$dbname]</td></tr>\n";
   }
   print "<tr><td><b>TOTAL</b></td><td><b>$TOTALCOUNTS[hits]</b><td><b>$TOTALCOUNTS[ms]</b></td><td><b>$TOTALCOUNTS[totals]</b></td></tr>\n"; 
-  print "</tbody></table>\n<br/>\n";
+  print "</table>\n<br/>\n";
 }
 
 function printMatches($sentences,$counthits,$idlist,$beginlist,$treebank,$showtree) { // NOTE: sentence IDs are the keys of all hashes
@@ -72,7 +70,7 @@ function printMatches($sentences,$counthits,$idlist,$beginlist,$treebank,$showtr
 	$trans = array('"' => '&quot;', "'" => "&apos;"); // deal with quotes/apos
 	$hls=strtr("$hlsentence", $trans);
 
-	$sentenceidlink='<a class="match" href="'.$showtree.'?sid='.$sid.'&id='.$idlist[$id].'&tb='.$treebank.'&db='.$treebank.'&opt=zoom" target="_blank" >'.$sid.'</a>';
+	$sentenceidlink='<a class="match" href="'.$showtree.'?sid='.$sid.'&id='.$idlist[$id].'&tb='.$treebank.'&db='.$treebank.'&opt=xml" target="_blank" >'.$sid.'</a>';
 
 	print '<tr><td width="150px">'.$sentenceidlink.'</td><td>'.$hlsentence.'</td><td width="100px" >'.$counthits[$id].'</td></tr>'."\n";
       }

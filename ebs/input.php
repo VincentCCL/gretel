@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 <!-- input.php -->
 <!-- form to get an input sentence and send it to another script -->
 
@@ -11,14 +11,13 @@
 require 'header.php';
 /* Display errors*/
 //error_reporting(E_ALL);
-//ini_set('display_errors', 1); 
+//ini_set('display_errors', 1);
 ?>
 
 <script>
 // clear function
-function copyText()
-{
-document.getElementById("example").value=document.getElementById("clear").value;
+function copyText() {
+    $("#example").val($("#clear").val());
 }
 
 // back function
@@ -40,7 +39,7 @@ header('Content-Type:text/html; charset=utf-8');
 $id=session_id();
 $next="parse.php";
 $input="Dit is een zin."; // default example
-$step="step_one"; // for progress bar
+$step= 1; // for progress bar
 $title="<h1>Step 1: Give an example</h1>
 <hr/>";
 $continue='<div style="float:right"><button type="Submit" value="Continue" class="colour">Continue</button></div>';

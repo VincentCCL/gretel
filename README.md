@@ -19,9 +19,10 @@ URL: http://gretel.ccl.kuleuven.be/gretel-2.0
    - Set paths to home directory and home URL
    - Set path to Alpino parser
    - Set BaseX variables
-   
+5. Adapt config/config.example.pm file and change name to config/config.pm (needed for SoNaR only)
+   - Set paths to BaseX database locations (@basexpaths)
+   - Set BaseX database servers (@dbname_server)
 
 --- KNOWN BUGS ---
 
 - Tree visualisation is no longer supported in Google Chrome
-- Different types of progress bars appear if the results.php page is loading

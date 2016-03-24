@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 <!-- parse.php -->
 <!-- show Alpino input parse -->
 
@@ -8,12 +8,13 @@
 
 <head>
 
-<?php 
+<?php
 require 'header.php';
 /* Display errors*/
 //error_reporting(E_ALL);
-//ini_set('display_errors', 1); 
+//ini_set('display_errors', 1);
 ?>
+<link rel="stylesheet" href="<?php echo $home; ?>/style/css/tree-visualizer.css">
 </head>
 
 <body>
@@ -51,9 +52,8 @@ $next="matrix.php";
 $new='<button type="button" onclick="window.location.href=\''.$start.'?'.$time.'\'">New Input Example</button>';
 $back='<button type="button" value="Back" onclick="goBack()">Back</button>';
 $continue='<div style="float:right"><button type="Submit" value="Continue" class="colour">Continue</button></div>';
-$step="step_two"; // for progress bar
-$title="<h1>Step 2: Input Parse</h1>
-<hr/>";
+$step=2; // for progress bar
+$title="<h1>Step 2: Input Parse</h1><hr>";
 
 // messages
 $captcha="This is a suspicious input example. GrETEL does not accept URL's or HTML as input.";
@@ -83,14 +83,14 @@ require("$modlem");
 
 if (preg_match('/(http:\/\/.*)|(<.*)|(.*>)/', $input)==1) { // check for spam
   echo "<h3>Error</h3>";
-  echo $captcha."\n<br/><br/>";
+  echo "<p>".$captcha."</p>";
   echo $back;
   exit;
 }
 
 elseif(!$input || empty($input)) {
   echo "<h3>Error</h3>";
-  echo "Please provide an <b>input example</b>. \n<br/><br/>";
+  echo "<p>Please provide an <b>input example</b>.</p>";
   echo $back;
   exit;
 }
@@ -112,27 +112,17 @@ $parse = Alpino($tokinput,$id); // $parse = parse location
 //MODIFY LEMMA
 $parseloc=ModifyLemma($parse,$id,$tmp); // returns parse location
 
-//ADD STYLE
-`perl  $scripts/xml2tree.pl $tmp/$id-pt.xml '//node[@rel]' 'psonar' > $tmp/$id-style.xml`; //add stylesheet to input parse
-`perl  $scripts/xml2tree.pl $tmp/$id-pt.xml '//node[@rel ]' 'zsonar'> $tmp/$id-style-zoom.xml`; //add stylesheet (zoom function) to input parse
-
 // INFO
 echo "$title";
-echo "$info";
-echo "<i>$tokinput</i></p><br/>";
+echo "<p>$info";
+echo "<em>$tokinput</em></p>";
 
-// DRAW INPUT PARSE
-$inputparse=$home."/tmp/$id-style.xml?$time";
-$inputzoom=$home."/tmp/$id-style-zoom.xml?$time";
-
-echo '<table border=1 class="hd" width="100%"><tr><th>Alpino parse of the input example [<a href="'.$inputzoom.'" target="_blank">full screen</a>]</th></tr>';
-echo "<td><iframe name=\"treeimg\" src=\"".$inputparse."\">Sorry, your browser does not support iframes.</iframe></td>
-</tr></table>";
+echo '<div id="tree-output"></div>';
 
 echo '
 <form action="'.$next.'" method="post" enctype="multipart/form-data" >
 ';
-echo "<br/>";
+echo "<br>";
 echo $info2;
 echo $new;
 echo $back;
@@ -142,5 +132,13 @@ echo "</form>";
 ?>
 
 </div>
+<script src="<?php echo $home; ?>/js/min/tree-visualizer.min.js"></script>
+<script>
+$(document).ready(function(){
+$.treeVisualizer('<?php echo "$home/tmp/$id"; ?>-pt.xml', {
+    container: "#tree-output"
+});
+});
+</script>
 </body>
 </html>
