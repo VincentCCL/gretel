@@ -488,12 +488,15 @@ $(document).ready(function () {
 	    $(this).attr("href", "#tv-" + (index + 1));
 	});
 	tvLink.click(function (e) {
-	    var $this = $(this);
+	    var $this = $(this),
+        sent = encodeURI($this.parent("td").next("td").html());
+
 	    window.history.replaceState("", document.title, window.location.pathname + window.location.search + $this.attr("href"));
 	    $("#tree-visualizer, #tree-visualizer-fs").remove();
 	    $.treeVisualizer($this.data("tv-url"), {
 	        normalView: false,
-	        initFSOnClick: true
+	        initFSOnClick: true,
+            sentence: sent
 	    });
 	    e.preventDefault();
 	});

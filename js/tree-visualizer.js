@@ -18,7 +18,7 @@
         anyTree,
         anyTooltip,
         zoomOpts, normalView, fsView, initFSOnClick,
-        fsFontSize, nvFontSize;
+        fsFontSize, nvFontSize, extendedPOS, sentence;
 
     $.treeVisualizer = function(xml, options) {
         var args = $.extend({}, $.treeVisualizer.defaults, options);
@@ -58,7 +58,7 @@
             // Close fullscreen if a user clicks on an empty area
             FS.click(function(e) {
                 var target = $(e.target);
-                if (!target.closest(".tv-error, .tree, .tooltip, .zoom-opts").length) {
+                if (!target.closest(".tv-error, .tree, .tooltip, .zoom-opts, .sentence").length) {
                     FS.fadeOut(250, function() {
                         treeFS.find("a").removeClass("hovered");
                     });
@@ -84,14 +84,15 @@
                         fontSizeTreeFS("zoom-default");
                     }
                     sizeTreeFS();
-                    if (treeFS.hasClass("small")) {
-                        treeFS.find("a.hovered").one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function() {
-                            tooltipPosition(true);
-                        });
-                    }
-                    else {
-                        tooltipPosition();
-                    }
+
+                    var animationSpeed = treeFS.find("a.hovered").css("transition-duration") || 200;
+
+                    animationSpeed = (animationSpeed.indexOf("ms")>-1) ? parseFloat(animationSpeed) : (parseFloat(animationSpeed) * 1000);
+                    animationSpeed += 50;
+                    
+                    setTimeout(function() {
+                      tooltipPosition(true);
+                    }, animationSpeed);
                 }
             });
 
@@ -124,7 +125,7 @@
 
             anyTree.on("mouseout", "a.hovered", function() {
                 if ($(this).closest(".tree").hasClass("small")) {
-                    $(this).one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function() {
+                    $(this).on("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function() {
                         tooltipPosition(true);
                     });
                 }
@@ -148,8 +149,10 @@
         fsView: true,
         fsFontSize: 14,
         fsBtn: "",
+        sentence: "",
         initFSOnClick: false,
-        container: "body"
+        container: "body",
+        extendedPOS: false
     };
 
 
@@ -157,6 +160,8 @@
         errorContainer = $(".tv-error");
         fontSizes = args.fsFontSizes;
         initFSOnClick = args.initFSOnClick;
+        extendedPOS = args.extendedPOS;
+        sentence = args.sentence;
         var trees = [],
             tooltips = [];
 
@@ -192,9 +197,14 @@
                 '<button class="zoom-default">Default</button><button class="zoom-in">+</button>' +
                 '<button class="close">&#10005;</button></div>';
             FS.hide().append(FSHTML);
+
             treeFS = FS.find(".tree");
             tooltipFS = FS.find(".tooltip");
             zoomOpts = FS.find(".zoom-opts");
+
+            if (sentence != "") {
+                treeFS.before('<div class="sentence">'+decodeURI(sentence)+'</div>');
+            }
 
             trees.push("#tree-visualizer-fs .tree");
             tooltips.push("#tree-visualizer-fs .tooltip");
@@ -301,7 +311,11 @@
                 $this.append("<span>" + li.data("rel") + "<span>");
                 if (li.data("index")) $this.append("<span>" + li.data("index") + "</span>");
             }
-            if (li.data("pt")) {
+
+            if (li.data("postag") && extendedPOS) {
+                $this.append("<span>" + li.data("postag") + "</span>");
+            }
+            else if (li.data("pt")) {
                 if (li.data("index")) $this.children("span:last-child").append(":" + li.data("pt"));
                 else $this.append("<span>" + li.data("pt") + "</span>");
             } else if (li.data("cat")) {
@@ -329,22 +343,19 @@
 
     function noMoreZooming() {
         var currentFontSize = parseInt(treeFS.css("fontSize"), 10);
-        if (currentFontSize <= 2) {
+        if (currentFontSize <= 4) {
             zoomOpts.find("button.zoom-out").prop("disabled", true);
         } else if (currentFontSize >= 32) {
             zoomOpts.find("button.zoom-in").prop("disabled", true);
         } else {
             zoomOpts.find("button").prop("disabled", false);
-            treeFS.removeClass("small x-small xx-small");
+            treeFS.removeClass("small x-small");
         }
 
         if (currentFontSize <= 8) {
             treeFS.addClass("small");
             if (currentFontSize <= 4) {
                 treeFS.addClass("x-small");
-                if (currentFontSize <= 2) {
-                    treeFS.addClass("xx-small");
-                }
             }
         }
     }
@@ -425,19 +436,16 @@
             FSpadR = parseInt(FS.css("paddingRight"), 10) || 0,
             FSpadT = parseInt(FS.css("paddingTop"), 10) || 0,
             children = treeFS.children("ol"),
+            sent = treeFS.prev(".sentence"),
             w = $(window);
 
         treeFS.css({
-            "width": children.outerWidth() + (padR * 2),
-            "height": children.outerHeight() + (padT * 2),
+            "width": children[0].getBoundingClientRect().width + (padR * 2),
+            "height": children[0].getBoundingClientRect().height + (padT * 2),
             "max-width": w.width() - (FSpadR * 2),
-            "max-height": w.height() - (FSpadT * 2)
+            "max-height": w.height() - (FSpadT * 2) - (sent[0].getBoundingClientRect().height * 2)
         });
-        // We need the current width before setting margins
-        treeFS.css({
-            "margin-left": (w.width() - (FSpadR * 2) - treeFS.outerWidth()) / 2,
-            "margin-top": (w.height() - (FSpadT * 2) - treeFS.outerHeight()) / 2
-        });
+        sent.css("max-width", treeFS[0].getBoundingClientRect().width);
     }
 
     function errorHandle(message) {

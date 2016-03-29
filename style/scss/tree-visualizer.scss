@@ -22,6 +22,7 @@
     }
     .tree {
         overflow: auto;
+        display: flex;
         box-sizing: content-box;
         + .tooltip {
             position: fixed;
@@ -83,7 +84,6 @@
         ol {
             position: relative;
             display: table;
-            margin: 0 auto;
             padding-top: 1em;
             ol:before {
                 position: absolute;
@@ -97,6 +97,8 @@
         }
         > ol {
             padding-top: 0;
+            /* Center inside flexbox */
+            margin: auto;
         }
         li {
             position: relative;
@@ -245,8 +247,17 @@
     padding: 72px 48px;
     width: 100%;
     height: 100%;
-    background: url("../img/ie8-bg-fix-black.png") repeat;
     background: rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .sentence {
+        background: darken(#F5F5F5, 5%);
+        padding: 12px;
+        line-height: 1.6;
+        width: 100vw;
+    }
     .tree {
         position: relative;
         z-index: 11;
@@ -290,26 +301,6 @@
                         ~ span {
                             transform: scale(3);
                             margin-top: 3em;
-                        }
-                    }
-                }
-            }
-        }
-        &.xx-small {
-            li a span {margin: 0;}
-            a {
-                border-width: 1px !important;
-                &:hover, &.hovered {
-                    transform: scale(6);
-                    text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-                }
-                &.only-child {
-                    &:hover, &.hovered {
-                        margin-bottom: 14em;
-                        text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-                        ~ span {
-                            transform: scale(6);
-                            margin-top: 6em;
                         }
                     }
                 }
