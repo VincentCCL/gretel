@@ -132,7 +132,7 @@ echo "<b>Input example:</b> <i>$sentence</i><br/><br/>\n";
 
 echo "<b>Treebank:</b> ".strtoupper($treebank)."<br/>\n";
 echo "<b>Components:</b> ".strtoupper($components)."<br/><br/>\n";
-
+echo '<div id="tree-output"></div>';
 if ($_SESSION['search']=="advanced") { // print XPath expression in advanced search mode
 
   if ($treebank=="sonar") {
@@ -153,7 +153,6 @@ if ($_SESSION['search']=="advanced") { // print XPath expression in advanced sea
 
   echo '<input type="reset" value="Reset XPath"/> ';
 }
-echo '<div id="tree-output"></div>';
 echo '
 <form action="'.$next.'" method="post">
 ';
@@ -172,10 +171,16 @@ $(document).ready(function(){
     $('button[type="submit"]').click(function(){
         $(".loading").show();
     });
-
+    <?php if ($_SESSION['search']=="advanced"): ?>
+    $.treeVisualizer('<?php echo "$home/tmp/$id"; ?>-sub.xml', {
+        container: "#tree-output",
+        extendedPOS: true
+    });
+    <?php else: ?>
     $.treeVisualizer('<?php echo "$home/tmp/$id"; ?>-sub.xml', {
         container: "#tree-output"
     });
+    <?php endif; ?>
 });
 </script>
 </script>
