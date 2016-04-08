@@ -270,29 +270,32 @@ catch (Exception $e) {
 <script src="<?php echo $home; ?>/js/tree-visualizer.js"></script>
 <script>
 $(document).ready(function () {
-	var tvLink = $("a.match");
+    // Specific implementation of the Tree Visualizer plugin for GrETEL:
+    // allows refreshing of page, opening tree in new window and so on
+    var tvLink = $("a.match");
 
-	tvLink.each(function (index) {
-	    $(this).attr("data-tv-url", $(this).attr("href"));
-	    $(this).attr("href", "#tv-" + (index + 1));
-	});
-	tvLink.click(function (e) {
-	    var $this = $(this);
-	    window.history.replaceState("", document.title, window.location.pathname + window.location.search + $this.attr("href"));
-	    $("#tree-visualizer, #tree-visualizer-fs").remove();
-	    $.treeVisualizer($this.data("tv-url"), {
-	        normalView: false,
-	        initFSOnClick: true
-	    });
-	    e.preventDefault();
-	});
-	var hash = window.location.hash;
-	if (hash) {
-	    if (hash.indexOf("tv-") == 1) {
-	        var index = hash.match(/\d+$/);
-	        tvLink.eq(index[0] - 1).click();
-	    }
-	}
+    tvLink.each(function(index) {
+        $(this).attr("data-tv-url", $(this).attr("href"));
+        $(this).attr("href", "#tv-" + (index + 1));
+    });
+    tvLink.click(function(e) {
+        var $this = $(this);
+
+        window.history.replaceState("", document.title, window.location.pathname + window.location.search + $this.attr("href"));
+        $("body").treeVisualizer($this.data("tv-url"), {
+            normalView: false,
+            initFSOnClick: true
+        });
+        e.preventDefault();
+    });
+    var hash = window.location.hash;
+    if (hash) {
+        if (hash.indexOf("tv-") == 1) {
+            var index = hash.match(/\d+$/);
+            tvLink.eq(index[0] - 1).click();
+        }
+    }
+
 	// Initialisation code dataTables
 	$('#example').dataTable({
 	    "sScrollY": "400px",

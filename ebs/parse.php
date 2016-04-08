@@ -135,9 +135,7 @@ echo "</form>";
 <script src="<?php echo $home; ?>/js/tree-visualizer.js"></script>
 <script>
 $(document).ready(function(){
-$.treeVisualizer('<?php echo "$home/tmp/$id"; ?>-pt.xml', {
-    container: "#tree-output"
-});
+    $("#tree-output").treeVisualizer('<?php echo "$home/tmp/$id"; ?>-pt.xml');
 });
 </script>
 </body>
