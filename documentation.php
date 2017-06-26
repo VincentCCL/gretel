@@ -15,18 +15,14 @@ require ROOT_PATH."/front-end-includes/head.php";
             <p>Please cite the following paper if you are using GrETEL for your research.</p>
             <cite>
               <a href="http://gretel.ccl.kuleuven.be/docs/Augustinus2012-ebq-LREC.pdf"
-              title="Example-Based Treebank Querying" target="_blank">
-              <span class="stack">
-                <i class="fa fa-file-text-o"></i>
-                <i class="fa fa-download"></i>
-              </span>
-              <span class="sr-only">Example-Based Treebank Querying</span>
-             </a>
-              <p>
-                Liesbeth Augustinus, Vincent Vandeghinste, and Frank Van Eynde (2012).
-                <strong>"Example-Based Treebank Querying"</strong>. In: <em>Proceedings of the 8th International Conference on Language Resources and Evaluation (LREC-2012)</em>.
-                Istanbul, Turkey. pp. 3161-3167.
-              </p>
+                title="Download Example-Based Treebank Querying" target="_blank">
+                <span class="stack">
+                  <i class="fa fa-file-text-o"></i>
+                  <i class="fa fa-download"></i>
+                </span>
+                <span class="sr-only">Example-Based Treebank Querying</span>
+              </a>
+              <p>Liesbeth Augustinus, Vincent Vandeghinste, and Frank Van Eynde (2012). <a href="http://gretel.ccl.kuleuven.be/docs/Augustinus2012-ebq-LREC.pdf" title="Download Example-Based Treebank Querying" target="_blank"><strong>"Example-Based Treebank Querying"</strong></a>. In: <em>Proceedings of the 8th International Conference on Language Resources and Evaluation (LREC-2012)</em>. Istanbul, Turkey. pp. 3161-3167.</p>
             </cite>
             <div class="flex-content">
                 <article>
@@ -99,18 +95,16 @@ require ROOT_PATH."/front-end-includes/head.php";
                            <span class="sr-only">Download 'Making Large Treebanks Searchable. The SoNaR case.'</span>
                           </a>
 
-                           <p>Vincent Vandeghinste and Liesbeth Augustinus. (2014). <strong>"Making Large Treebanks Searchable. The SoNaR case"</strong>.
+                           <p>Vincent Vandeghinste and Liesbeth Augustinus. (2014). <a href="http://gretel.ccl.kuleuven.be/docs/Vandeghinste2014-GrETELSoNaR-LREC.pdf"
+                           title="Download 'Making Large Treebanks Searchable. The SoNaR case.'" target="_blank"><strong>"Making Large Treebanks Searchable. The SoNaR case"</strong></a>.
                              In: Marc Kupietz, Hanno Biber, Harald Lüngen, Piotr Bański, Evelyn Breiteneder, Karlheinz Mörth, Andreas Witt &amp; Jani Takhsha (eds.),
                              <em>Proceedings of the LREC2014 2nd workshop on Challenges in the management of large corpora (CMLC-2)</em>. Reykjavik, Iceland. pp. 15-20.
                            </p>
                          </cite>
                      </dd>
- <dt id="faq-6" data-collapse-btn="true">What is new in version 3?</dt>
+                     <dt id="faq-6" data-collapse-btn="true">What is new in version 3?</dt>
                      <dd data-collapse-target="true"><p>In addition to an overall design update, major changes include a more intuitive query builder in the example-based search mode and a visualizer for syntax trees that is compatible with all modern browsers. Moreover, the results are presented as soon as they are found, so you can browse the matching sentences before the treebank search is completed.
-Furthermore it is possible to query the 500-million word SoNaR treebank in a similar fashion as the two one-million word treebanks CGN and LASSY Small.
-</p>
-</dd>
-
+                       Furthermore it is possible to query the 500-million word SoNaR treebank in a similar fashion as the two one-million word treebanks CGN and LASSY Small.</p></dd>
                 </dl>
             </section>
         </main>
