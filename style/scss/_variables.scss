@@ -1,0 +1,50 @@
+$fontbody: 'Open Sans', sans-serif;
+$fontheadings: 'Roboto Condensed', serif;
+$fontmono: 'Roboto Mono', monospace;
+
+$body_c: #565656;
+$body_bgc: #D6E69D;
+$body_bg: "../../../img/logo-image-gretel-curve.svg";
+$logo_crown_bgc: rgba(168,205,40,0.78);
+$logo_branch_bgc: #7E6748;
+$cite_bc: #7E6748;
+$table_h_bgc: #DAD1C7;
+$table_h_bc: #C6B8A8;
+
+$matrix_r1_bgc: #CDBFAF;
+$matrix_r2_bgc: #B8AB9C;
+$matrix_r3_bgc: #A49A90;
+$tooltip_bgc: #F0F0F0;
+$tooltip_bc: #AD9F8E;
+/* Hyperlinks */
+$a_c: #7E6748;
+$a_h_c: darken($a_c, 12%);
+
+$heading_sup_bgc: #B6D54B;
+
+/* Progress bar */
+$progress_done_bgc: #96846C;
+$progress_active_bgc: #B6D54B;
+
+$btnlink_bgc: #AD9F8E;
+$btnlink_h_bgc: darken($btnlink_bgc, 12%);
+$notice_bc: #B2D241;
+$notice_bgc: #EEF7CF;
+
+/* Select all checkbox on results page */
+$selectallcomps_bc: #9FB72F;
+$selectallcomps_bgc: #EEF7CF;
+/* Color inside rotating ring on results page */
+$searchanimation_bgc: #B2D241;
+
+/* Download buttons on results page */
+$downloadbtn_bgc: #96846C;
+$downloadbtn_h_bgc: #7E6748;
+
+$error_bc: #DF6B5F;
+$error_bgc: #FBDDD4;
+
+$pagefooter_bgc: #7E6748;
+$footerlogo_branch_bgc: #655745;
+$totop_bgc: #655745;
+$totop_h_bgc: darken($totop_bgc, 8%);

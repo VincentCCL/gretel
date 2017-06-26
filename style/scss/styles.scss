@@ -47,24 +47,11 @@ body {
     overflow-y: scroll;
     min-width: 576px;
     min-height: 100vh;
-    background-color: #D6E69D;
-    color: $textmain;
+    background-color: $body_bgc;
+    color: $body_c;
     font-family: $fontbody;
     line-height: 1.625;
     align-items: center;
-}
-@media all and (min-width: 1200px) {
-    body::before {
-        position: fixed;
-        top: 36px;
-        left: 50%;
-        z-index: -1;
-        display: block;
-        margin-left: -695px;
-        width: 374px;
-        height: 450px;
-        content: url("../../../img/logo-image-gretel-curve.svg");
-    }
 }
 
 #popup-overlay {
@@ -86,7 +73,7 @@ body {
     max-width: 50vw;
     width: 420px;
     border-radius: 4px;
-    background: white;
+    background: #FFFFFF;
 
     :first-child {
         margin-top: 0;
@@ -99,7 +86,7 @@ body {
             bottom: auto;
             left: -8px;
             border-width: 8px 8px 8px 0;
-            border-color: transparent white;
+            border-color: transparent #FFFFFF;
             transform: translateY(-50%);
         }
     }
@@ -111,7 +98,7 @@ body {
             bottom: auto;
             left: auto;
             border-width: 8px 0 8px 8px;
-            border-color: transparent white;
+            border-color: transparent #FFFFFF;
             transform: translateY(-50%);
         }
     }
@@ -123,7 +110,7 @@ body {
             bottom: auto;
             left: 50%;
             border-width: 0 8px 8px 8px;
-            border-color: white transparent;
+            border-color: #FFFFFF transparent;
             transform: translateX(-50%);
         }
     }
@@ -138,7 +125,7 @@ body {
             left: 50%;
             border: solid;
             border-width: 8px 8px 0 8px;
-            border-color: white transparent;
+            border-color: #FFFFFF transparent;
             content: "";
             transform: translateX(-50%);
         }
@@ -164,11 +151,11 @@ svg[class^="logo-"] {
 
 .logo-gretel {
     circle {
-        fill: rgba(168,205,40,0.78);
+        fill: $logo_crown_bgc;
     }
 
     path {
-        fill: #7E6748;
+        fill: $logo_branch_bgc;
     }
 }
 
@@ -177,7 +164,8 @@ cite {
     margin: 1.25em auto;
     padding: 0.67em 1.34em 0.89em;
     max-width: 76%;
-    border: 1px solid #7E6748;
+    background: #FFFFFF;
+    border: 1px solid $cite_bc;
     border-bottom-width: 2px;
     border-radius: 4px;
     text-align: left;
@@ -189,7 +177,7 @@ cite {
         margin: 0;
     }
 
-    a {
+    > a {
         margin-right: 24px;
         border-bottom: 0 none;
 
@@ -209,10 +197,10 @@ cite {
         bottom: 0;
         left: 0;
         padding: 4px;
-        border: 1px solid #7e6748;
+        border: 1px solid $cite_bc;
         border-radius: 50%;
-        background: #7e6748;
-        color: white;
+        background: $cite_bc;
+        color: #FFFFFF;
         transform: translate(-25%, 50%);
 
         &.fa-loaded {
@@ -229,18 +217,18 @@ table {
     border-spacing: 0;
     border-collapse: collapse;
     font-size: 14px;
-
+    background-color: #FFFFFF;
     td,
     th {
         padding: 2px 12px;
         border: 1px solid #DCDCDC;
-        background: white;
+        background: #FFFFFF;
     }
 
     tfoot td,
     th {
-        border-color: darken(#DAD1C7, 10%);
-        background: #DAD1C7;
+        border-color: $table_h_bc;
+        background: $table_h_bgc;
         text-align: left;
         white-space: nowrap;
         font-weight: bold;
@@ -251,15 +239,6 @@ table {
     }
 
     tr {
-        &.advanced {
-            th {
-                background: #e8e1d8;
-            }
-
-            td {
-                background: #F7F7F7;
-            }
-        }
         @keyframes checkbox-attention {
             from {
                 transform: scale(1);
@@ -302,7 +281,7 @@ table {
 
             &::after {
                 border-width: 0 5px 5px 5px;
-                border-color: #ad9f8e transparent;
+                border-color: $tooltip_bc transparent;
                 transform: translateX(-50%);
             }
         }
@@ -321,7 +300,7 @@ table {
 
             &::after {
                 border-width: 5px 5px 5px 0;
-                border-color: transparent #ad9f8e;
+                border-color: transparent $tooltip_bc;
                 transform: translateY(-50%);
             }
         }
@@ -340,7 +319,7 @@ table {
 
             &::after {
                 border-width: 5px 0 5px 5px;
-                border-color: transparent #ad9f8e;
+                border-color: transparent $tooltip_bc;
                 transform: translateY(-50%);
             }
         }
@@ -365,9 +344,9 @@ table {
                 padding: 4px 6px;
                 max-width: 320px;
                 width: 100vw;
-                border: 1px solid #ad9f8e;
+                border: 1px solid $tooltip_bc;
                 border-radius: 3px;
-                background: #F0F0F0;
+                background: $tooltip_bgc;
                 content: attr(data-title);
                 font-size: 12px;
                 white-space: normal !important;
@@ -376,7 +355,7 @@ table {
             &::after {
                 border: solid;
                 border-width: 5px 5px 0 5px;
-                border-color: #ad9f8e transparent;
+                border-color: $tooltip_bc transparent;
                 content: "";
                 transform: translateX(-50%);
             }
@@ -412,7 +391,7 @@ h3 {
 .generated-xpath,
 p code {
     padding: 0.25em 0.34em;
-    border: 1px solid #ddd;
+    border: 1px solid #DDDDDD;
     border-bottom-width: 2px;
     border-radius: 4px;
     background: #FAFAFA;
@@ -426,12 +405,12 @@ p code {
 
 a {
     border-bottom: 1px solid;
-    color: #7E6748;
+    color: $a_c;
     text-decoration: none;
 
     &:hover {
         border-bottom: 0 none;
-        color: darken(#7E6748, 12%);
+        color: $a_h_c;
     }
 }
 
@@ -464,7 +443,7 @@ dd {
     display: flex;
     margin: 0 auto 0.34em;
     padding-bottom: 0.89em;
-    border-bottom: 1px dotted #968A7A;
+    border-bottom: 1px solid #F0F0F0;
     justify-content: space-between;
     align-items: center;
 
@@ -480,8 +459,8 @@ dd {
             width: 28px;
             height: 28px;
             border-radius: 50%;
-            background: #b6d54b;
-            color: white;
+            background: $heading_sup_bgc;
+            color: #FFFFFF;
             vertical-align: super;
             text-align: center;
             font-weight: bolder;
@@ -524,7 +503,7 @@ dd {
                 display: block;
                 padding: 2px 4px;
                 border-bottom: 0 none;
-                color: $textmain;
+                color: $body_c;
                 white-space: nowrap;
                 font-weight: 300;
                 font-size: 15px;
@@ -533,7 +512,7 @@ dd {
 
                 &.active,
                 &:hover {
-                    color: darken($textmain, 12%);
+                    color: darken($body_c, 12%);
                     transform: scale(1.125);
 
                     &::after {
@@ -547,7 +526,7 @@ dd {
                     left: 50%;
                     display: block;
                     width: 0;
-                    border-bottom: 1px solid #565656;
+                    border-bottom: 1px solid $body_c;
                     content: "";
                     transition: width 200ms;
                     transform: translateX(-50%);
@@ -579,7 +558,7 @@ dd {
             right: 0;
             display: none;
             flex-direction: column;
-            border: 1px solid #DDD;
+            border: 1px solid #DDDDDD;
             border-radius: 4px;
             background-color: #F0F0F0;
 
@@ -589,13 +568,13 @@ dd {
 
                 a {
                     padding: 0.67em 1.34em;
-                    border-bottom: 1px solid #DDD;
+                    border-bottom: 1px solid #DDDDDD;
                     border-left: 4px solid transparent;
                     font-size: 18px;
 
                     &.active,
                     &:hover {
-                        border-left-color: #DDD;
+                        border-left-color: #DDDDDD;
                         background: #F5F5F5;
                         transform: scale(1);
                     }
@@ -634,7 +613,7 @@ dd {
     max-width: 1024px;
     width: 100%;
     border-radius: 0 0 6px 6px;
-    background: #fff;
+    background: #FFFFFF;
     flex: 1;
 }
 /* Progress bar */
@@ -653,7 +632,7 @@ dd {
         li {
             display: inline-block;
             padding: 0;
-            background: #f0f0f0;
+            background: #F0F0F0;
 
             &:first-child {
                 border-radius: 4px 0 0 4px;
@@ -664,12 +643,12 @@ dd {
             }
 
             &.done {
-                background-color: #96846c;
+                background-color: $progress_done_bgc;
             }
 
             &.active,
             &:not(.no-hover):hover {
-                background-color: #B6D54B;
+                background-color: $progress_active_bgc;
             }
 
             &.no-hover {
@@ -677,7 +656,7 @@ dd {
                 pointer-events: none;
 
                 &:not(.active) a {
-                    color: rgba($textmain,0.64);
+                    color: rgba($body_c,0.64);
                 }
             }
 
@@ -688,7 +667,7 @@ dd {
                 margin: 0;
                 padding: 0.8em;
                 border: 0 none;
-                color: white;
+                color: #FFFFFF;
                 text-decoration: none;
             }
         }
@@ -749,7 +728,7 @@ dd {
                         height: 0;
                         border-top: 50px solid transparent;
                         border-bottom: 50px solid transparent;
-                        border-left: 30px solid white;
+                        border-left: 30px solid #FFFFFF;
                         content: " ";
                         transform: translateX(-17px);
                     }
@@ -757,7 +736,7 @@ dd {
                     &::after {
                         z-index: 2;
                         margin-left: -1px;
-                        border-left-color: #f0f0f0;
+                        border-left-color: #F0F0F0;
                     }
                 }
             }
@@ -773,11 +752,11 @@ dd {
 
             &.active:not(:last-child) a::after,
             &:not(:last-child):not(.no-hover):hover a::after {
-                border-left-color: #B6D54B;
+                border-left-color: $progress_active_bgc;
             }
 
             &.done:not(:last-child) a::after {
-                border-left-color: #96846c;
+                border-left-color: $progress_done_bgc;
             }
         }
     }
@@ -803,7 +782,7 @@ body:not(.tv-success):not(.tv-fail) {
             background: url("../../../img/logo-image-gretel.svg") no-repeat;
             background-position: bottom center;
             background-size: contain;
-            color: white;
+            color: #FFFFFF;
             content: "Loading tree";
             text-align: center;
             font-weight: bold;
@@ -834,10 +813,10 @@ a.collapse {
     padding: 0.4em 0.6em;
     border: 0 none;
     border: 1px solid transparent;
-    border: 1px solid #dcdcdc;
+    border: 1px solid #DCDCDC;
     border-radius: 4px;
     background: transparent;
-    color: #565656;
+    color: $body_c;
     transition: all 250ms;
     justify-content: space-between;
 
@@ -849,7 +828,7 @@ a.collapse {
         width: 32px;
         height: 32px;
         border: 1px solid;
-        border: 1px solid #dcdcdc;
+        border: 1px solid #DCDCDC;
         border-radius: 50%;
         background: transparent;
         text-align: center;
@@ -864,26 +843,26 @@ a.collapse {
 
     &:hover,
     &[data-collapse="hidden"] {
-        border-color: #c4c4c4;
-        background: #f7f7f7;
-        color: #333;
+        border-color: #C4C4C4;
+        background: #F7F7F7;
+        color: #333333;
 
         > span {
-            background: #dcdcdc;
+            background: #DCDCDC;
             line-height: 32px;
 
             i {
-                color: #f7f7f7;
+                color: #F7F7F7;
                 transform: rotate(180deg);
             }
         }
     }
 
     &[data-collapse="hidden"]:hover {
-        background: #f0f0f0;
+        background: #F0F0F0;
 
         i {
-            color: #f0f0f0;
+            color: #F0F0F0;
         }
     }
 }
@@ -901,18 +880,16 @@ a.collapse {
     }
 }
 
-.docs .project-web-wrapper,
-.home .project-web-wrapper,
-.matrix .xpath-wrapper,
-.xps.xpath .open-beautifier-wrapper {
+.project-web-wrapper,
+.open-beautifier-wrapper {
     a {
         display: inline-block;
         padding: 6px 8px;
         border: 0 none;
         border-radius: 4px;
-        background: #ad9f8e;
+        background-color: $btnlink_bgc;
         box-shadow: inset 0 -1px rgba(0,0,0,.24);
-        color: white;
+        color: #FFFFFF;
         font-size: 88%;
 
         i {
@@ -922,7 +899,7 @@ a.collapse {
         }
 
         &:hover {
-            background: darken(#ad9f8e, 12%);
+            background-color: $btnlink_h_bgc;
             text-shadow: 0 1px rgba(0,0,0,0.12);
         }
 
@@ -937,7 +914,7 @@ a.collapse {
     .citation-wrapper {
         margin-top: 36px;
         padding-top: 36px;
-        border-top: 1px solid #eaeaea;
+        border-top: 1px solid #EAEAEA;
     }
 }
 /* DOCUMENTATION */
@@ -1030,15 +1007,15 @@ a.collapse {
         }
 
         .row-group-1 th {
-            background: #cdbfaf;
+            background: $matrix_r1_bgc;
         }
 
         .row-group-2 th {
-            background: #b8ab9c;
+            background: $matrix_r1_bgc;
         }
 
         .row-group-3 th {
-            background: #a49a90;
+            background: $matrix_r1_bgc;
         }
 
         tbody td {
@@ -1170,14 +1147,13 @@ a.collapse {
             a {
                 padding: 0.6em;
                 border: 1px solid;
-                border-bottom-style: 0 none;
                 border-radius: 4px;
                 font-size: 88%;
 
                 &:hover {
                     border-bottom: 1px solid;
-                    background: #7e6748;
-                    color: white;
+                    background: $a_c;
+                    color: #FFFFFF;
                 }
             }
         }
@@ -1191,9 +1167,9 @@ a.collapse {
         padding: 0.8em;
         min-width: 300px;
         width: 67%;
-        border: 1px solid #B2D241;
+        border: 1px solid $notice_bc;
         border-radius: 4px;
-        background-color: #EEF7CF;
+        background-color: $notice_bgc;
         text-align: center;
     }
 }
@@ -1265,10 +1241,6 @@ a.collapse {
             &:nth-child(even) {
                 background-color: #F7F7F7;
             }
-
-            &.added {
-                background-color: #F2F9DD;
-            }
         }
     }
 
@@ -1288,7 +1260,7 @@ a.collapse {
         display: none;
         padding: 0.8em;
         max-width: 220px;
-        background: white;
+        background: #FFFFFF;
         box-shadow: 0 2px 8px rgba(0,0,0,.3), 0 0 12px rgba(0,0,0,.12);
         transform: translateY(100%);
         flex-wrap: wrap;
@@ -1302,7 +1274,7 @@ a.collapse {
             width: 0;
             height: 0;
             border: 12px solid;
-            border-color: transparent transparent white white;
+            border-color: transparent transparent #FFFFFF #FFFFFF;
             box-shadow: -4px 4px 6px -2px rgba(0,0,0,0.08);
             content: "";
             transform: rotate(135deg);
@@ -1353,7 +1325,7 @@ a.collapse {
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                color: #9FB72F;
+                color: $selectallcomps_bc;
                 font-size: 24px;
                 opacity: 0;
                 transform: translate(-50%, -50%);
@@ -1361,9 +1333,9 @@ a.collapse {
             }
 
             &.active {
-                border-color: #9FB72F;
-                background: #EEF7CF;
-                color: #9FB72F;
+                border-color: $selectallcomps_bc;
+                background: $selectallcomps_bgc;
+                color: $selectallcomps_bc;
 
                 i {
                     animation: check-comps-fadeout 2.25s forwards;
@@ -1429,7 +1401,7 @@ a.collapse {
             position: relative;
             width: 24px;
             height: 24px;
-            border: 3px solid #fff;
+            border: 3px solid #FFFFFF;
             border-radius: 50%;
 
             div {
@@ -1439,7 +1411,7 @@ a.collapse {
                 bottom: -3px;
                 left: -3px;
                 border: 4px solid rgba(0, 0, 0, 0);
-                border-top-color: #b2d241;
+                border-top-color: $searchanimation_bgc;
                 border-radius: 50%;
                 content: "";
                 animation: load-rotate 2.4s linear infinite;
@@ -1519,7 +1491,7 @@ a.collapse {
         padding: 12px;
         border: 0 none;
         border-radius: 4px;
-        background: #96846C;
+        background: $downloadbtn_bgc;
         box-shadow: inset 0 -1px rgba(0,0,0,.36);
         color: #FFFFFF;
         font-weight: bold;
@@ -1535,7 +1507,7 @@ a.collapse {
         }
 
         &:hover {
-            background: #7E6748;
+            background: $downloadbtn_h_bgc;
             text-shadow: 0 2px 0 rgba(0,0,0,0.3);
 
             i {
@@ -1567,7 +1539,7 @@ a.collapse {
         animation: notification-blink 700ms alternate infinite;
 
         a {
-            color: #565656;
+            color: $body_c;
 
             &:hover {
                 color: #444;
@@ -1592,7 +1564,7 @@ a.collapse {
         &:not(.active):not(.error) {
             position: relative;
             min-height: 190px;
-            border: 1px solid #dedede;
+            border: 1px solid #DEDEDE;
             border-radius: 4px;
             background: #FAFAFA;
 
@@ -1601,7 +1573,7 @@ a.collapse {
                 top: 50%;
                 left: 50%;
                 z-index: 0;
-                color: rgb(232, 232, 232);
+                color: #E8E8E8;
                 content: "Searching";
                 text-shadow: 0 -1px rgba(0,0,0,.16), 0 1px rgb(255,255,255), 0 -1px 4px rgba(0,0,0,0.1);
                 font-weight: 700;
@@ -1667,19 +1639,17 @@ a.collapse {
         }
 
         .error {
-            border: 1px solid #DF6B5F;
-            background-color: #FBDDD4;
+            border: 1px solid $error_bc;
+            background-color: $error_bgc;
 
             a {
-                border-bottom-color: #DF6B5F;
-                color: #DF6B5F;
+                border-bottom-color: $error_bc;
+                color: $error_bc;
             }
         }
 
         .notice {
             margin: auto;
-            border: 1px solid #B2D241;
-            background-color: #EEF7CF;
 
             small {
                 &::after {
@@ -1705,7 +1675,7 @@ a.collapse {
     p {
         margin: 0 0 0 36px;
         padding: 12px;
-        border: 1px solid #dedede;
+        border: 1px solid #DEDEDE;
         border-radius: 4px;
         background: #FAFAFA;
         font-size: 88%;
@@ -1728,7 +1698,7 @@ a.collapse {
             textarea {
                 min-width: 560px;
                 min-height: 100px;
-                color: #111;
+                color: #111111;
                 font-size: 12px;
                 font-family: $fontmono;
             }
@@ -1832,7 +1802,7 @@ a.collapse {
 .page-footer {
     margin-top: 24px;
     width: 100%;
-    background: #7E6748;
+    background-color: $pagefooter_bgc;
     flex: 0;
 
     .content {
@@ -1841,12 +1811,12 @@ a.collapse {
         margin: 0 auto;
         padding: 12px 48px;
         background: transparent;
-        color: white;
+        color: #FFFFFF;
         font-size: smaller;
         justify-content: space-between;
 
         a {
-            color: white;
+            color: #FFFFFF;
         }
 
         h3 {
@@ -1941,13 +1911,13 @@ a.collapse {
             width: 40px;
             height: 40px;
             border: 0 none;
-            background: #655745;
-            color: white;
+            background-color: $totop_bgc;
+            color: #FFFFFF;
 
             &:active,
             &:hover {
                 border: 0 none;
-                background: darken(#655745, 8%);
+                background-color: $totop_h_bgc;
             }
         }
 
@@ -1962,8 +1932,22 @@ a.collapse {
             }
 
             path {
-                fill: #655745;
+                fill: $footerlogo_branch_bgc;
             }
         }
+    }
+}
+
+@media all and (min-width: 1200px) {
+    body::before {
+        position: fixed;
+        top: 36px;
+        left: 50%;
+        z-index: -1;
+        display: block;
+        margin-left: -695px;
+        width: 374px;
+        height: 450px;
+        content: url($body_bg);
     }
 }
