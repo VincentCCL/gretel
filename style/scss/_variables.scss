@@ -5,15 +5,19 @@ $fontmono: 'Roboto Mono', monospace;
 $body_c: #565656;
 $body_bgc: #D6E69D;
 $body_bg: "../../../img/logo-image-gretel-curve.svg";
+
+/* Background logo */
 $logo_crown_bgc: rgba(168,205,40,0.78);
 $logo_branch_bgc: #7E6748;
 $cite_bc: #7E6748;
 $table_h_bgc: #DAD1C7;
 $table_h_bc: #C6B8A8;
 
+/* Different types in matrix get different color */
 $matrix_r1_bgc: #CDBFAF;
 $matrix_r2_bgc: #B8AB9C;
 $matrix_r3_bgc: #A49A90;
+/* Tooltips on information labels (not tree) */
 $tooltip_bgc: #F0F0F0;
 $tooltip_bc: #AD9F8E;
 /* Hyperlinks */
@@ -28,10 +32,12 @@ $progress_active_bgc: #B6D54B;
 
 $btnlink_bgc: #AD9F8E;
 $btnlink_h_bgc: darken($btnlink_bgc, 12%);
+$btnlink_dis_c: #E4DBD1;
+$btnlink_dis_bgc: #C5BBAE;
 $notice_bc: #B2D241;
 $notice_bgc: #EEF7CF;
 
-/* Select all checkbox on results page */
+/* 'Select all' checkbox on results page */
 $selectallcomps_bc: #9FB72F;
 $selectallcomps_bgc: #EEF7CF;
 /* Color inside rotating ring on results page */
