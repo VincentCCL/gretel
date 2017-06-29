@@ -47,7 +47,7 @@ require ROOT_PATH."/front-end-includes/head.php";
                     <ul>
                     <li><a href="http://gretel.ccl.kuleuven.be/afribooms" title="GrETEL 4 Afrikaans" target="_blank">GrETEL 4 Afrikaans</a></li>
                     <li><a href="http://gretel.ccl.kuleuven.be/poly-gretel" title="Poly-GrETEL" target="_blank">Poly-GrETEL</a></li>
-                    <li><a href="http://gretel.ccl.kuleuven.be/gretel-2.0" title="GrETEL 2.0" target="_blank">GrETEL 2..0</a></li>
+                    <li><a href="http://gretel.ccl.kuleuven.be/gretel-2.0" title="GrETEL 2.0" target="_blank">GrETEL 2.0</a></li>
                     </ul>
                 </article>
             </div>
