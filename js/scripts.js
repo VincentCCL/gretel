@@ -540,8 +540,8 @@ $(function() {
       // Decode URI into readable string
       var tpinput = decodeURIComponent(getUrlVars()["tpinput"]);
 
-      $('.step-1 .input-wrapper input').val(tpinput);
-      $('.step-1 textarea[name=xpath]').val(tpinput);
+      $('.input.ebs input').val(tpinput);
+      $('.input.xps textarea[name=xpath]').val(tpinput);
     }
   }
 
