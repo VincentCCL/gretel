@@ -222,9 +222,16 @@ function modifyLemma($parse, $id)
         }
     }
 
-    $tree = $xml->asXML();
+    if ($xml->xpath('/treebank')) {
+      $tree = $xml->alpino_ds->asXML();
+    } else {
+      $tree = $xml->asXML();
+    }
+    
     fwrite($output, $tree);
     fclose($output);
+
+    return $parseLocation;
 }
 
 function applyCs($xpath) {
