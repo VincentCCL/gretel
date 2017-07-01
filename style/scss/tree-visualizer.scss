@@ -93,7 +93,8 @@
         display: flex;
         overflow: scroll;
         align-items: center;
-        flex: 1 0 0%;
+        /* If we use 0% a minifer will cut off %, which leads to another effect */
+        flex: 1 0 0.00000001%;
 
         ol {
             position: relative;
