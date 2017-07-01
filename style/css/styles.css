@@ -1,6 +1,9 @@
+/* Background logo */
+/* Different types in matrix get different color */
+/* Tooltips on information labels (not tree) */
 /* Hyperlinks */
 /* Progress bar */
-/* Select all checkbox on results page */
+/* 'Select all' checkbox on results page */
 /* Color inside rotating ring on results page */
 /* Download buttons on results page */
 body,
@@ -118,8 +121,8 @@ textarea:focus {
 input:not([type="button"]):not([type="reset"]):not([type="submit"]),
 textarea {
   padding: 6px 8px;
-  border: 1px solid #bbb;
-  background: white;
+  border: 1px solid #BBBBBB;
+  background-color: #FFFFFF;
   border-radius: 4px;
 }
 
@@ -139,11 +142,11 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-  background: #ad9f8e;
+  background-color: #AD9F8E;
   -webkit-box-shadow: inset 0 -1px rgba(0, 0, 0, 0.24);
   box-shadow: inset 0 -1px rgba(0, 0, 0, 0.24);
   border: 0 none;
-  color: white;
+  color: #FFFFFF;
   padding: 6px 8px;
   border-radius: 4px;
   border: 0 none;
@@ -153,7 +156,7 @@ button:not([disabled]):not(.disabled):hover,
 input[type="button"]:not([disabled]):not(.disabled):hover,
 input[type="reset"]:not([disabled]):not(.disabled):hover,
 input[type="submit"]:not([disabled]):not(.disabled):hover {
-  background: #93816b;
+  background-color: #93816b;
   text-shadow: 0 1px rgba(0, 0, 0, 0.12);
 }
 
@@ -187,14 +190,14 @@ label[disabled] {
 }
 
 button[disabled] {
-  color: #e4dbd1;
+  color: #E4DBD1;
   -webkit-box-shadow: none;
   box-shadow: none;
-  background: #c5bbae;
+  background-color: #C5BBAE;
 }
 
 label.disabled {
-  color: #d0d0d0;
+  color: #D0D0D0;
 }
 
 .docs dt:target::after, .page-footer address ul .fa-before::before,
@@ -342,7 +345,7 @@ body {
   border: solid;
   border-width: 8px 8px 0 8px;
   border-color: #FFFFFF transparent;
-  content: "";
+  content: '';
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
@@ -377,6 +380,7 @@ svg[class^="logo-"] {
   display: flex;
 }
 
+/* Logo inside SVG file */
 .logo-gretel circle {
   fill: rgba(168, 205, 40, 0.78);
 }
@@ -393,10 +397,10 @@ cite {
   margin: 1.25em auto;
   padding: 0.67em 1.34em 0.89em;
   max-width: 76%;
-  background: #FFFFFF;
   border: 1px solid #7E6748;
   border-bottom-width: 2px;
   border-radius: 4px;
+  background: #FFFFFF;
   text-align: left;
   font-style: normal;
   font-size: 88%;
@@ -452,8 +456,8 @@ cite .fa-file-text-o {
 table {
   border-spacing: 0;
   border-collapse: collapse;
-  font-size: 14px;
   background-color: #FFFFFF;
+  font-size: 14px;
 }
 
 table td,
@@ -589,15 +593,15 @@ table label {
   border-radius: 3px;
   background: #F0F0F0;
   content: attr(data-title);
-  font-size: 12px;
   white-space: normal !important;
+  font-size: 12px;
 }
 
 .help-tooltip[data-title]:hover::after, .help-tooltip[data-title].hang-top:hover::after {
   border: solid;
   border-width: 5px 5px 0 5px;
   border-color: #AD9F8E transparent;
-  content: "";
+  content: '';
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
@@ -799,7 +803,7 @@ dd p:last-child {
   display: block;
   width: 0;
   border-bottom: 1px solid #565656;
-  content: "";
+  content: '';
   -webkit-transition: width 200ms;
   -o-transition: width 200ms;
   transition: width 200ms;
@@ -1028,7 +1032,7 @@ dd p:last-child {
     border-top: 50px solid transparent;
     border-bottom: 50px solid transparent;
     border-left: 30px solid #FFFFFF;
-    content: " ";
+    content: ' ';
     -webkit-transform: translateX(-17px);
     -ms-transform: translateX(-17px);
     transform: translateX(-17px);
@@ -1076,7 +1080,7 @@ body:not(.tv-success):not(.tv-fail) #tree-output::before {
   background-position: bottom center;
   background-size: contain;
   color: #FFFFFF;
-  content: "Loading tree";
+  content: 'Loading tree';
   text-align: center;
   font-weight: bold;
   font-size: 120%;
@@ -1205,8 +1209,8 @@ a.collapse[data-collapse="hidden"]:hover i {
   justify-content: space-between;
 }
 
-.project-web-wrapper a,
-.open-beautifier-wrapper a {
+.open-beautifier-wrapper a,
+.project-web-wrapper a {
   display: inline-block;
   padding: 6px 8px;
   border: 0 none;
@@ -1218,21 +1222,21 @@ a.collapse[data-collapse="hidden"]:hover i {
   font-size: 88%;
 }
 
-.project-web-wrapper a i,
-.open-beautifier-wrapper a i {
+.open-beautifier-wrapper a i,
+.project-web-wrapper a i {
   margin-left: 4px;
   font-weight: bold;
   font-size: 12px;
 }
 
-.project-web-wrapper a:hover,
-.open-beautifier-wrapper a:hover {
+.open-beautifier-wrapper a:hover,
+.project-web-wrapper a:hover {
   background-color: #93816b;
   text-shadow: 0 1px rgba(0, 0, 0, 0.12);
 }
 
-.project-web-wrapper a:active,
-.open-beautifier-wrapper a:active {
+.open-beautifier-wrapper a:active,
+.project-web-wrapper a:active {
   -webkit-box-shadow: none;
   box-shadow: none;
   -webkit-transform: translateY(1px);
@@ -1291,7 +1295,7 @@ a.collapse[data-collapse="hidden"]:hover i {
 
 .docs dt:target::after {
   margin-left: 5px;
-  content: "\f104";
+  content: '\f104';
   -webkit-animation: docs-target-arrow 600ms alternate infinite;
   animation: docs-target-arrow 600ms alternate infinite;
 }
@@ -1642,7 +1646,7 @@ a.collapse[data-collapse="hidden"]:hover i {
   border-color: transparent transparent #FFFFFF #FFFFFF;
   -webkit-box-shadow: -4px 4px 6px -2px rgba(0, 0, 0, 0.08);
   box-shadow: -4px 4px 6px -2px rgba(0, 0, 0, 0.08);
-  content: "";
+  content: '';
   -webkit-transform: rotate(135deg);
   -ms-transform: rotate(135deg);
   transform: rotate(135deg);
@@ -1797,8 +1801,8 @@ a.collapse[data-collapse="hidden"]:hover i {
 }
 
 .results .controls .status span:first-child::after {
-  content: "&";
   margin: 0 6px;
+  content: '&';
 }
 
 .results .controls .status span {
@@ -1814,15 +1818,15 @@ a.collapse[data-collapse="hidden"]:hover i {
 }
 
 .results .controls .searching-animation div {
-  top: -3px;
   position: absolute;
+  top: -3px;
   right: -3px;
   bottom: -3px;
   left: -3px;
   border: 4px solid transparent;
   border-top-color: #B2D241;
   border-radius: 50%;
-  content: "";
+  content: '';
   -webkit-animation: load-rotate 2.4s linear infinite;
   animation: load-rotate 2.4s linear infinite;
 }
@@ -2005,7 +2009,7 @@ a.collapse[data-collapse="hidden"]:hover i {
   left: 50%;
   z-index: 0;
   color: #E8E8E8;
-  content: "Searching";
+  content: 'Searching';
   text-shadow: 0 -1px rgba(0, 0, 0, 0.16), 0 1px white, 0 -1px 4px rgba(0, 0, 0, 0.1);
   font-weight: 700;
   font-size: 36px;
@@ -2086,7 +2090,7 @@ a.collapse[data-collapse="hidden"]:hover i {
 #download-overview .messages .notice small::after {
   display: table;
   clear: both;
-  content: "";
+  content: '';
 }
 
 #download-overview .flex-content,
@@ -2326,23 +2330,23 @@ a.collapse[data-collapse="hidden"]:hover i {
 }
 
 .page-footer address .address::before {
-  content: "\f041";
+  content: '\f041';
 }
 
 .page-footer address .web::before {
-  content: "\f0c1";
+  content: '\f0c1';
 }
 
 .page-footer address .tel::before {
-  content: "\f095";
+  content: '\f095';
 }
 
 .page-footer address .fax::before {
-  content: "\f1ac";
+  content: '\f1ac';
 }
 
 .page-footer address .email::before {
-  content: "\f0e0";
+  content: '\f0e0';
 }
 
 .page-footer nav ul {
@@ -2350,7 +2354,7 @@ a.collapse[data-collapse="hidden"]:hover i {
 }
 
 .page-footer nav ul li::before {
-  content: "\f054";
+  content: '\f054';
 }
 
 .page-footer .other {

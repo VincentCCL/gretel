@@ -41,7 +41,7 @@ if ($continueConstraints) {
       $tokinput = tokenize($input);
       $_SESSION['sentence'] = $tokinput;
       $parse = alpino($tokinput, $id);
-      modifyLemma($parse, $id);
+      $parse = modifyLemma($parse, $id);
     }
 }
 
@@ -88,7 +88,7 @@ require ROOT_PATH."/front-end-includes/footer.php";
 if ($continueConstraints) : ?>
   <script>
   $(function() {
-      $("#tree-output").treeVisualizer('<?php echo "tmp/$id-pt.xml"; ?>', {
+      $("#tree-output").treeVisualizer('<?php echo $parse; ?>', {
         sentence: '<?php echo $input; ?>'
     });
   });
