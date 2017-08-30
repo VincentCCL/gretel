@@ -105,9 +105,6 @@ require ROOT_PATH."/front-end-includes/head.php";
                      <dt id="faq-6" data-collapse-btn="true">What is new in version 3?</dt>
                      <dd data-collapse-target="true"><p>In addition to an overall design update, major changes include a more intuitive query builder in the example-based search mode and a visualizer for syntax trees that is compatible with all modern browsers. Moreover, the results are presented as soon as they are found, so you can browse the matching sentences before the treebank search is completed.
                        Furthermore it is possible to query the 500-million word SoNaR treebank in a similar fashion as the two one-million word treebanks CGN and LASSY Small.</p></dd>
-                     <dt id="faq-7" data-collapse-btn="true">Why can't I open multiple tabs with GrETEL queries?</dt>
-                     <dd data-collapse-target="true"><p>The information that users enter in each step is stored in PHP session variables and ultimately in cookies.
-                        For this reason, if one opens two tabs at the same time with a GrETEL instance the website will not know which cookies to use.</p></dd>
                 </dl>
             </section>
         </main>

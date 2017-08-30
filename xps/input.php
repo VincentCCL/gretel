@@ -55,11 +55,6 @@ require ROOT_PATH."/front-end-includes/head.php";
             </div>
           </div>
         </div>
-        <p class="notice">
-          <small>Do not try to run two or more queries in the same browser instance (i.e. multiple queries in multiple browsers tabs).
-          This will cause issues. If you want to run multiple queries simultaneously, open a new <strong>browser window</strong> (<em>not a tab</em>).
-          You can find the reason for this <a href='<?php echo HOME_PATH."/documentation.php#faq-7"; ?>' title="Why can't I open multiple tabs with GrETEL queries?" target="_blank">in our FAQ</a></small>
-         </p>
          <input type="hidden" name="sid" value="<?php echo SID; ?>">
         <?php setContinueNavigation(); ?>
     </form>
