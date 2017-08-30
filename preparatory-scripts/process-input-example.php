@@ -6,12 +6,21 @@ require ROOT_PATH."/helpers.php";
 require ROOT_PATH."/functions.php";
 require ROOT_PATH."/preparatory-scripts/prep-functions.php";
 
-$id = session_id();
+if (!isset($_GET['sid'])) {
+  $results = array(
+    'error' => true,
+    'data' => 'Session ID not provided. Perhaps you have disabled cookies. Please enable them.',
+  );
+  echo json_encode($results);
+  exit;
+}
 
-$lpxml = simplexml_load_file(ROOT_PATH."/tmp/$id-pt.xml");
+define('SID', $_GET['sid']);
+
+$lpxml = simplexml_load_file(ROOT_PATH."/tmp/".SID."-pt.xml");
 
 // Set tokenized input sentence to variable
-$tokinput = $_SESSION['sentence'];
+$tokinput = $_SESSION[SID]['sentence'];
 $sentence = explode(' ', $tokinput);
   // add info annotation matrix to alpino parse
 foreach ($sentence as $begin => $word) {
@@ -34,7 +43,7 @@ foreach ($sentence as $begin => $word) {
     }
 }
 // save parse with @interesting annotations
-$treefileName = ROOT_PATH."/tmp/$id-int.xml";
+$treefileName = ROOT_PATH."/tmp/".SID."-int.xml";
 if (file_exists($treefileName)) {
     unlink($treefileName);
 }
@@ -51,13 +60,13 @@ if (isset($_POST['topcat'])) {
     $remove = 'rel';
 }
 
-$subTreefileName = ROOT_PATH."/tmp/$id-sub.xml";
+$subTreefileName = ROOT_PATH."/tmp/".SID."-sub.xml";
 $pathToRoot = ROOT_PATH;
 `perl -CS $pathToRoot/preparatory-scripts/get-subtree.pl $treefileName $remove > $subTreefileName`;
 
 if (isset($_POST['order'])) {
     $order = 'true';
-    $_SESSION['order'] = 'on';
+    $_SESSION[SID]['order'] = 'on';
 } else {
     $order = 'false';
 }
@@ -68,12 +77,11 @@ $xpath = preg_replace('/@cat="\s+"/', '@cat', $xpath);
 
 // Apply case (in)sensitivity where necessary
 $xpath = applyCs($xpath);
-$_SESSION['xpath'] = $xpath;
-
+$_SESSION[SID]['xpath'] = $xpath;
 session_write_close();
 
 $results = array(
-  'location' => "tmp/$id-sub.xml",
+  'location' => "tmp/".SID."-sub.xml",
   'xpath' => $xpath,
 );
 

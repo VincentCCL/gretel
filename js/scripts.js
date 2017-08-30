@@ -114,11 +114,24 @@ $(function() {
       }
     }).keyup();
 
+    if ($body.hasClass("ebs")) {
+      if (Cookies.get('ebs-input')) {
+        $("[name='input']").val(Cookies.get('ebs-input')).change();
+      }
+      $("[type='submit']").click(function() {
+        Cookies.set('ebs-input', $("[name='input']").val(), { expires: 7, path: ''});
+      });
+    }
+
+
     // Allow taalportaal integration for the input pages
     taalPortaalFiller();
 
     if ($body.hasClass("xps")) {
       var input = $("[name='xpath']");
+      if (Cookies.get('xps-input')) {
+        input.val(Cookies.get('xps-input')).change();
+      }
       /* Basic XPath validation */
       // Check whether the XPath has the same amount of opening and closing tags
       // If not, throw custom validation error message
@@ -127,6 +140,7 @@ $(function() {
           closeBrackets = (input.val().match(/\]/g) || "").length;
         if (openBrackets == closeBrackets) {
           input[0].setCustomValidity("");
+          Cookies.set('xps-input', input.val(), { expires: 7, path: ''});
         } else {
           if (openBrackets > closeBrackets) {
             input[0].setCustomValidity("Fix XPath inconsistency: missing ] or unnecessary [ (x" + (openBrackets - closeBrackets) + ")");
@@ -141,6 +155,7 @@ $(function() {
         this.setCustomValidity("");
       });
     }
+
   } else if ($body.hasClass("matrix")) {
     var input = $("[name='xpath']");
     // Check whether the XPath has the same amount of opening and closing tags

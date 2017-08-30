@@ -1,9 +1,9 @@
 <?php
 
-function sessionVariablesSet($array)
+function sessionVariablesSet($sid, $array)
 {
     foreach ($array as $entry) {
-        if (!isset($_SESSION[$entry])) {
+        if (!isset($_SESSION[$sid][$entry])) {
             return false;
         }
     }

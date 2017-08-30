@@ -12,23 +12,23 @@ require ROOT_PATH."/functions.php";
 require ROOT_PATH."/preparatory-scripts/prep-functions.php";
 
 
-$continueConstraints = sessionVariablesSet(array('example', 'sentence')) && postVariablesSet(array('manualMode', 'originalXp'));
-$continueConstraints = $continueConstraints && (isset($_POST['xpath']) || isset($_SESSION['xpath']));
+$continueConstraints = postVariablesSet(array('sid', 'manualMode', 'originalXp')) && sessionVariablesSet($_POST['sid'], array('example', 'sentence'));
+$continueConstraints = $continueConstraints && (isset($_POST['xpath']) || isset($_SESSION[$_POST['sid']]['xpath']));
 
 $isSpam = false;
 
 if ($continueConstraints) {
-  $xpath = isset($_POST['xpath']) ? $_POST['xpath'] : $_SESSION['xpath'];
-  $originalXp = isset($_POST['originalXp']) ? $_POST['originalXp'] : $_SESSION['originalXp'];
+  define('SID', $_POST['sid']);
+
+  $xpath = isset($_POST['xpath']) ? $_POST['xpath'] : $_SESSION[SID]['xpath'];
+  $originalXp = isset($_POST['originalXp']) ? $_POST['originalXp'] : $_SESSION[SID]['originalXp'];
   $isSpam = isSpam($xpath);
 
-  $id = session_id();
-
   if (!$isSpam) {
-    $_SESSION['originalXp'] = $originalXp;
-    $_SESSION['xpath'] = $xpath;
-    $_SESSION['manualMode'] = ($_POST['manualMode'] == 'false') ? false : true;
-    $_SESSION['ct'] = isset($_POST['ct']) ? true : false;
+    $_SESSION[SID]['originalXp'] = $originalXp;
+    $_SESSION[SID]['xpath'] = $xpath;
+    $_SESSION[SID]['manualMode'] = ($_POST['manualMode'] == 'false') ? false : true;
+    $_SESSION[SID]['ct'] = isset($_POST['ct']) ? true : false;
   }
 }
 session_write_close();
@@ -39,7 +39,7 @@ require ROOT_PATH."/front-end-includes/head.php";
 <?php require ROOT_PATH."/front-end-includes/header.php";
 
 if ($continueConstraints && !$isSpam):
-  if (!file_exists(ROOT_PATH."//tmp/$id-sub.xml") || filesize(ROOT_PATH."//tmp/$id-sub.xml") == 0 || !$continueConstraints):
+  if (!file_exists(ROOT_PATH."/tmp/".SID."-sub.xml") || filesize(ROOT_PATH."/tmp/".SID."-sub.xml") == 0 || !$continueConstraints):
     setErrorHeading();
   ?>
 
@@ -48,8 +48,9 @@ if ($continueConstraints && !$isSpam):
 
   <?php setPreviousPageMessage(3);
   else:
-    require ROOT_PATH."/front-end-includes/tb-sel-shared-content.php";
-    setContinueNavigation(); ?>
+    require ROOT_PATH."/front-end-includes/tb-sel-shared-content.php"; ?>
+    <input type="hidden" name="sid" value="<?php echo SID; ?>">
+    <?php setContinueNavigation(); ?>
     </form>
   <?php endif;
 else:

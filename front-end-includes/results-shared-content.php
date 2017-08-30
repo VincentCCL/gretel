@@ -78,7 +78,7 @@
         </tbody>
       </table>
     </div>
-    <a href="front-end-includes/save-xpath.php" class="download-link" title="Download XPath query" target="_blank" download="gretel-xpath.txt">
+    <a href="front-end-includes/save-xpath.php?sid=<?php echo SID; ?>" class="download-link" title="Download XPath query" target="_blank" download="gretel-xpath.txt">
       <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download XPath</a>
   </div>
     <p>You can save the XPath query to use the same query for another (part of a) treebank or for a slightly modified search without having to start completely

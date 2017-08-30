@@ -24,24 +24,24 @@ require ROOT_PATH."/functions.php";
 require ROOT_PATH."/preparatory-scripts/alpino-parser.php";
 require ROOT_PATH."/preparatory-scripts/simple-dom.php";
 
-$continueConstraints = isset($_POST['input']);
+$continueConstraints = postVariablesSet(array('sid', 'input'));
+$isSpam = false;
 
 if ($continueConstraints) {
     $treeVisualizer = true;
-    $id = session_id();
-
+    define('SID', $_POST['sid']);
     $input = $_POST['input'];
     // Check if $input contains email addresses or website URLs
     $isSpam = isSpam($input);
 
     if (!$isSpam) {
-      $_SESSION['example'] = $input;
+      $_SESSION[SID]['example'] = $input;
 
       // Prepare/clean up input to be tokenized in next step
       $tokinput = tokenize($input);
-      $_SESSION['sentence'] = $tokinput;
-      $parse = alpino($tokinput, $id);
-      $parse = modifyLemma($parse, $id);
+      $_SESSION[SID]['sentence'] = $tokinput;
+      $parse = alpino($tokinput, SID);
+      modifyLemma($parse, SID);
     }
 }
 
@@ -69,6 +69,7 @@ require ROOT_PATH."/front-end-includes/head.php";
     <p>If the analysis is different from what you expected, you can enter
       <a href="ebs/input.php" title="Example-based search">a new input example</a>.
     </p>
+    <input type="hidden" name="sid" value="<?php echo SID; ?>">
     <?php setContinueNavigation(); ?>
   </form>
 <?php
@@ -88,7 +89,7 @@ require ROOT_PATH."/front-end-includes/footer.php";
 if ($continueConstraints) : ?>
   <script>
   $(function() {
-      $("#tree-output").treeVisualizer('<?php echo $parse; ?>', {
+      $("#tree-output").treeVisualizer('<?php echo "tmp/".SID."-pt.xml"; ?>', {
         sentence: '<?php echo $input; ?>'
     });
   });

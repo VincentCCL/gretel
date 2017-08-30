@@ -10,15 +10,24 @@ require ROOT_PATH."/basex-search-scripts/treebank-search.php";
 session_start();
 set_time_limit(0);
 
-$id = session_id();
+if (!isset($_GET['sid'])) {
+  $results = array(
+    'error' => true,
+    'data' => 'Session ID not provided. Perhaps you have disabled cookies. Please enable them.',
+  );
+  echo json_encode($results);
+  exit;
+}
 
-$xpath = $_SESSION['xpath'];
-$corpus = $_SESSION['treebank'];
-$components = $_SESSION['subtreebank'];
-$already = $databases = $_SESSION['startDatabases'];
+define('SID', $_GET['sid']);
+
+$xpath = $_SESSION[SID]['xpath'];
+$corpus = $_SESSION[SID]['treebank'];
+$components = $_SESSION[SID]['subtreebank'];
+$already = $databases = $_SESSION[SID]['startDatabases'];
 
 if ($corpus == 'sonar') {
-    $needRegularSonar = $_SESSION['needRegularSonar'];
+    $needRegularSonar = $_SESSION[SID]['needRegularSonar'];
 }
 
 session_write_close();
@@ -47,7 +56,7 @@ try {
         foreach ($counts as $database => $dbCount) {
             $counts{$database} = array($dbCount, $total[$database]);
         }
-        createCsvCounts($sum, $counts);
+        createCsvCounts($sum, $counts, SID);
     }
 
     header_remove('Set-Cookie');

@@ -10,22 +10,20 @@
  * @author Bram Vanroy
  */
 
+ session_start();
+ header('Content-Type:text/html; charset=utf-8');
+
 $currentPage = 'xps';
 $step = 1;
 
 require "../config.php";
 require ROOT_PATH."/helpers.php";
 
-session_start();
-header('Content-Type:text/html; charset=utf-8');
-
 $xpath = '//node[@cat="smain" and node[@rel="su" and @pt="vnw"] and node[@rel="hd" and @pt="ww"] and node[@rel="predc" and @cat="np" and node[@rel="det" and @pt="lid"] and node[@rel="hd" and @pt="n"]]]';
-$xpath = isset($_SESSION['xpath']) ? $_SESSION['xpath'] : $xpath;
-// Unset previous session ID, we don't want one session to span multiple queries
-session_regenerate_id(FALSE);
-session_unset();
 
-$id = session_id();
+define('SID', session_id() . '-' . time());
+$_SESSION[SID] = array();
+$_SESSION[SID]['queryid'] = SID;
 
 require ROOT_PATH."/functions.php";
 require ROOT_PATH."/front-end-includes/head.php";
@@ -57,6 +55,12 @@ require ROOT_PATH."/front-end-includes/head.php";
             </div>
           </div>
         </div>
+        <p class="notice">
+          <small>Do not try to run two or more queries in the same browser instance (i.e. multiple queries in multiple browsers tabs).
+          This will cause issues. If you want to run multiple queries simultaneously, open a new <strong>browser window</strong> (<em>not a tab</em>).
+          You can find the reason for this <a href='<?php echo HOME_PATH."/documentation.php#faq-7"; ?>' title="Why can't I open multiple tabs with GrETEL queries?" target="_blank">in our FAQ</a></small>
+         </p>
+         <input type="hidden" name="sid" value="<?php echo SID; ?>">
         <?php setContinueNavigation(); ?>
     </form>
 

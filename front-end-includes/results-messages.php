@@ -5,7 +5,11 @@
 require "../config.php";
 
 session_start();
-$id = session_id();
+if (!isset($_GET['sid'])) {
+  exit;
+}
+
+define('SID', $_GET['sid']);
 
 require ROOT_PATH."/functions.php";
 ?>
@@ -17,7 +21,7 @@ require ROOT_PATH."/functions.php";
 
 <body>
   <?php
-  $downloadPath = HOME_PATH."/tmp/$id-gretel-results.txt";
+  $downloadPath = HOME_PATH."/tmp/".SID."-gretel-results.txt";
   ?>
 
   <div id="results-found">

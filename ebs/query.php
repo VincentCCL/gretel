@@ -11,42 +11,46 @@ require ROOT_PATH."/helpers.php";
 
 $noTbFlag = 0;
 
-if (isset($_POST['treebank'])) {
-    $treebank = $_POST['treebank'];
-    $_SESSION['treebank'] = $treebank;
-} elseif (isset($_SESSION['treebank'])) {
-    $treebank = $_SESSION['treebank'];
-} else {
-    $noTbFlag = 1;
-    $treebank = '';
-}
+$continueConstraints = isset($_POST['sid']);
 
-if (!$noTbFlag) {
-    if (isset($_POST['subtreebank'])) {
-        $component = $_POST['subtreebank'];
-        $_SESSION['subtreebank'] = $component;
-    } elseif (isset($_SESSION['subtreebank'])) {
-        $component = $_SESSION['subtreebank'];
-    } else {
-        $noTbFlag = 1;
-    }
-}
+if ($continueConstraints) {
+  define('SID', $_POST['sid']);
+  if (isset($_POST['treebank'])) {
+      $treebank = $_POST['treebank'];
+      $_SESSION[SID]['treebank'] = $treebank;
+  } elseif (isset($_SESSION[SID]['treebank'])) {
+      $treebank = $_SESSION[SID]['treebank'];
+  } else {
+      $noTbFlag = 1;
+      $treebank = '';
+  }
 
-$continueConstraints = !$noTbFlag && sessionVariablesSet(array('sentence', 'treebank', 'subtreebank', 'xpath'));
+  if (!$noTbFlag) {
+      if (isset($_POST['subtreebank'])) {
+          $component = $_POST['subtreebank'];
+          $_SESSION[SID]['subtreebank'] = $component;
+      } elseif (isset($_SESSION[SID]['subtreebank'])) {
+          $component = $_SESSION[SID]['subtreebank'];
+      } else {
+          $noTbFlag = 1;
+      }
+  }
+
+  $continueConstraints = !$noTbFlag && sessionVariablesSet(SID, array('sentence', 'treebank', 'subtreebank', 'xpath'));
+}
 
 require ROOT_PATH."/functions.php";
 
 if ($continueConstraints) {
-
     require ROOT_PATH."/preparatory-scripts/prep-functions.php";
-    $id = session_id();
-    $queryId = $_SESSION['queryid'];
+
+    $queryId = $_SESSION[SID]['queryid'];
     $treeVisualizer = true;
 
-    $tokinput = $_SESSION['sentence'];
+    $tokinput = $_SESSION[SID]['sentence'];
 
-    $xpath = $_SESSION['xpath'];
-    $originalXp = $_SESSION['originalXp'];
+    $xpath = $_SESSION[SID]['xpath'];
+    $originalXp = $_SESSION[SID]['originalXp'];
 
     $xpath = cleanXpath($xpath);
     $originalXp = cleanXpath($originalXp);
@@ -54,9 +58,9 @@ if ($continueConstraints) {
     // Check if the XPath was edited by the user or not
     $xpChanged = ($xpath == $originalXp) ? false : true;
 
-    $_SESSION['xpath'] = $xpath;
-    $_SESSION['originalXp'] = $originalXp;
-    $_SESSION['xpChanged'] = $xpChanged;
+    $_SESSION[SID]['xpath'] = $xpath;
+    $_SESSION[SID]['originalXp'] = $originalXp;
+    $_SESSION[SID]['xpChanged'] = $xpChanged;
 
     // Temporarily change XPath to show it to user
     if ($treebank == 'sonar') {
@@ -78,8 +82,8 @@ require ROOT_PATH."/front-end-includes/head.php";
   $component = implode(', ', $component);
 
   // Log query tree
-  $qTree = file_get_contents(ROOT_PATH."/tmp/$id-sub.xml");
-  $treeLog = fopen(ROOT_PATH."/log//gretel-querytrees.log", 'a');
+  $qTree = file_get_contents(ROOT_PATH."/tmp/".SID."-sub.xml");
+  $treeLog = fopen(ROOT_PATH."/log/gretel-querytrees.log", 'a');
   fwrite($treeLog, "<alpino_ds id=\"$queryId\">\n$qTree\n</alpino_ds>\n");
   fclose($treeLog);
 ?>
@@ -101,6 +105,7 @@ require ROOT_PATH."/front-end-includes/head.php";
   <h3>XPath expression<?php if (!$xpChanged): ?> generated from the query tree<?php endif; ?></h3>
   <div class="generated-xpath"><code><?php echo $xpath; ?></code></div>
     <form action="ebs/results.php" method="post">
+    <input type="hidden" name="sid" value="<?php echo SID; ?>">
     <?php setContinueNavigation(); ?>
     </form>
 <?php else: // $continueConstraints
@@ -119,7 +124,7 @@ if ($continueConstraints && !$xpChanged) : ?>
     <script src="js/tree-visualizer.js"></script>
     <script>
     $(function(){
-      $("#tree-output").treeVisualizer('<?php echo "tmp/$id-sub.xml" ?>', {extendedPOS: true});
+      $("#tree-output").treeVisualizer('<?php echo "tmp/".SID."-sub.xml" ?>', {extendedPOS: true});
     });
     </script>
 <?php endif; ?>

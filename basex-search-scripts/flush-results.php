@@ -13,21 +13,31 @@ require ROOT_PATH."/basex-search-scripts/treebank-search.php";
 session_start();
 set_time_limit(0);
 
-$queryIteration = $_SESSION['endPosIteration'];
+if (!isset($_GET['sid'])) {
+  $results = array(
+    'error' => true,
+    'data' => 'Session ID not provided. Perhaps you have disabled cookies. Please enable them.',
+  );
+  echo json_encode($results);
+  exit;
+}
 
-$corpus = $_SESSION['treebank'];
-$components = $_SESSION['subtreebank'];
-$databases = $_SESSION['flushDatabases'];
-$already = $_SESSION['flushAlready'];
+define('SID', $_GET['sid']);
+$queryIteration = $_SESSION[SID]['endPosIteration'];
+
+$corpus = $_SESSION[SID]['treebank'];
+$components = $_SESSION[SID]['subtreebank'];
+$databases = $_SESSION[SID]['flushDatabases'];
+$already = $_SESSION[SID]['flushAlready'];
 if ($corpus == 'sonar') {
-    $needRegularSonar = $_SESSION['needRegularSonar'];
+    $needRegularSonar = $_SESSION[SID]['needRegularSonar'];
 }
 
 $databaseString = $corpus;
-$xpath = $_SESSION['xpath'];
+$xpath = $_SESSION[SID]['xpath'];
 
 // get context option
-$context = $_SESSION['ct'];
+$context = $_SESSION[SID]['ct'];
 
 session_write_close();
 
@@ -42,7 +52,7 @@ try {
     $dbport = $serverInfo{'port'};
     $session = new Session($dbhost, $dbport, $dbuser, $dbpwd);
 
-    list($sentences, $tblist, $idlist, $beginlist) = getSentences($databases, $already, $queryIteration, $session);
+    list($sentences, $tblist, $idlist, $beginlist) = getSentences($databases, $already, $queryIteration, $session, SID);
     $session->close();
 
     if (isset($sentences)) {

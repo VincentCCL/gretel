@@ -11,12 +11,12 @@ session_cache_limiter('private');
 session_start();
 header('Content-Type:text/html; charset=utf-8');
 
-$continueConstraints = isset($_POST['xpath']) || isset($_SESSION['xpath']);
-$id = session_id();
+$continueConstraints = isset($_POST['sid']) && (isset($_POST['xpath']) || isset($_SESSION[$_POST['sid']]['xpath']));
 
 if ($continueConstraints) {
-    $xpath = (isset($_POST['xpath'])) ? $_POST['xpath'] : $_SESSION['xpath'];
-    $_SESSION['xpath'] = $xpath;
+  define('SID', $_POST['sid']);
+  $xpath = (isset($_POST['xpath'])) ? $_POST['xpath'] : $_SESSION[SID]['xpath'];
+  $_SESSION[SID]['xpath'] = $xpath;
 }
 
 require ROOT_PATH."/functions.php";
@@ -32,9 +32,9 @@ $isSpam = ($continueConstraints) ? isSpam($xpath) : false;
 require ROOT_PATH."/front-end-includes/header.php";
 
 if ($continueConstraints && !$isSpam) {
-    require ROOT_PATH."/front-end-includes/tb-sel-shared-content.php";
-
-    setContinueNavigation(); ?>
+    require ROOT_PATH."/front-end-includes/tb-sel-shared-content.php"; ?>
+    <input type="hidden" name="sid" value="<?php echo SID; ?>">
+    <?php setContinueNavigation(); ?>
   </form>
 
 <?php } // $continueConstraints
@@ -48,6 +48,7 @@ else {
             It is also possible that you came to this page directly without first entering a query.</p>
     <?php
     endif;
+
     setPreviousPageMessage($step-1);
 }
 ?>

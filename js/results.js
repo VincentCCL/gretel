@@ -130,13 +130,13 @@ $(function() {
   function countAll() {
     xhrCount = $.ajax(phpVars.fetchCountsPath)
       .done(function(json) {
-        var data = $.parseJSON(json),
-          sum = data[0],
-          totalArray = data[1];
-
+        var data = $.parseJSON(json);
+        console.log(data);
         if (!data.error && data.sum && data.counts) {
-          resultsCount = sum;
+          var sum = data.sum,
+            totalArray = data.counts
 
+          resultsCount = sum;
           sum = numericSeparator(parseInt(sum));
 
           controls.find(".count strong + span").text(sum);

@@ -98,7 +98,7 @@ function treeHighlighter($xmlString, $xpath) {
     }
   }
   else {
-      $errorLog = fopen(ROOT_PATH."/log//xml2tree.log", 'a');
+      $errorLog = fopen(ROOT_PATH."/log/xml2tree.log", 'a');
       fwrite($errorLog, "Can't find $xpath\n");
       fclose($errorLog);
 

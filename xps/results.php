@@ -9,44 +9,49 @@ $step = 3;
 require "../config.php";
 require ROOT_PATH."/helpers.php";
 
-$_SESSION['ebsxps'] = $currentPage;
-$id = session_id();
 $noTbFlag = 0;
 
-if (isset($_POST['treebank'])) {
-    $corpus = $_POST['treebank'];
-    $_SESSION['treebank'] = $corpus;
-} elseif (isset($_SESSION['treebank'])) {
-    $corpus = $_SESSION['treebank'];
-} else {
-    $noTbFlag = 1;
-    $corpus = '';
+$continueConstraints = isset($_POST['sid']);
+
+if ($continueConstraints) {
+  define('SID', $_POST['sid']);
+  $_SESSION[SID]['ebsxps'] = $currentPage;
+  if (isset($_POST['treebank'])) {
+      $corpus = $_POST['treebank'];
+      $_SESSION[SID]['treebank'] = $corpus;
+  } elseif (isset($_SESSION[SID]['treebank'])) {
+      $corpus = $_SESSION[SID]['treebank'];
+  } else {
+      $noTbFlag = 1;
+      $corpus = '';
+  }
+
+  if (isset($_POST['subtreebank'])) {
+      $components = $_POST['subtreebank'];
+      $_SESSION[SID]['subtreebank'] = $components;
+  } elseif (isset($_SESSION[SID]['subtreebank'])) {
+      $components = $_SESSION[SID]['subtreebank'];
+  } else {
+      $noTbFlag = 1;
+  }
+
+  $continueConstraints = !$noTbFlag && sessionVariablesSet(SID, array('treebank', 'subtreebank', 'xpath'));
 }
 
-if (isset($_POST['subtreebank'])) {
-    $components = $_POST['subtreebank'];
-    $_SESSION['subtreebank'] = $components;
-} elseif (isset($_SESSION['subtreebank'])) {
-    $components = $_SESSION['subtreebank'];
-} else {
-    $noTbFlag = 1;
-}
-
-$continueConstraints = !$noTbFlag && sessionVariablesSet(array('treebank', 'subtreebank', 'xpath'));
 if ($continueConstraints) {
     require ROOT_PATH."/preparatory-scripts/prep-functions.php";
     $treeVisualizer = true;
     $onlyFullscreenTv = true;
 
-    $xpath = $_SESSION['xpath'];
+    $xpath = $_SESSION[SID]['xpath'];
     // Need to clean in case the user goes back in history, otherwise the
     // prepended slashes below would keep stacking on each back-and-forward
     // in history
     $xpath = cleanXpath($xpath);
 
-    $_SESSION['ct'] = isset($_POST['ct']) ? true : false;
-    $_SESSION['endPosIteration'] = 0;
-    $_SESSION['startDatabases'] = array();
+    $_SESSION[SID]['ct'] = isset($_POST['ct']) ? true : false;
+    $_SESSION[SID]['endPosIteration'] = 0;
+    $_SESSION[SID]['startDatabases'] = array();
 
     if ($corpus == 'sonar') {
         $databaseExists = false;
@@ -67,8 +72,8 @@ if ($continueConstraints) {
   if ($corpus == 'sonar') {
     $bf = xpathToBreadthFirst($xpath);
     // Get correct databases to start search with, sets to
-    // $_SESSION['startDatabases']
-    checkBfPattern($bf);
+    // $_SESSION[SID]['startDatabases']
+    checkBfPattern($bf, SID);
 
     // When looking in the regular version we need the double slash to go through
     // all descendants
@@ -79,14 +84,14 @@ if ($continueConstraints) {
     }
   } else {
     $xpath = "//$xpath";
-    $_SESSION['startDatabases'] = corpusToDatabase($components, $corpus);
+    $_SESSION[SID]['startDatabases'] = corpusToDatabase($components, $corpus);
   }
 
   // When flushing we update the databases on each iteration, not so in counting
   // or when fetching all results
-  $_SESSION['flushAlready'] = $_SESSION['flushDatabases'] = $_SESSION['startDatabases'];
-  $_SESSION['xpath'] = $xpath;
-  $_SESSION['needRegularSonar'] = $needRegularSonar;
+  $_SESSION[SID]['flushAlready'] = $_SESSION[SID]['flushDatabases'] = $_SESSION[SID]['startDatabases'];
+  $_SESSION[SID]['xpath'] = $xpath;
+  $_SESSION[SID]['needRegularSonar'] = $needRegularSonar;
   session_write_close();
 }
 ?>
@@ -115,12 +120,13 @@ if ($continueConstraints):
     <?php include ROOT_PATH."/front-end-includes/notifications.php"; ?>
     <?php // Variables for JS
     $jsVars = array(
-        'fetchResultsPath' => HOME_PATH."/basex-search-scripts/flush-results.php",
-        'getAllResultsPath' => HOME_PATH."/basex-search-scripts/get-all-results.php",
-        'fetchCountsPath' => HOME_PATH."/basex-search-scripts/get-counts.php",
-        'downloadPath' => HOME_PATH."/tmp/$id-gretel-results.txt",
+        'fetchResultsPath' => HOME_PATH."/basex-search-scripts/flush-results.php?sid=".SID,
+        'getAllResultsPath' => HOME_PATH."/basex-search-scripts/get-all-results.php?sid=".SID,
+        'fetchCountsPath' => HOME_PATH."/basex-search-scripts/get-counts.php?sid=".SID,
+        'downloadPath' => HOME_PATH."/tmp/".SID."-gretel-results.txt",
         'resultsLimit' => $resultsLimit,
         'fetchHomePath' => HOME_PATH,
+        'sid' => SID,
     );
     ?>
     <script>

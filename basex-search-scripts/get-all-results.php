@@ -13,27 +13,38 @@ require ROOT_PATH."/basex-search-scripts/treebank-search.php";
 session_start();
 set_time_limit(0);
 
-$corpus = $_SESSION['treebank'];
-$components = $_SESSION['subtreebank'];
-$componentsString = implode('-', $components);
-$databaseString = $corpus;
-$already = $databases = $_SESSION['startDatabases'];
-
-if ($corpus == 'sonar') {
-    $needRegularSonar = $_SESSION['needRegularSonar'];
+if (!isset($_GET['sid'])) {
+  $results = array(
+    'error' => true,
+    'data' => 'Session ID not provided. Perhaps you have disabled cookies. Please enable them.',
+  );
+  echo json_encode($results);
+  exit;
 }
 
-$xpath = $_SESSION['xpath'];
-$ebsxps = $_SESSION['ebsxps'];
+define('SID', $_GET['sid']);
+
+$corpus = $_SESSION[SID]['treebank'];
+$components = $_SESSION[SID]['subtreebank'];
+$componentsString = implode('-', $components);
+$databaseString = $corpus;
+$already = $databases = $_SESSION[SID]['startDatabases'];
+
+if ($corpus == 'sonar') {
+    $needRegularSonar = $_SESSION[SID]['needRegularSonar'];
+}
+
+$xpath = $_SESSION[SID]['xpath'];
+$ebsxps = $_SESSION[SID]['ebsxps'];
 
 if ($ebsxps == 'ebs') {
-    $example = $_SESSION['example'];
-    $xpChanged = $_SESSION['xpChanged'];
-    $originalXp = $_SESSION['originalXp'];
+    $example = $_SESSION[SID]['example'];
+    $xpChanged = $_SESSION[SID]['xpChanged'];
+    $originalXp = $_SESSION[SID]['originalXp'];
 }
 
 // get context option
-$context = $_SESSION['ct'];
+$context = $_SESSION[SID]['ct'];
 $id = session_id();
 session_write_close();
 
@@ -43,12 +54,12 @@ $time = time();
 $user = (getenv('REMOTE_ADDR')) ? getenv('REMOTE_ADDR') : 'anonymous';
 
 if ($ebsxps == 'ebs') {
-    $xplog = fopen(ROOT_PATH."/log//gretel-ebq.log", 'a');
+    $xplog = fopen(ROOT_PATH."/log/gretel-ebq.log", 'a');
     // fwrite($xplog, "Date\tIP.address\tUnique.ID\tInput.example\tTreebank\tComponent\tXPath.changed\tXPath.searched\tOriginal.xpath\n");
     fwrite($xplog, "$date\t$user\t$id-$time\t$example\t$corpus\t$componentsString\t$xpChanged\t$xpath\t$originalXp\n");
     fclose($xplog);
 } else {
-    $xplog = fopen(ROOT_PATH."/log//gretel-xps.log", 'a');
+    $xplog = fopen(ROOT_PATH."/log/gretel-xps.log", 'a');
     fwrite($xplog, "$date\t$user\t$id-$time\t$corpus\t$componentsString\t$xpath\n");
     fclose($xplog);
 }
@@ -64,14 +75,14 @@ try {
     $dbport = $serverInfo{'port'};
     $session = new Session($dbhost, $dbport, $dbuser, $dbpwd);
 
-    list($sentences, $tblist, $idlist, $beginlist) = getSentences($databases, $already, 'all', $session);
+    list($sentences, $tblist, $idlist, $beginlist) = getSentences($databases, $already, 'all', $session, SID);
 
     $session->close();
 
     if (isset($sentences)) {
         // Write results to file so that they can be downloaded later on
         // If the file already exists, remove it and re-create it (just to be sure)
-        $fileName = ROOT_PATH."/tmp/$id-gretel-results.txt";
+        $fileName = ROOT_PATH."/tmp/".SID."-gretel-results.txt";
         if (file_exists($fileName)) {
             unlink($fileName);
         }

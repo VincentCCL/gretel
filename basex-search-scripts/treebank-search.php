@@ -46,7 +46,7 @@ function corpusToDatabase($components, $corpus)
     return $databases;
 }
 
-function getSentences($databases, $already, $endPosIteration, $session)
+function getSentences($databases, $already, $endPosIteration, $session, $sid)
 {
     global $flushLimit, $resultsLimit, $needRegularSonar, $corpus;
 
@@ -120,9 +120,9 @@ function getSentences($databases, $already, $endPosIteration, $session)
     if (isset($sentences)) {
         if ($endPosIteration !== 'all') {
             session_start();
-            $_SESSION['endPosIteration'] = $endPosIteration;
-            $_SESSION['flushDatabases'] = $databases;
-            $_SESSION['flushAlready'] = $already;
+            $_SESSION[$sid]['endPosIteration'] = $endPosIteration;
+            $_SESSION[$sid]['flushDatabases'] = $databases;
+            $_SESSION[$sid]['flushAlready'] = $already;
             session_write_close();
         }
         if ($corpus !== 'sonar') {
