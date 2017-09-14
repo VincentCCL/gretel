@@ -191,10 +191,12 @@ $(function() {
   }
 
   function messageAllResultsFound() {
+    console.log('function called');
     disableAndEnableInputs();
     body.removeClass("results-loading").addClass("results-done");
-
-    messages.load(phpVars.fetchHomePath + '/front-end-includes/results-messages.php #results-found', function() {
+    console.log(phpVars.fetchHomePath + '/front-end-includes/results-messages.php?sid=' + phpVars.sid + ' #results-found');
+    messages.load(phpVars.fetchHomePath + '/front-end-includes/results-messages.php?sid=' + phpVars.sid + ' #results-found', function() {
+      console.log('section loaded');
       if (doneCounting) {
         messages.find(".amount-hits").html(numericSeparator(parseInt(resultsCount)));
         messages.find(".is-still-counting").remove();
@@ -224,7 +226,7 @@ $(function() {
     resultsWrapper.add(controls).remove();
     downloadWrapper.addClass("no-results");
     body.addClass("search-no-results");
-    messages.load(phpVars.fetchHomePath + '/front-end-includes/results-messages.php #no-results-found', function() {
+    messages.load(phpVars.fetchHomePath + '/front-end-includes/results-messages.php?sid=' + phpVars.sid + ' #no-results-found', function() {
       messages.children("div").removeClass("notice").addClass("error active").closest(".results-messages-wrapper").show();
     });
   }
@@ -234,30 +236,12 @@ $(function() {
     resultsWrapper.add(controls).remove();
     downloadWrapper.addClass("error");
     body.addClass("search-error");
-    messages.load(phpVars.fetchHomePath + '/front-end-includes/results-messages.php #error', function() {
+    messages.load(phpVars.fetchHomePath + '/front-end-includes/results-messages.php?sid=' + phpVars.sid + ' #error', function() {
       var link = '<p>If this error persists, please do not hesitate to <a href="documentation.php#faq-4" title="How can you contact us?">contact us</a>!</p>';
       messages.find(".error-msg").text(error).after(link);
 
       messages.children("div").removeClass("notice").addClass("error active").closest(".results-messages-wrapper").show();
     });
-  }
-
-  function showTvFsOnLoad() {
-    if (!body.hasClass("tv-fs-open")) {
-      if (hash.indexOf("tv-") == 1) {
-        var index = hash.match(/\d+$/);
-        $("a.tv-show-fs").eq(index[0] - 1).click();
-      }
-    }
-  }
-
-  if (hash) {
-    if (hash.indexOf("tv-") == 1) {
-      messages.load(phpVars.fetchHomePath + '/front-end-includes/results-messages.php #looking-for-tree', function() {
-        messages.children("div").removeClass("error").addClass("notice active").closest(".results-messages-wrapper").show();
-        downloadWrapper.addClass("active");
-      });
-    }
   }
 
   function loopResults(sentences, returnAllResults) {
@@ -279,8 +263,6 @@ $(function() {
           '<td>' + resultID + '</td><td>' + link + '</td><td>' +
           value[2] + '</td><td>' + value[1] + '</td></tr>');
       }
-      // Check if we have to show the loaded sentence
-      showTvFsOnLoad();
     });
 
     resultIDString = numericSeparator(parseInt(resultID));

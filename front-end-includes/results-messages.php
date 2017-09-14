@@ -21,7 +21,8 @@ require ROOT_PATH."/functions.php";
 
 <body>
   <?php
-  $downloadPath = HOME_PATH."/tmp/".SID."-gretel-results.txt";
+  $downloadPath = HOME_PATH."/tmp/".SID."-gretel-results-dl.txt";
+  $printPath = HOME_PATH."/tmp/".SID."-gretel-results-print.html";
   ?>
 
   <div id="results-found">
@@ -35,6 +36,10 @@ require ROOT_PATH."/functions.php";
         <a href="<?php echo $downloadPath; ?>" title="Download results" class="download-link" target="_blank" download="gretel-results.txt">
         <i class="fa fa-fw fa-loaded fa-download" aria-hidden="true"></i> Download results</a>
     </p>
+    <p>
+      <a href="<?php echo $printPath; ?>" title="Download printer-friendly results" class="download-link" target="_blank">
+      <i class="fa fa-fw fa-loaded fa-print" aria-hidden="true"></i> Printer-friendly results</a>
+    </p>
   </div>
   <div id="no-results-found">
       <strong>No results were found!</strong>
@@ -43,9 +48,6 @@ require ROOT_PATH."/functions.php";
   <div id="error">
       <strong>Error! <span class="error-msg"></span></strong>
       <?php setPreviousPageMessage(1); ?>
-  </div>
-  <div id="looking-for-tree">
-    <p>It seems that you want to open a tree in a new window. The tree first needs to be found again, but as soon as it is found it will pop up.</p>
   </div>
 </body>
 

@@ -82,15 +82,43 @@ try {
     if (isset($sentences)) {
         // Write results to file so that they can be downloaded later on
         // If the file already exists, remove it and re-create it (just to be sure)
-        $fileName = ROOT_PATH."/tmp/".SID."-gretel-results.txt";
-        if (file_exists($fileName)) {
-            unlink($fileName);
+        // Create seperate HTML file for printing
+
+        $dlFileName = ROOT_PATH."/tmp/".SID."-gretel-results-dl.txt";
+        $printFileName = ROOT_PATH."/tmp/".SID."-gretel-results-print.html";
+
+        if (file_exists($dlFileName)) {
+            unlink($dlFileName);
         }
 
-        $fh = fopen($fileName, 'a');
-        fwrite($fh, "$xpath\n");
+        if (file_exists($printFileName)) {
+            unlink($printFileName);
+        }
 
+        // Download file
+        $dlFh = fopen($dlFileName, 'a');
+        fwrite($dlFh, "Corpus: $corpus\nComponents: $componentsString\n");
+        if ($ebsxps == 'ebs') {
+          fwrite($dlFh, "Input example: $example\n");
+        }
+        $timezone  = 1; //(GMT +1)
+        $date = gmdate("j/m/Y H:i:s", time() + 3600*($timezone+date("I")));
+        fwrite($dlFh, "XPath: $xpath\nDate: $date\n\n");
+
+        // Print file
+        $printFh = fopen($printFileName, 'a');
+        $printHead = '<!DOCTYPE html><html lang="en"><meta content="IE=edge"http-equiv=X-UA-Compatible><title>GrETEL results</title><meta content="noindex, nofollow"name=robots><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600"rel=stylesheet><style>body,html{width:100%;height:100%;margin:0;background-color:#fff;font-family:"Open Sans",sans-serif;font-size:12px;color:#000}strong{font-weight:600}h1{font-size:18px;font-weight:600}table{border-collapse:collapse;page-break-inside:auto}td{border:1px solid #000;padding:2px 6px}tr{page-break-inside:avoid;page-break-after:auto}</style></head><body><h1>Your GrETEL results</h1>';
+        fwrite($printFh, $printHead);
+
+        fwrite($printFh, "<ul><li>Corpus: $corpus</li><li>Components: $componentsString</li>");
+        if ($ebsxps == 'ebs') {
+          fwrite($printFh, "<li>Input example: $example</li>");
+        }
+        fwrite($printFh, "<li>XPath: $xpath</li><li>Date: $date</li></ul><table>");
+
+        $counter = 0;
         foreach ($sentences as $sid => $sentence) {
+            $counter++;
             // highlight sentence
             $hlsentence = highlightSentence($sentence, $beginlist[$sid], 'strong');
 
@@ -137,9 +165,12 @@ try {
             . '" target="_blank">'.$sidString.'</a>';
 
             $resultsArray{$sid} = array($sentenceidlink, $hlsentence, $componentsString);
-            fwrite($fh, "$corpus\t$componentsString\t$hlsentenceDownload\n");
+            fwrite($dlFh, "$corpus\t$componentsString\t$hlsentenceDownload\n");
+            fwrite($printFh, "<tr><td>$counter</td><td>$sidString</td><td>$componentsString</td><td>$hlsentence</td></tr>");
         }
-        fclose($fh);
+        fwrite($printFh, '</table></body></html>');
+        fclose($dlFh);
+        fclose($printFh);
 
         $results = array(
           'error' => false,

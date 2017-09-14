@@ -111,6 +111,7 @@ if ($continueConstraints):
         'getAllResultsPath' => HOME_PATH."/basex-search-scripts/get-all-results.php?sid=".SID,
         'fetchCountsPath' => HOME_PATH."/basex-search-scripts/get-counts.php?sid=".SID,
         'downloadPath' => HOME_PATH."/tmp/".SID."-gretel-results.txt",
+        'printPath' => HOME_PATH."/tmp/".SID."-gretel-results-print.html",
         'resultsLimit' => $resultsLimit,
         'fetchHomePath' => HOME_PATH,
         'sid' => SID,
