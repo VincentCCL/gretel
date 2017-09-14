@@ -131,7 +131,6 @@ $(function() {
     xhrCount = $.ajax(phpVars.fetchCountsPath)
       .done(function(json) {
         var data = $.parseJSON(json);
-        console.log(data);
         if (!data.error && data.sum && data.counts) {
           var sum = data.sum,
             totalArray = data.counts
@@ -191,12 +190,9 @@ $(function() {
   }
 
   function messageAllResultsFound() {
-    console.log('function called');
     disableAndEnableInputs();
     body.removeClass("results-loading").addClass("results-done");
-    console.log(phpVars.fetchHomePath + '/front-end-includes/results-messages.php?sid=' + phpVars.sid + ' #results-found');
     messages.load(phpVars.fetchHomePath + '/front-end-includes/results-messages.php?sid=' + phpVars.sid + ' #results-found', function() {
-      console.log('section loaded');
       if (doneCounting) {
         messages.find(".amount-hits").html(numericSeparator(parseInt(resultsCount)));
         messages.find(".is-still-counting").remove();
