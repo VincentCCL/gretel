@@ -82,8 +82,8 @@ try {
     if (isset($sentences)) {
         // Write results to file so that they can be downloaded later on
         // If the file already exists, remove it and re-create it (just to be sure)
+      
         // Create seperate HTML file for printing
-
         $dlFileName = ROOT_PATH."/tmp/".SID."-gretel-results-dl.txt";
         $printFileName = ROOT_PATH."/tmp/".SID."-gretel-results-print.html";
 
