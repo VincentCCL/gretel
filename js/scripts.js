@@ -183,7 +183,7 @@ $(function() {
     var getTreePathXHR;
     getTreePath();
 
-    $("main form input[type='radio'], main form input[type='checkbox']:not([name='ct'])").change(function() {
+    $("main form input[type='radio'], main form input[type='checkbox']:not([name='ct']):not([name='sentids'])").change(function() {
       getTreePath();
     });
 

@@ -41,6 +41,7 @@ if ($ebsxps == 'ebs') {
     $example = $_SESSION[SID]['example'];
     $xpChanged = $_SESSION[SID]['xpChanged'];
     $originalXp = $_SESSION[SID]['originalXp'];
+    $addSentIds = $_SESSION[SID]['sentids'];
 }
 
 // get context option
@@ -82,7 +83,7 @@ try {
     if (isset($sentences)) {
         // Write results to file so that they can be downloaded later on
         // If the file already exists, remove it and re-create it (just to be sure)
-      
+
         // Create seperate HTML file for printing
         $dlFileName = ROOT_PATH."/tmp/".SID."-gretel-results-dl.txt";
         $printFileName = ROOT_PATH."/tmp/".SID."-gretel-results-print.html";
@@ -114,7 +115,7 @@ try {
         if ($ebsxps == 'ebs') {
           fwrite($printFh, "<li>Input example: $example</li>");
         }
-        fwrite($printFh, "<li>XPath: $xpath</li><li>Date: $date</li></ul><table>");
+        fwrite($printFh, "<li>XPath: $xpath</li><li>Date: $date</li></ul><table><tbody>");
 
         $counter = 0;
         foreach ($sentences as $sid => $sentence) {
@@ -165,10 +166,20 @@ try {
             . '" target="_blank">'.$sidString.'</a>';
 
             $resultsArray{$sid} = array($sentenceidlink, $hlsentence, $componentsString);
+
+            // Prepare files for download or print
+            fwrite($dlFh, "$counter\t");
+            fwrite($printFh, "<tr><td>$counter</td>");
+
+            if ($addSentIds) {
+              fwrite($dlFh, "$sidString\t");
+              fwrite($printFh, "<td>$sidString</td>");
+            }
+
             fwrite($dlFh, "$corpus\t$componentsString\t$hlsentenceDownload\n");
-            fwrite($printFh, "<tr><td>$counter</td><td>$sidString</td><td>$componentsString</td><td>$hlsentence</td></tr>");
+            fwrite($printFh, "<td>$corpus</td><td>$componentsString</td><td>$hlsentence</td></tr>");
         }
-        fwrite($printFh, '</table></body></html>');
+        fwrite($printFh, '</tbody></table></body></html>');
         fclose($dlFh);
         fclose($printFh);
 

@@ -29,6 +29,7 @@ if ($continueConstraints) {
     $_SESSION[SID]['xpath'] = $xpath;
     $_SESSION[SID]['manualMode'] = ($_POST['manualMode'] == 'false') ? false : true;
     $_SESSION[SID]['ct'] = isset($_POST['ct']) ? true : false;
+    $_SESSION[SID]['sentids'] = isset($_POST['sentids']) ? true : false;
   }
 }
 session_write_close();

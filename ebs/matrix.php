@@ -99,6 +99,15 @@ if ($continueConstraints):
             <span class="sr-only">Search for more general patterns by ignoring the properties of the top node, e.g. search for both main clauses and subclauses</span>
           </div>
         </div>
+        <div class="label-wrapper advanced-option">
+          <label>
+            <input type="checkbox" name="sentids" aria-describedby="sentids-tooltip"> Include sentence IDs in downloadable results
+          </label>
+          <div class="help-tooltip" id="sentids-tooltip" role="tooltip" data-title="Add sentence identifiers to downloads. A sentence identifier is a unique identifier given to each sentence in a corpus. Given an identifier you can look up the sentence in the original corpus">
+            <i class="fa fa-fw fa-info-circle" aria-hidden="true"></i>
+            <span class="sr-only">Add sentence identifiers to downloads. A sentence identifier is a unique identifier given to each sentence in a corpus. Given an identifier you can look up the sentence in the original corpus</span>
+          </div>
+        </div>
       </div>
 
       <div>
