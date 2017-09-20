@@ -782,6 +782,9 @@ dd p:last-child {
   -o-transition: transform 200ms;
   transition: transform 200ms;
   transition: transform 200ms, -webkit-transform 200ms;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
   will-change: transform;
 }
 
@@ -826,6 +829,9 @@ dd p:last-child {
   -o-transition: transform 200ms;
   transition: transform 200ms;
   transition: transform 200ms, -webkit-transform 200ms;
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 .primary-navigation.small {
@@ -1161,6 +1167,9 @@ a.collapse > span i {
   -o-transition: transform 250ms;
   transition: transform 250ms;
   transition: transform 250ms, -webkit-transform 250ms;
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 a.collapse:hover, a.collapse[data-collapse="hidden"] {
@@ -1670,6 +1679,9 @@ a.collapse[data-collapse="hidden"]:hover i {
   -o-transition: transform 150ms;
   transition: transform 150ms;
   transition: transform 150ms, -webkit-transform 150ms;
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
   -webkit-transform-origin: center center;
   -ms-transform-origin: center center;
   transform-origin: center center;

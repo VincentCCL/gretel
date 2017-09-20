@@ -176,8 +176,14 @@ try {
               fwrite($printFh, "<td>$sidString</td>");
             }
 
-            fwrite($dlFh, "$corpus\t$componentsString\t$hlsentenceDownload\n");
-            fwrite($printFh, "<td>$corpus</td><td>$componentsString</td><td>$hlsentence</td></tr>");
+            fwrite($dlFh, "$corpus\t");
+            fwrite($printFh, "<td>$corpus</td>");
+            if (!($corpus == 'sonar' && $addSentIds)) {
+              fwrite($dlFh, "$componentsString\t");
+              fwrite($printFh, "<td>$componentsString</td>");
+            }
+            fwrite($dlFh, "$hlsentenceDownload\n");
+            fwrite($printFh, "<td>$hlsentence</td></tr>");
         }
         fwrite($printFh, '</tbody></table></body></html>');
         fclose($dlFh);

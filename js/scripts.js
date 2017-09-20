@@ -254,7 +254,7 @@ $(function() {
     function editWarningOnClick() {
       var popupClass = "edit-warning";
       if ($("." + popupClass).length == 0) {
-        var html = "<p>Editing the XPath will disable all options including the selection table and the tree representation. Furthermore, you will <strong>not</strong> be able to select SoNaR as the corpus of interest.</p>" +
+        var html = "<p>Editing the XPath will disable all options except for the option to add sentence IDs, as well as disable the selection table and the tree representation.</p>" +
           "<p><strong>Only edit this code if you know what you are doing!</strong></p>";
         html += "<small>You can re-enable all options and reset XPath to the last unmodified structure by pressing the button <em>Reset XPath</em></small>";
 
@@ -267,14 +267,14 @@ $(function() {
       if (!Cookies.get('popup-continue-' + popupId)) {
         showPopup(popup, $("#xpath"));
         popup.find("button.continue").click(function() {
-          $(".input-wrapper, .xpath-wrapper > div:first-child, #tree-output, .guidelines").addClass("advanced-mode-active").find(":not(.disabled) > input, :not(.disabled) > button").prop("disabled", true);
+          $(".input-wrapper, .xpath-wrapper > div:first-child, #tree-output, .guidelines").addClass("advanced-mode-active").find(":not(.disabled) > input, :not(.disabled) > button").not("[name='sentids']").prop("disabled", true);
           $('[name="manualMode"]').val("true");
 
           $(".continue-btn-wrapper [type='submit']").prop("disabled", false);
           $(".xpath-wrapper textarea").off("mousedown");
         });
       } else {
-        $(".input-wrapper, .xpath-wrapper > div:first-child, #tree-output, .guidelines").addClass("advanced-mode-active").find(":not(.disabled) > input, :not(.disabled) > button").prop("disabled", true);
+        $(".input-wrapper, .xpath-wrapper > div:first-child, #tree-output, .guidelines").addClass("advanced-mode-active").find(":not(.disabled) > input, :not(.disabled) > button").not("[name='sentids']").prop("disabled", true);
         $('[name="manualMode"]').val("true");
 
         $(".continue-btn-wrapper [type='submit']").prop("disabled", false);

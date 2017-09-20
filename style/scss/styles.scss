@@ -453,7 +453,7 @@ dd {
         font-weight: 300;
         font-size: 15px;
         transition: transform 200ms;
-
+        transform: scale(1);
         will-change: transform;
         &.active,
         &:hover {
@@ -484,6 +484,7 @@ dd {
     align-self: flex-end;
     i {
       transition: transform 200ms;
+      transform: rotate(0deg);
     }
   }
   &.small {
@@ -742,6 +743,7 @@ a.collapse {
     i {
       color: #dcdcdc;
       transition: transform 250ms;
+      transform: rotate(0deg);
     }
   }
   &:hover,
@@ -1137,6 +1139,7 @@ a.collapse {
     [for="filter-components"] {
       i {
         transition: transform 150ms;
+        transform: rotate(0deg);
         transform-origin: center center;
       }
     }
