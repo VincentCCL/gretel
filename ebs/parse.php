@@ -90,7 +90,7 @@ if ($continueConstraints) : ?>
   <script>
   $(function() {
       $("#tree-output").treeVisualizer('<?php echo "tmp/".SID."-pt.xml"; ?>', {
-        sentence: '<?php echo $input; ?>'
+        sentence: "<?php echo htmlspecialchars($input, ENT_COMPAT | ENT_HTML5); ?>"
     });
   });
   </script>
