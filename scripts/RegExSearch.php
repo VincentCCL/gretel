@@ -12,7 +12,8 @@ function GetResults($string,$case,$treebank,$subtreebanks,$session,$contextflag)
   $string= preg_replace("/'/",'&apos;',$string);
   $string= preg_replace('/"/','&quot;',$string);
   $string= preg_replace('/\\\\s/',' ',$string);
-  $string= preg_replace('/\\\\b/','\\\\\\\\y',$string);
+  $string= preg_replace("/\\\\/i",'\\\\\\\\',$string); // change backslash into double backslash
+  $string= preg_replace('/\\\\b/i','\\\\y',$string); 
 
 // count matching sentences
   foreach ($database as $db) {
@@ -63,9 +64,8 @@ while ($row = pg_fetch_row($results)) {
     if ($row[1] != "{}") {
       $sentid=$row[0];
       $sentence=$row[1];
-
-      $convertedstring=preg_replace('/\\\\\\\\y/i','\\b',$string); //change word boundary symbol
-
+      $convertedstring=preg_replace('/\\\\\\\\y/i','\\\\\\\\b',$string); //change word boundary symbol
+      $convertedstring= preg_replace("/\\\\\\\\/i",'\\\\',$convertedstring); // change double backslash into single backslash
     if (preg_match("/($convertedstring)/i", $sentence)) {
       preg_match_all("/($convertedstring)/i", $sentence, $hits);
 
