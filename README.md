@@ -30,3 +30,7 @@ Available at http://gretel.ccl.kuleuven.be/gretel-2.0
 
 * [Liesbeth Augustinus](http://www.ccl.kuleuven.be/~liesbeth/)
 * Centre for Computational Linguistics, KU Leuven (http://www.ccl.kuleuven.be)
+
+## License
+
+This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (cc-by-sa-4.0). See the [license.txt](license.txt) file for license rights and limitations.
