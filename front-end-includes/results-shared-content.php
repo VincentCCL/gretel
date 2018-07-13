@@ -54,7 +54,7 @@
           </tbody>
         </table>
       </div>
-      <a href='<?php echo "tmp/$id-gretel-distribution.csv"; ?>' class="download-link"
+      <a href='<?php echo "tmp/" . SID . "-gretel-distribution.csv"; ?>' class="download-link"
         title="Download distribution" target="_blank" download="gretel-distribution.csv">
         <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download distribution</a>
     </div>
