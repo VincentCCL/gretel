@@ -15,7 +15,7 @@ $continueConstraints = isset($_POST['sid']) && (isset($_POST['xpath']) || isset(
 
 if ($continueConstraints) {
   define('SID', $_POST['sid']);
-  $xpath = (isset($_POST['xpath'])) ? $_POST['xpath'] : $_SESSION[SID]['xpath'];
+  $xpath = (isset($_POST['xpath'])) ? htmlspecialchars($_POST['xpath'], ENT_COMPAT | ENT_HTML5) : $_SESSION[SID]['xpath'];
   $_SESSION[SID]['xpath'] = $xpath;
 }
 
