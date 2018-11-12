@@ -19,7 +19,7 @@ if ($continueConstraints) {
   $xpath = (isset($_POST['xpath'])) ? $_POST['xpath'] : $_SESSION[SID]['xpath'];
   $isSpam = isSpam($xpath);
   if (!$isSpam) {
-    $xpath = htmlspecialchars($xpath, ENT_COMPAT | ENT_HTML5);
+    $xpath = strip_tags($xpath);
     $_SESSION[SID]['xpath'] = $xpath;
   }
 }
