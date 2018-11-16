@@ -40,26 +40,26 @@ require ROOT_PATH."/functions.php";
 require ROOT_PATH."/basex-search-scripts/basex-client.php";
 
 try {
-  $serverInfo;
-  if ($treebank == 'sonar') {
-    preg_match('/^([A-Z]{5})/', $db, $component);
-    $serverInfo = getServerInfo($treebank, $component[0]);
-    $queryPath = $db;
-  } else {
-    $serverInfo = getServerInfo($treebank, false);
-    $queryPath = strtoupper($treebank);
-    $queryPath .= '_ID';
-  }
+    $serverInfo;
+    if ($treebank == 'sonar') {
+        preg_match('/^([A-Z]{5})/', $db, $component);
+        $serverInfo = getServerInfo($treebank, $component[0]);
+        $queryPath = $db;
+    } else {
+        $serverInfo = getServerInfo($treebank, false);
+        $queryPath = strtoupper($treebank);
+        $queryPath .= '_ID';
+    }
 
-  $dbhost = $serverInfo{'machine'};
-  $dbport = $serverInfo{'port'};
-  $session = new Session($dbhost, $dbport, $dbuser, $dbpwd);
-  $xquery = 'db:open("'.$queryPath.'")/treebank/alpino_ds[@id="'.$sentid.'"]';
-  $query = $session->query($xquery);
-  $xml = $query->execute();
+    $dbhost = $serverInfo{'machine'};
+    $dbport = $serverInfo{'port'};
+    $session = new Session($dbhost, $dbport, $dbuser, $dbpwd);
+    $xquery = 'db:open("'.$queryPath.'")/treebank/alpino_ds[@id="'.$sentid.'"]';
+    $query = $session->query($xquery);
+    $xml = $query->execute();
 
-  $query->close();
-  $session->close();
+    $query->close();
+    $session->close();
 
     $replaceValues = array(
       '&' => '&amp;',
@@ -94,19 +94,21 @@ function treeHighlighter($xmlString, $xpath) {
 
   if (!empty($highlightNodes)) {
     foreach ($highlightNodes as $node) {
-      $node->addAttribute('highlight', 'yes');
+        if (isset($node['index'])) {
+            $highlightNodes = array_merge($highlightNodes, $xml->xpath('//node[@index="'.$node['index'].'"]'));
+        }
     }
-  }
-  else {
-      $errorLog = fopen(ROOT_PATH."/log/xml2tree.log", 'a');
-      fwrite($errorLog, "Can't find $xpath\n");
-      fclose($errorLog);
-
-      $highlightNodes = $xml->xpath('//node[@rel="top"]');
-
-      foreach ($highlightNodes as $node) {
+    foreach ($highlightNodes as $node) {
         $node->addAttribute('highlight', 'yes');
-      }
+    }
+  } else {
+    $errorLog = fopen(ROOT_PATH.'/log/xml2tree.log', 'a');
+    fwrite($errorLog, "Can't find $xpath\n");
+    fclose($errorLog);
+    $highlightNodes = $xml->xpath('//node[@rel="top"]');
+    foreach ($highlightNodes as $node) {
+        $node->addAttribute('highlight', 'yes');
+    }
   }
   return $xml;
 }

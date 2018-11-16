@@ -155,8 +155,10 @@ function createXquery($database, $endPosIteration)
     $regulartb = $needRegularSonar ? "let \$tb := '$database'" : '';
     $returnTb = ($corpus == 'sonar') ? '||{data($tb)}' : '';
 
-    $ids = 'let $ids := ($node//@id)';
-    $begins = 'let $begins := ($node//@begin)';
+    $ids = 'let $ids := ($node//@id)';   
+    $begins = 'let $indexs := (distinct-values($node//@index))
+        let $indexed := ($tree//node[@index=$indexs])
+        let $begins := (($node | $indexed)//@begin)';
     $beginlist = 'let $beginlist := (distinct-values($begins))';
     if ($context && !$needRegularSonar) {
         if ($corpus == 'sonar') {
