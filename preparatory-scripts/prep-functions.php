@@ -145,10 +145,15 @@ function cleanXpath($xpath, $trimSlash = true) {
 }
 
 function checkBfPattern($bf, $sid) {
-  global $cats, $components, $dbuser, $dbpwd,
+  global $cats, $corpus, $components, $dbuser, $dbpwd,
     $continueConstraints, $databaseExists, $needRegularVersion;
 
-  $component = $components[0];
+  if $databaseGroups[$corpus]['hasComponents'] {
+    $component = $components[0];
+  } else {
+    $component = false;
+  }
+  
 
   // If bf-pattern == ALL, we're faster searching through regular version
   if ($bf && $bf != 'ALL') {
@@ -164,7 +169,7 @@ function checkBfPattern($bf, $sid) {
       }
 
       try {
-        $serverInfo = getServerInfo('sonar', $component);
+        $serverInfo = getServerInfo($corpus, $component);
 
         $dbhost = $serverInfo{'machine'};
         $dbport = $serverInfo{'port'};
@@ -185,7 +190,7 @@ function checkBfPattern($bf, $sid) {
         error_log($e);
       }
   } else {
-    $_SESSION[$sid]['startDatabases'] = getRegularSonar($component);
+    $_SESSION[$sid]['startDatabases'] = getRegularCorpus($corpus, $component);
     $needRegularVersion = true;
   }
 }

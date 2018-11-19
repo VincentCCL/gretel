@@ -2,7 +2,7 @@
 
 function getCounts($databases, $already, $session)
 {
-    global $corpus, $needRegularVersion;
+    global $corpus, $needRegularVersion, $databaseGroups;
 
     $sum = 0;
     $counts = array();
@@ -52,7 +52,7 @@ function createCsvCounts($sum, $counts, $sid)
 
 function createXqueryCount($database)
 {
-    global $needRegularVersion, $xpath, $corpus;
+    global $needRegularVersion, $xpath, $corpus, $databaseGroups;
     $for = 'count(for $node in db:open("'.$database.'")/treebank';
     if ($databaseGroups[$corpus]['isGrinded'] && !$needRegularVersion) {
         $for .= '/tree';

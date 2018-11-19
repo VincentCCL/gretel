@@ -42,7 +42,7 @@ $context = $_SESSION[SID]['ct'];
 session_write_close();
 
 try {
-    if ($databaseGroups[$corpus]['isGrinded']) {
+    if ($corpus == 'sonar') {
         $serverInfo = getServerInfo($corpus, $components[0]);
     } else {
         $serverInfo = getServerInfo($corpus, false);

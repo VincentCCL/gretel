@@ -251,9 +251,14 @@ function highlightSentence($sentence, $beginlist, $tag)
     return $hlsentence;
 }
 
-function getRegularSonar($component)
+function getRegularCorpus($corpus, $component)
 {
-    $databases = file("treebank-parts/$component.lst", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if ($component) {
+        $databases = file("treebank-parts/$corpus/$component.lst", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    } else {
+        $databases = file("treebank-parts/$corpus/$corpus.lst", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    }
+    
 
     return $databases;
 }

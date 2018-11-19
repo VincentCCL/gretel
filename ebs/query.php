@@ -14,29 +14,35 @@ $noTbFlag = 0;
 $continueConstraints = isset($_POST['sid']);
 
 if ($continueConstraints) {
-  define('SID', $_POST['sid']);
-  if (isset($_POST['treebank'])) {
-      $treebank = $_POST['treebank'];
-      $_SESSION[SID]['treebank'] = $treebank;
-  } elseif (isset($_SESSION[SID]['treebank'])) {
-      $treebank = $_SESSION[SID]['treebank'];
-  } else {
-      $noTbFlag = 1;
-      $treebank = '';
-  }
-
-  if (!$noTbFlag) {
-      if (isset($_POST['subtreebank'])) {
-          $component = $_POST['subtreebank'];
-          $_SESSION[SID]['subtreebank'] = $component;
-      } elseif (isset($_SESSION[SID]['subtreebank'])) {
-          $component = $_SESSION[SID]['subtreebank'];
-      } else {
-          $noTbFlag = 1;
-      }
-  }
-
-  $continueConstraints = !$noTbFlag && sessionVariablesSet(SID, array('sentence', 'treebank', 'subtreebank', 'xpath'));
+    define('SID', $_POST['sid']);
+    if (isset($_POST['treebank'])) {
+        $corpus = $_POST['treebank'];
+        $_SESSION[SID]['treebank'] = $corpus;
+    } elseif (isset($_SESSION[SID]['treebank'])) {
+        $corpus = $_SESSION[SID]['treebank'];
+    } else {
+        $noTbFlag = true;
+        $corpus = '';
+    }
+  
+    if (!$noTbFlag) {
+        $hasComponents = $databaseGroups[$corpus]['hasComponents'];
+        if ($hasComponents) {
+            if (isset($_POST['subtreebank'])) {
+                $components = $_POST['subtreebank'];
+                $_SESSION[SID]['subtreebank'] = $components;
+            } elseif (isset($_SESSION[SID]['subtreebank'])) {
+                $components = $_SESSION[SID]['subtreebank'];
+            } else {
+                $noTbFlag = true;
+            }
+        } else {
+            $components = array();
+            $_SESSION[SID]['subtreebank'] = $components;
+        }
+    }
+    
+    $continueConstraints = !$noTbFlag && sessionVariablesSet(SID, array('sentence', 'treebank', 'xpath'));
 }
 
 require ROOT_PATH."/functions.php";
@@ -91,8 +97,10 @@ require ROOT_PATH."/front-end-includes/head.php";
 <h3>Input</h3>
 <ul>
 <li>Input example: <em><?php echo $tokinput; ?></em></li>
-<li>Treebank: <?php echo strtoupper($treebank); ?></li>
+<li>Treebank: <?php echo strtoupper($corpus); ?></li>
+<?php if ($databaseGroups[$corpus]['hasComponents']): ?>
 <li>Components: <?php echo strtoupper($component); ?></li>
+<?php endif; ?>
 </ul>
 
 <?php if (!$xpChanged): ?>

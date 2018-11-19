@@ -9,7 +9,7 @@ $step = 6;
 require "../config.php";
 require ROOT_PATH."/helpers.php";
 
-$continueConstraints = isset($_POST['sid']) && sessionVariablesSet($_POST['sid'], array('treebank', 'queryid', 'example', 'subtreebank', 'xpath'));
+$continueConstraints = isset($_POST['sid']) && sessionVariablesSet($_POST['sid'], array('treebank', 'queryid', 'example', 'xpath'));
 
 if ($continueConstraints) {
   require ROOT_PATH."/preparatory-scripts/prep-functions.php";

@@ -38,11 +38,12 @@ if ($continueConstraints) {
             $noTbFlag = true;
         }
     } else {
-        $components = [];
+        $components = array();        
+        $_SESSION[SID]['subtreebank'] = $components;
     }
   }
 
-  $continueConstraints = !$noTbFlag && sessionVariablesSet(SID, array('treebank', 'subtreebank', 'xpath'));
+  $continueConstraints = !$noTbFlag && sessionVariablesSet(SID, array('treebank', 'xpath'));
 }
 
 if ($continueConstraints) {
