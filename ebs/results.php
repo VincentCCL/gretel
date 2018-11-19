@@ -33,11 +33,11 @@ if ($continueConstraints) {
   $context = $_SESSION[SID]['ct'];
   $_SESSION[SID]['endPosIteration'] = 0;
   $_SESSION[SID]['startDatabases'] = array();
-  if ($corpus == 'sonar') {
+  if ($databaseGroups[$corpus]['isGrinded']) {
     $databaseExists = false;
   }
 
-  $needRegularSonar = false;
+  $needRegularVersion = false;
 }
 
 session_write_close();
@@ -49,7 +49,7 @@ if ($continueConstraints) {
   require ROOT_PATH."/basex-search-scripts/treebank-search.php";
   require ROOT_PATH."/basex-search-scripts/basex-client.php";
   session_start();
-  if ($corpus == 'sonar') {
+  if ($databaseGroups[$corpus]['isGrinded']) {
     $bf = xpathToBreadthFirst($xpath);
      // Get correct databases to start search with, sets to
      // $_SESSION[SID]['startDatabases']
@@ -57,7 +57,7 @@ if ($continueConstraints) {
 
     // When looking in the regular version we need the double slash to go through
     // all descendants
-    if ($needRegularSonar) {
+    if ($needRegularVersion) {
       $xpath = "//$xpath";
       $originalXp = "//$originalXp";
     } else {
@@ -75,7 +75,7 @@ if ($continueConstraints) {
   $_SESSION[SID]['flushAlready'] = $_SESSION[SID]['flushDatabases'] = $_SESSION[SID]['startDatabases'];
   $_SESSION[SID]['xpath'] = $xpath;
   $_SESSION[SID]['originalXp'] = $originalXp;
-  $_SESSION[SID]['needRegularSonar'] = $needRegularSonar;
+  $_SESSION[SID]['needRegularVersion'] = $needRegularVersion;
   session_write_close();
 }
 ?>

@@ -26,14 +26,14 @@ $corpus = $_SESSION[SID]['treebank'];
 $components = $_SESSION[SID]['subtreebank'];
 $already = $databases = $_SESSION[SID]['startDatabases'];
 
-if ($corpus == 'sonar') {
-    $needRegularSonar = $_SESSION[SID]['needRegularSonar'];
+if ($databaseGroups[$corpus]['isGrinded']) {
+    $needRegularVersion = $_SESSION[SID]['needRegularVersion'];
 }
 
 session_write_close();
 
 try {
-    if ($corpus == 'sonar') {
+    if ($databaseGroups[$corpus]['isGrinded']) {
         $serverInfo = getServerInfo($corpus, $components[0]);
     } else {
         $serverInfo = getServerInfo($corpus, false);

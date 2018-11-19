@@ -24,8 +24,10 @@
   </div>
   <div class="corpora-wrapper">
     <?php foreach ($databaseGroups as $corpus => $arr) {
-      echo "<div class=\"{$corpus}\" style=\"display:none\">";
-      require ROOT_PATH."/front-end-includes/tb-{$corpus}.php";
-      echo '</div>';
+      if (array_key_exists('hasComponents', $arr) && $arr['hasComponents']) {
+        echo "<div class=\"{$corpus}\" style=\"display:none\">";
+        require ROOT_PATH."/front-end-includes/tb-{$corpus}.php";
+        echo '</div>';
+      }
     } ?>
   </div>

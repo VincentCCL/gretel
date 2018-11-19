@@ -29,8 +29,8 @@ $corpus = $_SESSION[SID]['treebank'];
 $components = $_SESSION[SID]['subtreebank'];
 $databases = $_SESSION[SID]['flushDatabases'];
 $already = $_SESSION[SID]['flushAlready'];
-if ($corpus == 'sonar') {
-    $needRegularSonar = $_SESSION[SID]['needRegularSonar'];
+if ($databaseGroups[$corpus]['isGrinded']) {
+    $needRegularVersion = $_SESSION[SID]['needRegularVersion'];
 }
 
 $databaseString = $corpus;
@@ -42,7 +42,7 @@ $context = $_SESSION[SID]['ct'];
 session_write_close();
 
 try {
-    if ($corpus == 'sonar') {
+    if ($databaseGroups[$corpus]['isGrinded']) {
         $serverInfo = getServerInfo($corpus, $components[0]);
     } else {
         $serverInfo = getServerInfo($corpus, false);
@@ -63,7 +63,7 @@ try {
             $trans = array('"' => '&quot;', "'" => '&apos;');
             $hlsentence = strtr($hlsentence, $trans);
 
-            if ($corpus == 'sonar') {
+            if ($databaseGroups[$corpus]['isGrinded']) {
                 $databaseString = $tblist[$sid];
             }
 

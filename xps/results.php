@@ -22,17 +22,24 @@ if ($continueConstraints) {
   } elseif (isset($_SESSION[SID]['treebank'])) {
       $corpus = $_SESSION[SID]['treebank'];
   } else {
-      $noTbFlag = 1;
+      $noTbFlag = true;
       $corpus = '';
   }
 
-  if (isset($_POST['subtreebank'])) {
-      $components = $_POST['subtreebank'];
-      $_SESSION[SID]['subtreebank'] = $components;
-  } elseif (isset($_SESSION[SID]['subtreebank'])) {
-      $components = $_SESSION[SID]['subtreebank'];
-  } else {
-      $noTbFlag = 1;
+  if (!$noTbFlag) {
+    $hasComponents = $databaseGroups[$corpus]['hasComponents'];
+    if ($hasComponents) {
+        if (isset($_POST['subtreebank'])) {
+            $components = $_POST['subtreebank'];
+            $_SESSION[SID]['subtreebank'] = $components;
+        } elseif (isset($_SESSION[SID]['subtreebank'])) {
+            $components = $_SESSION[SID]['subtreebank'];
+        } else {
+            $noTbFlag = true;
+        }
+    } else {
+        $components = [];
+    }
   }
 
   $continueConstraints = !$noTbFlag && sessionVariablesSet(SID, array('treebank', 'subtreebank', 'xpath'));
@@ -53,11 +60,11 @@ if ($continueConstraints) {
     $_SESSION[SID]['endPosIteration'] = 0;
     $_SESSION[SID]['startDatabases'] = array();
 
-    if ($corpus == 'sonar') {
+    if ($databaseGroups[$corpus]['isGrinded']) {
         $databaseExists = false;
     }
 
-    $needRegularSonar = false;
+    $needRegularVersion = false;
 }
 
 session_write_close();
@@ -69,7 +76,7 @@ if ($continueConstraints) {
   require ROOT_PATH."/basex-search-scripts/treebank-search.php";
   require ROOT_PATH."/basex-search-scripts/basex-client.php";
   session_start();
-  if ($corpus == 'sonar') {
+  if ($databaseGroups[$corpus]['isGrinded']) {
     $bf = xpathToBreadthFirst($xpath);
     // Get correct databases to start search with, sets to
     // $_SESSION[SID]['startDatabases']
@@ -77,7 +84,7 @@ if ($continueConstraints) {
 
     // When looking in the regular version we need the double slash to go through
     // all descendants
-    if ($needRegularSonar) {
+    if ($needRegularVersion) {
       $xpath = "//$xpath";
     } else {
       $xpath = "/$xpath";
@@ -91,7 +98,7 @@ if ($continueConstraints) {
   // or when fetching all results
   $_SESSION[SID]['flushAlready'] = $_SESSION[SID]['flushDatabases'] = $_SESSION[SID]['startDatabases'];
   $_SESSION[SID]['xpath'] = $xpath;
-  $_SESSION[SID]['needRegularSonar'] = $needRegularSonar;
+  $_SESSION[SID]['needRegularVersion'] = $needRegularVersion;
   session_write_close();
 }
 ?>

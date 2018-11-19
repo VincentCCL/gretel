@@ -146,9 +146,9 @@ function cleanXpath($xpath, $trimSlash = true) {
 
 function checkBfPattern($bf, $sid) {
   global $cats, $components, $dbuser, $dbpwd,
-    $continueConstraints, $databaseExists, $needRegularSonar;
+    $continueConstraints, $databaseExists, $needRegularVersion;
 
-    $component = $components[0];
+  $component = $components[0];
 
   // If bf-pattern == ALL, we're faster searching through regular version
   if ($bf && $bf != 'ALL') {
@@ -186,7 +186,7 @@ function checkBfPattern($bf, $sid) {
       }
   } else {
     $_SESSION[$sid]['startDatabases'] = getRegularSonar($component);
-    $needRegularSonar = true;
+    $needRegularVersion = true;
   }
 }
 

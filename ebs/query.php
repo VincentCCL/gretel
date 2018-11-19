@@ -63,7 +63,7 @@ if ($continueConstraints) {
     $_SESSION[SID]['xpChanged'] = $xpChanged;
 
     // Temporarily change XPath to show it to user
-    if ($treebank == 'sonar') {
+    if ($databaseGroups[$corpus]['isGrinded']) {
       $xpath = "/$xpath";
     } else {
       $xpath = "//$xpath";

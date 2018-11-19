@@ -48,12 +48,12 @@ function corpusToDatabase($components, $corpus)
 
 function getSentences($databases, $already, $endPosIteration, $session, $sid)
 {
-    global $flushLimit, $resultsLimit, $needRegularSonar, $corpus;
+    global $flushLimit, $resultsLimit, $needRegularVersion, $corpus;
 
     $matchesAmount = 0;
 
     while ($database = array_pop($databases)) {
-        if ($corpus == 'sonar' && !$needRegularSonar) {
+        if ($databaseGroups[$corpus]['isGrinded'] && !$needRegularVersion) {
             getMoreIncludes($database, $databases, $already, $session);
         }
         while (1) {
@@ -82,7 +82,7 @@ function getSentences($databases, $already, $endPosIteration, $session, $sid)
                 }
                 $match = str_replace('<match>', '', $match);
 
-                if ($corpus == 'sonar') {
+                if ($databaseGroups[$corpus]['isGrinded']) {
                     list($sentid, $sentence, $tb, $ids, $begins) = explode('||', $match);
                 } else {
                     list($sentid, $sentence, $ids, $begins) = explode('||', $match);
@@ -99,7 +99,7 @@ function getSentences($databases, $already, $endPosIteration, $session, $sid)
                     $sentences{$sentid} = $sentence;
                     $idlist{$sentid} = $ids;
                     $beginlist{$sentid} = $begins;
-                    if ($corpus == 'sonar') {
+                    if ($databaseGroups[$corpus]['isGrinded']) {
                         $tblist{$sentid} = $tb;
                     }
                 }
@@ -125,7 +125,7 @@ function getSentences($databases, $already, $endPosIteration, $session, $sid)
             $_SESSION[$sid]['flushAlready'] = $already;
             session_write_close();
         }
-        if ($corpus !== 'sonar') {
+        if (!$databaseGroups[$corpus]['isGrinded']) {
             $tblist = false;
         }
         return array($sentences, $tblist, $idlist, $beginlist);
@@ -137,10 +137,10 @@ function getSentences($databases, $already, $endPosIteration, $session, $sid)
 
 function createXquery($database, $endPosIteration)
 {
-    global $flushLimit, $resultsLimit, $needRegularSonar, $corpus, $components, $context, $xpath;
+    global $flushLimit, $resultsLimit, $needRegularVersion, $corpus, $components, $context, $xpath;
 
     $for = 'for $node in db:open("'.$database.'")/treebank';
-    if ($corpus == 'sonar' && !$needRegularSonar) {
+    if ($databaseGroups[$corpus]['isGrinded'] && !$needRegularVersion) {
         $for .= '/tree';
         $sentid = 'let $sentid := ($node/ancestor::tree/@id)';
         $sentence = '
@@ -152,16 +152,16 @@ function createXquery($database, $endPosIteration)
         $sentence = 'let $sentence := ($node/ancestor::alpino_ds/sentence)';
     }
 
-    $regulartb = $needRegularSonar ? "let \$tb := '$database'" : '';
-    $returnTb = ($corpus == 'sonar') ? '||{data($tb)}' : '';
+    $regulartb = $needRegularVersion ? "let \$tb := '$database'" : '';
+    $returnTb = ($databaseGroups[$corpus]['isGrinded']) ? '||{data($tb)}' : '';
 
     $ids = 'let $ids := ($node//@id)';   
     $begins = 'let $indexs := (distinct-values($node//@index))
         let $indexed := ($tree//node[@index=$indexs])
         let $begins := (($node | $indexed)//@begin)';
     $beginlist = 'let $beginlist := (distinct-values($begins))';
-    if ($context && !$needRegularSonar) {
-        if ($corpus == 'sonar') {
+    if ($context && !$needRegularVersion) {
+        if ($databaseGroups[$corpus]['isGrinded']) {
             $databases = $component[0].'sentence2treebank';
         } else {
             $databases = strtoupper($corpus).'_ID_S';

@@ -14,7 +14,7 @@
     <?php
     if ($corpus == 'sonar'):
         $component = $components[0];
-        if (!$needRegularSonar && isset($databaseGroups{$corpus}{$component}{'sentences'})):
+        if (!$needRegularVersion && isset($databaseGroups{$corpus}{$component}{'sentences'})):
           $componentSize = $databaseGroups{$corpus}{$component}{'sentences'};
           if ($componentSize > 1000000):
           ?>

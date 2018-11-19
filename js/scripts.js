@@ -289,13 +289,15 @@ $(function() {
       if ($this.is("[name='treebank']")) {
         $(".corpora-wrapper > div").hide().removeClass("active");
         $(".corpora-wrapper > div").find("[type='checkbox'], [type='radio']").prop("disabled", true);
-        $("." + value).show().addClass("active").find("label:not(.disabled)").find("[type='checkbox'], [type='radio']").prop("disabled", false);
+        if ($(".corpora-wrapper > ." + value).length > 0) {
+          $(".corpora-wrapper > ." + value).show().addClass("active").find("label:not(.disabled)").find("[type='checkbox'], [type='radio']").prop("disabled", false);
 
-        if ($this.data("multioption") === 'false' && $("." + value + " [type='checkbox']:checked").length == 0) {
-          $(".continue-btn-wrapper [type='submit']").prop("disabled", true);
-        } else {
-          $(".continue-btn-wrapper [type='submit']").prop("disabled", false);
-        }
+          if ($this.data("multioption") === 'false' && $(".corpora-wrapper > ." + value + " [type='checkbox']:checked").length == 0) {
+            $(".continue-btn-wrapper [type='submit']").prop("disabled", true);
+          } else {
+            $(".continue-btn-wrapper [type='submit']").prop("disabled", false);
+          }
+        }        
       }
     });
     // Selecting subtreebanks
