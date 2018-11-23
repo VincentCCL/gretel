@@ -34,7 +34,7 @@ if ($continueConstraints) {
     // Check if $input contains email addresses or website URLs
     $isSpam = isSpam($input);
     if (!$isSpam) {
-      $input = htmlspecialchars($input, ENT_COMPAT | ENT_HTML5);
+      $input = strip_tags($input);
       $_SESSION[SID]['example'] = $input;
 
       // Prepare/clean up input to be tokenized in next step

@@ -291,7 +291,7 @@ $(function() {
         $(".corpora-wrapper > div").find("[type='checkbox'], [type='radio']").prop("disabled", true);
         $("." + value).show().addClass("active").find("label:not(.disabled)").find("[type='checkbox'], [type='radio']").prop("disabled", false);
 
-        if $this.data("multioption") === 'false' && $("." + value + " [type='checkbox']:checked").length == 0) {
+        if ($this.data("multioption") === 'false' && $("." + value + " [type='checkbox']:checked").length == 0) {
           $(".continue-btn-wrapper [type='submit']").prop("disabled", true);
         } else {
           $(".continue-btn-wrapper [type='submit']").prop("disabled", false);
@@ -401,7 +401,7 @@ $(function() {
   function postXpath(xpath, href) {
     $.ajax({
       type: 'POST',
-      url: 'http://bramvanroy.be/projects/xpath-beautifier/php/receive-post.php',
+      url: 'https://bramvanroy.be/projects/xpath-beautifier/php/receive-post.php',
       crossDomain: true,
       data: xpath,
       headers: {
@@ -437,23 +437,29 @@ $(function() {
     getTreePathXHR = $.ajax({
         url: getTreePathScript,
         method: "POST",
-        data: $("main form").serialize()
+        data: $("main form").serialize(),
+        timeout: 5000
       })
       .done(function(json) {
         var data = $.parseJSON(json);
 
-        if (data.location) {
+        if (data.location && data.xpath) {
           $("#tree-output").treeVisualizer(data.location, {
             extendedPOS: true
           });
-        }
-
-        if (data.xpath) {
+          
           $("#xpath, .xpath-wrapper input[name='originalXp']").val(data.xpath);
           adjustTextareaHeight($("#xpath"));
+          
+          $(".continue-btn-wrapper [type='submit']").prop("disabled", false);
         }
-
-        $(".continue-btn-wrapper [type='submit']").prop("disabled", false);
+      })
+      .fail(function(jqXHR, textStatus, error) {
+          // Edge triggers a fail when an XHR request is aborted
+          // We don't want that, so if the error message is abort, ignore
+          if (error != 'abort') {
+            alert('Error getting your request. If this persists, contact us.');
+          }        
       });
   }
 
