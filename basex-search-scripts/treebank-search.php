@@ -157,7 +157,7 @@ function createXquery($database, $endPosIteration)
 
     $ids = 'let $ids := ($node//@id)';   
     $begins = 'let $indexs := (distinct-values($node//@index))
-        let $indexed := ($tree//node[@index=$indexs])
+        let $indexed := ($node//node[@index=$indexs])
         let $begins := (($node | $indexed)//@begin)';
     $beginlist = 'let $beginlist := (distinct-values($begins))';
     if ($context && !$needRegularSonar) {
