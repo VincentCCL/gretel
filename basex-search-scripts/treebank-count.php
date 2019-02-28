@@ -41,11 +41,21 @@ function createCsvCounts($sum, $counts, $sid)
         $fh = fopen($fileName, 'w');
         fputcsv($fh, array('Treebank', 'Hits', '# sentences in treebank'));
 
-        foreach ($counts as $database => $countsArray) {
+	foreach ($counts as $database => $countsArray) {
+        if ($corpus == 'cgn' || $corpus == 'lassy') {	
             $databaseStringArray = explode('_', $database);
             $databaseString = $databaseStringArray[2];
             fputcsv($fh, array($databaseString, $countsArray[0], $countsArray[1]));
         }
+
+	else {   
+            $databaseStringArray = explode('_', $database);
+            $databaseString = $databaseStringArray[1];
+            fputcsv($fh, array($databaseString, $countsArray[0], $countsArray[1]));
+        }
+
+
+	}
         fclose($fh);
     }
 }
@@ -102,6 +112,22 @@ function getTotalSentences()
         $total['CGN_ID_VN'] = '701';
         $total['CGN_ID_VO'] = '3256';
         $total['TOTAL'] = '129923';
+    } elseif ($corpus == 'wablieft') {
+       $total['wablieft_bi'] = '58560';
+       $total['wablieft_blog'] = '5464';
+       $total['wablieft_bu'] = '40953';
+       $total['wablieft_cijfer'] = '1595';
+       $total['wablieft_idk'] = '49438';
+       $total['wablieft_jo'] = '301';
+       $total['wablieft_mening'] = '6117';
+       $total['wablieft_sam'] = '23660';
+       $total['wablieft_sp'] = '24747';
+       $total['wablieft_tip'] = '12869';
+       $total['wablieft_verh'] = '2529';
+       $total['wablieft_vp'] = '5121';
+       $total['wablieft_we'] = '19927';
+       $total['wablieft_zo'] = '5448';
+       $total['TOTAL'] = '2074491';
     } else {
         return false;
     }

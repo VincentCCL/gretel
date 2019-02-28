@@ -152,7 +152,12 @@ try {
             } elseif ($corpus == 'sonar') {
                 preg_match('/^([a-zA-Z]{2}(?:-[a-zA-Z]){3})/', $sidString, $componentsFromRegex);
                 $componentsString = str_replace('-', '', $componentsFromRegex[1]);
-            }
+            }	elseif ($corpus == 'wablieft') {
+                 preg_match('/^wa\d*([a-zA-Z]*).*/', $sidString, $componentsFromRegex);
+                 $componentsString = $componentsFromRegex[1];
+             }	else{
+ 		$componentsString = str_replace('-', '', $componentsFromRegex[1]);
+ 		} 
 
             $componentsString = strtoupper($componentsString);
 

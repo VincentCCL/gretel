@@ -45,10 +45,13 @@ try {
         preg_match('/^([A-Z]{5})/', $db, $component);
         $serverInfo = getServerInfo($treebank, $component[0]);
         $queryPath = $db;
-    } else {
+    } elseif ($treebank == 'cgn' || $treebank == 'lassy') {
         $serverInfo = getServerInfo($treebank, false);
         $queryPath = strtoupper($treebank);
         $queryPath .= '_ID';
+    } else {
+        $serverInfo = getServerInfo($treebank, false);
+        $queryPath = $treebank.'_all';
     }
 
     $dbhost = $serverInfo{'machine'};

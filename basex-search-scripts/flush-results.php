@@ -82,8 +82,11 @@ try {
                 $componentFromRegex = substr($componentFromRegex[1], 1);
 
                 $componentString = str_replace('-', '', $componentFromRegex);
-            } else {
-                preg_match('/^([a-zA-Z]{2}(?:-[a-zA-Z]){3})/', $sidString, $componentFromRegex);
+	    }	elseif ($corpus == 'wablieft') {
+                 preg_match('/^wa\d*([a-zA-Z]*).*/', $sidString, $componentsFromRegex);
+                 $componentsString = $componentsFromRegex[1];
+
+            }   else {
                 $componentString = str_replace('-', '', $componentFromRegex[1]);
             }
 

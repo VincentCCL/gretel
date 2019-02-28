@@ -32,16 +32,26 @@ function includeAlreadyExists($include, &$already)
     }
 }
 
-function corpusToDatabase($components, $corpus)
-{
+function corpusToDatabase($components, $corpus) {
     $databases = array();
 
-    foreach ($components as $component) {
-        $corpus = strtoupper($corpus);
-        $component = strtoupper($component);
-        $component = $corpus.'_ID_'.$component;
-        $databases[] = $component;
-    }
+	if (($corpus == 'cgn') ||  ($corpus == 'lassy')) {
+
+      	foreach ($components as $component) {
+	 $corpus = strtoupper($corpus);
+ 	 $component = strtoupper($component);	 
+	 $component = $corpus.'_ID_'.$component;
+         $databases[] = $component;
+
+	}
+     	} 
+	else {
+		foreach ($components as $component) {
+		$component = $corpus.'_'.$component;
+		$databases[] = $component;
+		}
+	}
+    
 
     return $databases;
 }
