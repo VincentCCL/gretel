@@ -15,7 +15,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="bi" checked> BI</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="bi" checked> BI</label>
             </td>
             <td>Binnenland</td>
             <td>58,560</td>
@@ -24,7 +24,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="blog" checked> BLOG</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="blog" checked> BLOG</label>
             </td>
             <td>Blog</td>
             <td>5,464</td>
@@ -33,7 +33,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="bu" checked> BU</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="bu" checked> BU</label>
             </td>
             <td>Buitenland</td>
             <td>40,953</td>
@@ -42,7 +42,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="cijfer" checked> CIJFER</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="cijfer" checked> CIJFER</label>
             </td>
             <td>Cijfer van de week</td>
             <td>1,595</td>
@@ -51,7 +51,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="idk" checked> IDK</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="idk" checked> IDK</label>
             </td>
             <td>In de kijker</td>
             <td>49,438</td>
@@ -60,7 +60,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="jo" checked> JO</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="jo" checked> JO</label>
             </td>
             <td>Jaaroverzicht</td>
             <td>301</td>
@@ -69,7 +69,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="mening" checked> MENING</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="mening" checked> MENING</label>
             </td>
             <td>Mening</td>
             <td>6,117</td>
@@ -78,7 +78,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="sam" checked> SAM</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="sam" checked> SAM</label>
             </td>
             <td>Samenleving</td>
             <td>23,660</td>
@@ -87,7 +87,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="sp" checked> SP</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="sp" checked> SP</label>
             </td>
             <td>Sport</td>
             <td>24,747</td>
@@ -96,7 +96,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="tip" checked> TIP</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="tip" checked> TIP</label>
             </td>
             <td>Tip</td>
             <td>12,869</td>
@@ -105,7 +105,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="verh" checked> VERH</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="verh" checked> VERH</label>
             </td>
             <td>Verhaal</td>
             <td>2,529</td>
@@ -114,7 +114,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="vp" checked> VP</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="vp" checked> VP</label>
             </td>
             <td>Voorpagina</td>
             <td>5,121</td>
@@ -123,7 +123,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="we" checked> WE</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="we" checked> WE</label>
             </td>
             <td>Weetjes</td>
             <td>19,927</td>
@@ -132,7 +132,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="wablieft" name="subtreebank[]" value="zo" checked> ZO</label>
+                    <input type="checkbox" data-treebank="wablieft" data-check-all="all-wablieft" name="subtreebank[]" value="zo" checked> ZO</label>
             </td>
             <td>Zomer-Wablieft</td>
             <td>5,448</td>

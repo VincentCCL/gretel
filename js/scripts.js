@@ -282,7 +282,7 @@ $(function() {
       }
     }
   } else if ($body.hasClass("treebanks")) {
-    // Main treebank selection (CGN, Lassy, SONAR)
+    // Main treebank selection
     $("[type='radio']").change(function() {
       var $this = $(this),
         value = $this.val();
@@ -299,44 +299,38 @@ $(function() {
       }
     });
     // Selecting subtreebanks
-    // TODO: make usale for any corpus
     $("[type='checkbox']").change(function() {
-      var $this = $(this);
+      var $this = $(this),
+        tableWrapper = $this.closest(".table-wrapper");
 
       this.setCustomValidity('');
 
       // If this is not a check-all checkbox
       if (!$this.is("[data-check^='all']")) {
-        // For subtreebanks with checkboxes (Lassy and CGN only, they have checkboxes)
+        // For subtreebanks with checkboxes
         if ($this.is("[name='subtreebank[]']")) {
           var checkboxAll,
             treebank = $this.attr("data-treebank"),
-            tableWrapper = $this.closest(".table-wrapper"),
             value = $this.val(),
-            valStartsWith = value.substring(0, 1);
-
-          if (valStartsWith == "n") {
-            checkboxAll = tableWrapper.find("[data-check='all-cgn-nl']");
-          } else if (valStartsWith == "v") {
-            checkboxAll = tableWrapper.find("[data-check='all-cgn-vl']");
-          } else {
-            checkboxAll = tableWrapper.find("[data-check='all-lassy']");
-          }
-
-          var subtreebanks = tableWrapper.find("[name='subtreebank[]']"),
-            cgnValueString = (treebank == 'cgn') ? "[value^='" + valStartsWith + "']" : "";
-
-          // If all component checkboxes are checked
-          if (subtreebanks.filter(cgnValueString + ":not(:disabled)").length == subtreebanks.filter(cgnValueString + ":not(:disabled):checked").length) {
+            checkboxAll = tableWrapper.find("[data-check='"+$this.attr("data-check-all")+"']"),
+            valStartsWith = value.substring(0, 1),
+            subtreebanks = tableWrapper.find("[name='subtreebank[]']"),
+            cgnValueString = (treebank == 'cgn') ? "[value^='" + valStartsWith + "']" : "",
+            // Checkboxes of the same subcorpus that are not disabled
+            allSimilarCheckboxes = subtreebanks.filter(cgnValueString + ":not(:disabled)");
+          
+          // Change the state of the 'check all' checkbox
+          // If all are checked -> checked
+          if (allSimilarCheckboxes.length == allSimilarCheckboxes.filter(":checked").length) {
             checkboxAll.prop("indeterminate", false);
             checkboxAll.prop("checked", true);
           }
-          // If no checkboxes are checked
+          // If no checkboxes are checked -> not checked
           else if (subtreebanks.filter(cgnValueString + ":checked").length == 0) {
             checkboxAll.prop("indeterminate", false);
             checkboxAll.prop("checked", false);
           }
-          // In all other cases (i.e. some checked some not checked)
+          // In all other cases (i.e. some checked some not checked) -> indeterminate
           else {
             checkboxAll.prop("indeterminate", true);
           }
@@ -344,20 +338,15 @@ $(function() {
       }
       // If this is a check-all checkbox
       else {
-        var checked = $this.prop("checked");
+        var checked = $this.prop("checked"),
+          checkboxAllCorpus = $this.attr("data-check");
         if (!checked) {
           $(".continue-btn-wrapper [type='submit']").prop("disabled", true);
         } else {
           $(".continue-btn-wrapper [type='submit']").prop("disabled", false);
         }
-
-        if ($this.is("[data-check='all-cgn-vl']")) {
-          $(".cgn label:not(.disabled) [type='checkbox'][value^='v']").prop("checked", checked);
-        } else if ($this.is("[data-check='all-cgn-nl']")) {
-          $(".cgn label:not(.disabled) [type='checkbox'][value^='n']").prop("checked", checked);
-        } else {
-          $(".lassy label:not(.disabled) [type='checkbox']").prop("checked", checked);
-        }
+        // Set all relevant checkboxes to this value
+        tableWrapper.find("label:not(.disabled) [data-check-all='"+checkboxAllCorpus+"']").prop("checked", checked);
       }
 
       if ($("div.active .table-wrapper [type='checkbox']:checked").length > 0) {

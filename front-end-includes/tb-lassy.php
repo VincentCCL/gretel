@@ -15,7 +15,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="lassy" name="subtreebank[]" value="dpc" checked> DPC</label>
+                    <input type="checkbox" data-treebank="lassy" data-check-all="all-lassy" name="subtreebank[]" value="dpc" checked> DPC</label>
             </td>
             <td>Dutch Parallel Corpus</td>
             <td>11,716</td>
@@ -24,7 +24,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="lassy" name="subtreebank[]" value="wiki" checked> Wikipedia</label>
+                    <input type="checkbox" data-treebank="lassy" data-check-all="all-lassy" name="subtreebank[]" value="wiki" checked> Wikipedia</label>
             </td>
             <td>Dutch Wikipedia pages</td>
             <td>7,341</td>
@@ -33,7 +33,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="lassy" name="subtreebank[]" value="wrpe" checked> WR-P-E</label>
+                    <input type="checkbox" data-treebank="lassy" data-check-all="all-lassy" name="subtreebank[]" value="wrpe" checked> WR-P-E</label>
             </td>
             <td>E-magazines, newsletters, teletext pages, web sites, Wikipedia</td>
             <td>14,420</td>
@@ -42,7 +42,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="lassy" name="subtreebank[]" value="wrpp" checked> WR-P-P</label>
+                    <input type="checkbox" data-treebank="lassy" data-check-all="all-lassy" name="subtreebank[]" value="wrpp" checked> WR-P-P</label>
             </td>
             <td>Books, brochures, guides and manuals, legal texts, newspapers, periodicals and magazines, policy documents, proceedings, reports, surveys</td>
             <td>17,691</td>
@@ -51,7 +51,7 @@
         <tr>
             <td>
                 <label>
-                    <input type="checkbox" data-treebank="lassy" name="subtreebank[]" value="wsu" checked> WS-U</label>
+                    <input type="checkbox" data-treebank="lassy" data-check-all="all-lassy" name="subtreebank[]" value="wsu" checked> WS-U</label>
             </td>
             <td>Auto cues, news scripts, text for the visually impaired</td>
             <td>14,032</td>
