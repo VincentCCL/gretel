@@ -40,19 +40,16 @@ require ROOT_PATH."/functions.php";
 require ROOT_PATH."/basex-search-scripts/basex-client.php";
 
 try {
-    $serverInfo;
-    if ($treebank == 'sonar') {
-        preg_match('/^([A-Z]{5})/', $db, $component);
-        $serverInfo = getServerInfo($treebank, $component[0]);
-        $queryPath = $db;
-    } elseif ($treebank == 'cgn' || $treebank == 'lassy') {
-        $serverInfo = getServerInfo($treebank, false);
-        $queryPath = strtoupper($treebank);
-        $queryPath .= '_ID';
-    } else {
-        $serverInfo = getServerInfo($treebank, false);
-        $queryPath = $treebank.'_all';
-    }
+   $serverInfo;
+   if ($treebank == 'sonar') {
+     preg_match('/^([A-Z]{5})/', $db, $component);
+     $serverInfo = getServerInfo($treebank, $component[0]);
+     $queryPath = $db;
+   } else {
+     $serverInfo = getServerInfo($treebank, false);
+     $queryPath = strtoupper($treebank);
+     $queryPath .= '_ID';
+   }
 
     $dbhost = $serverInfo{'machine'};
     $dbport = $serverInfo{'port'};
