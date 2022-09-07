@@ -19,7 +19,7 @@ header("Content-Security-Policy: default-src 'self'");
 set_time_limit(0);
 
 // Set variables
-if (isset($_GET['sid']) || preg_match('/[^a-zA-Z0-9,-]/', $_GET['sid'])) {
+if (isset($_GET['sid']) && (!preg_match('/[^a-zA-Z0-9,-]/', $_GET['sid']))) {
     $sentid = $_GET['sid'];
 }
 if (isset($_GET['id'])) {
