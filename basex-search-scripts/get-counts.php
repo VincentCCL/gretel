@@ -1,5 +1,6 @@
 <?php
 
+
 require "../config.php";
 require ROOT_PATH."/functions.php";
 
@@ -10,7 +11,9 @@ require ROOT_PATH."/basex-search-scripts/treebank-search.php";
 session_start();
 set_time_limit(0);
 
-if (!isset($_GET['sid'])) {
+header("Content-Security-Policy: default-src 'self'");
+
+if (!isset($_GET['sid']) || preg_match('/[^a-zA-Z0-9,-]/', $_GET['sid'])) {
   $results = array(
     'error' => true,
     'data' => 'Session ID not provided. Perhaps you have disabled cookies. Please enable them.',

@@ -2,6 +2,7 @@
 session_cache_limiter('private');
 session_start();
 header('Content-Type:text/html; charset=utf-8');
+header("Content-Security-Policy: default-src 'self'");
 
 $currentPage = 'xps';
 $step = 3;
@@ -11,7 +12,7 @@ require ROOT_PATH."/helpers.php";
 
 $noTbFlag = 0;
 
-$continueConstraints = isset($_POST['sid']);
+$continueConstraints = isset($_POST['sid']) && (!preg_match('/[^a-zA-Z0-9,-]/', $_POST['sid']));
 
 if ($continueConstraints) {
   define('SID', $_POST['sid']);

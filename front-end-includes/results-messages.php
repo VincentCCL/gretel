@@ -5,7 +5,9 @@
 require "../config.php";
 
 session_start();
-if (!isset($_GET['sid'])) {
+header("Content-Security-Policy: default-src 'self'");
+
+if (!isset($_GET['sid']) || preg_match('/[^a-zA-Z0-9,-]/', $_GET['sid'])) {
   exit;
 }
 

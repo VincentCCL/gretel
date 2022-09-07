@@ -2,6 +2,7 @@
 session_cache_limiter('private');
 session_start();
 header('Content-Type:text/html; charset=utf-8');
+header("Content-Security-Policy: default-src 'self'");
 
 $currentPage = 'ebs';
 $step = 4;
@@ -12,7 +13,7 @@ require ROOT_PATH."/functions.php";
 require ROOT_PATH."/preparatory-scripts/prep-functions.php";
 
 
-$continueConstraints = postVariablesSet(array('sid', 'manualMode', 'originalXp')) && sessionVariablesSet($_POST['sid'], array('example', 'sentence'));
+$continueConstraints = postVariablesSet(array('sid', 'manualMode', 'originalXp')) && sessionVariablesSet($_POST['sid'], array('example', 'sentence')) && (!preg_match('/[^a-zA-Z0-9,-]/', $_POST['sid']));
 $continueConstraints = $continueConstraints && (isset($_POST['xpath']) || isset($_SESSION[$_POST['sid']]['xpath']));
 
 $isSpam = false;

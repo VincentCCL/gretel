@@ -10,8 +10,9 @@ require ROOT_PATH."/preparatory-scripts/prep-functions.php";
 session_cache_limiter('private');
 session_start();
 header('Content-Type:text/html; charset=utf-8');
+header("Content-Security-Policy: default-src 'self'");
 
-$continueConstraints = isset($_POST['sid']) && (isset($_POST['xpath']) || isset($_SESSION[$_POST['sid']]['xpath']));
+$continueConstraints = isset($_POST['sid']) && (!preg_match('/[^a-zA-Z0-9,-]/', $_POST['sid'])) && (isset($_POST['xpath']) || isset($_SESSION[$_POST['sid']]['xpath']));
 $isSpam = false;
 
 if ($continueConstraints) {

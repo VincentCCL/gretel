@@ -12,6 +12,7 @@
 
  session_start();
  header('Content-Type:text/html; charset=utf-8');
+ header("Content-Security-Policy: default-src 'self'");
 
 $currentPage = 'xps';
 $step = 1;

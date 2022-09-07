@@ -2,6 +2,7 @@
 session_cache_limiter('private');
 session_start();
 header('Content-Type:text/html; charset=utf-8');
+header("Content-Security-Policy: default-src 'self'");
 
 $currentPage = 'ebs';
 $step = 6;
@@ -9,7 +10,7 @@ $step = 6;
 require "../config.php";
 require ROOT_PATH."/helpers.php";
 
-$continueConstraints = isset($_POST['sid']) && sessionVariablesSet($_POST['sid'], array('treebank', 'queryid', 'example', 'subtreebank', 'xpath'));
+$continueConstraints = isset($_POST['sid'] ) && (!preg_match('/[^a-zA-Z0-9,-]/', $_POST['sid'])) && sessionVariablesSet($_POST['sid'], array('treebank', 'queryid', 'example', 'subtreebank', 'xpath'));
 
 if ($continueConstraints) {
   require ROOT_PATH."/preparatory-scripts/prep-functions.php";

@@ -19,6 +19,7 @@
  session_cache_limiter('private');
  session_start();
  header('Content-Type:text/html; charset=utf-8');
+ header("Content-Security-Policy: default-src 'self'");
 
  $currentPage = 'ebs';
  $step = 3;
@@ -26,7 +27,7 @@
  require "../config.php";
  require ROOT_PATH."/helpers.php";
 
-$continueConstraints = isset($_POST['sid']) && sessionVariablesSet($_POST['sid'], array('example', 'sentence'));
+$continueConstraints = isset($_POST['sid']) && (!preg_match('/[^a-zA-Z0-9,-]/', $_POST['sid'])) && sessionVariablesSet($_POST['sid'], array('example', 'sentence'));
 
 if ($continueConstraints) {
     $treeVisualizer = true;

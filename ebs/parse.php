@@ -13,6 +13,7 @@ session_cache_limiter('private');
 
 session_start();
 header('Content-Type:text/html; charset=utf-8');
+header("Content-Security-Policy: default-src 'self'");
 
 $currentPage = 'ebs';
 $step = 2;
@@ -27,7 +28,7 @@ require ROOT_PATH."/preparatory-scripts/simple-dom.php";
 $continueConstraints = postVariablesSet(array('sid', 'input'));
 $isSpam = false;
 
-if ($continueConstraints) {
+if ($continueConstraints && (!preg_match('/[^a-zA-Z0-9,-]/', $_POST['sid']))) {
     $treeVisualizer = true;
     define('SID', $_POST['sid']);
     $input = $_POST['input'];

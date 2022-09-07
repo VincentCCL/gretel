@@ -1,12 +1,13 @@
 <?php
 session_start();
+header("Content-Security-Policy: default-src 'self'");
 
 require "../config.php";
 require ROOT_PATH."/helpers.php";
 require ROOT_PATH."/functions.php";
 require ROOT_PATH."/preparatory-scripts/prep-functions.php";
 
-if (!isset($_GET['sid'])) {
+if (!isset($_GET['sid']) || preg_match('/[^a-zA-Z0-9,-]/', $_GET['sid'])) {
   $results = array(
     'error' => true,
     'data' => 'Session ID not provided. Perhaps you have disabled cookies. Please enable them.',
